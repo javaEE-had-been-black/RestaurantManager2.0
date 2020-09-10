@@ -356,6 +356,16 @@ public class RequestBean {
         }
     }
 
+    public List<Dish> getDishesbyDishNameandType(String dishName,String type){
+        try{
+            return em.createNamedQuery("getDishesbyDishNameandType")
+                    .setParameter("dishName",dishName)
+                    .setParameter("type",type)
+                    .getResultList();
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
     /**
      * Order
      */
