@@ -28,49 +28,65 @@ public class DishManager implements Serializable {
     private String newType;
     private String dishName;
     private String dishType;
-    private List<Dish> resultDish;
+    private String logInfo;
+    private List<Dish> resultDish = requestBean.getAllDishes();
 
-    public void createDish() {
+    public String createDish() {
         try {
             requestBean.createDish(newDishId, newDishName, newDishPrice, newImageUrl, newType);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
-            throw e;
+            logInfo = "创建菜品失败";
+            return "fail";
         }
     }
 
-    public void getDish() {
+    public String getDish() {
         try {
             dish = requestBean.getDishbyId(dishId);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
-            throw e;
+            logInfo = "获取菜品成功";
+            return "fail";
         }
     }
 
-    public void updateDish() {
+    public String updateDish() {
         try {
             Dish dish = requestBean.getDishbyId(dishId);
             dish.setDishName(newDishName);
             dish.setDishPrice(newDishPrice);
             dish.setImageUrl(newImageUrl);
             dish.setType(newType);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
-            throw e;
+            logInfo = "更新菜品信息失败";
+            return "fail";
         }
     }
 
-    public void searchDish() {
+    public String searchDish() {
         try {
             resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
-            throw e;
+            logInfo = "搜索菜品信息失败";
+            return "fail";
         }
     }
 
-    public void removeDish() {
+    public String removeDish() {
         try {
             requestBean.removeDish(dishId);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
-            throw e;
+            logInfo = "移除菜品信息失败";
+            return "fail";
         }
     }
 
