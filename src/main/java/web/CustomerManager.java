@@ -135,7 +135,7 @@ public class CustomerManager implements Serializable {
             request.createCustomer(newTelNumber, newCustomerName);
             this.newCustomerName = null;
             this.newTelNumber = null;
-            request.addPoints(Integer.parseInt(newTelNumber),Integer.parseInt(newPoint));
+            request.addPoints(request.getCustomerbyTelNumber(newTelNumber).getCustomerId(),Integer.parseInt(newPoint));
             logInfo = "创建用户成功";
             return "success";
         } catch (Exception e) {
