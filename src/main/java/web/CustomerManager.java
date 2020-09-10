@@ -32,6 +32,8 @@ public class CustomerManager implements Serializable {
     private Date endTime;
     private String logInfo;
 
+    private List<Customer> resultCustomer;
+
     public String getNewPoint() {
         return newPoint;
     }
@@ -135,8 +137,8 @@ public class CustomerManager implements Serializable {
             request.createCustomer(newTelNumber, newCustomerName);
             this.newCustomerName = null;
             this.newTelNumber = null;
-            request.addPoints(request.getCustomerbyTelNumber(newTelNumber).getCustomerId(),Integer.parseInt(newPoint));
-            logInfo = "创建用户成功";
+            request.addPoints(request.getCustomerbyTelNumber(newTelNumber).getCustomerId(), Integer.parseInt(newPoint));
+            logInfo = "";
             return "success";
         } catch (Exception e) {
             logger.warning("Problem creating seat in createSeat.");
@@ -174,12 +176,14 @@ public class CustomerManager implements Serializable {
      *
      * @return 顾客信息
      */
-    public Customer getCustomerbyTelNumber() {
+    public String getCustomerbyTelNumber() {
         try {
-            return request.getCustomerbyTelNumber(telNumber);
+            resultCustomer.clear();
+            resultCustomer.add(request.getCustomerbyTelNumber(telNumber));
+            return "success";
         } catch (Exception e) {
             logger.warning("Problem getCustomerbyTelNumber.");
-            throw e;
+            return "fail";
         }
     }
 
@@ -189,12 +193,15 @@ public class CustomerManager implements Serializable {
      * @return 顾客列表
      */
 
-    public List<Customer> getCustomersbyCustomerName() {
+    public String getCustomersbyCustomerName() {
         try {
-            return request.getCustomerbyCustomerName(customerName);
+            resultCustomer = request.getCustomerbyCustomerName(customerName);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
+            logInfo = "获取顾客列表失败";
             logger.warning("Problem getCustomerbyCustomerName.");
-            throw e;
+            return "fail";
         }
     }
 
