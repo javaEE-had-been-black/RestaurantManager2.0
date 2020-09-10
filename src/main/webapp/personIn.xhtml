@@ -12,29 +12,66 @@
     <h:outputStylesheet library="css" name="personInfo.css"/>
 </h:head>
 
+<body background="resources/images/background.jpg" style="background-repeat:no-repeat;
+        background-size:100% 100%;
+        background-attachment:fixed;">
 
-<body>
-<div class="up-div">
+<div class="show">
+
+
+    <div id="choice" class="choice">
     <h:form>
-    <h:commandButton image="resources/images/search.jpg" styleClass="listButton"></h:commandButton>
-    <h:commandButton styleClass="logout-button" value="logout" action="login"></h:commandButton>
+        <p>
+        <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
+    </p>
+        <p>
+        <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
+        </p>
+        <p>
+        <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
+        </p>
+        <p>
+        <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
+        </p>
+        <p>
+        <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
+        </p>
+        <p>
+        <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
+        </p>
+        <p>
+        <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
+        </p>
     </h:form>
-</div>
-
-<div class="context">
-    <div class="operationList">
-        <img src="" alt="头像"/>
-
     </div>
 
 
+<div class="Info">
+
+        <h:form>
+            <p>
+                姓名<h:inputText class="label" id="Name" type="text" value="#{personManager.user.userName}"/>
+                电话<h:inputText class="label" id="telNumber" type="text" value="#{personManager.user.telNumber}"/>
+                账号<h:inputText class="label" id="ID" type="text" value="#{personManager.user.userId}"/>
+                密码<h:inputText class="label" id="password" type="text" value="#{personManager.user.password}"/>
+            </p>
+
+            <h:commandButton class="buttonSave" value="保存" action="#{personManager.updateUser(personManager.user.userId)}">
+            </h:commandButton>
+            &nbsp;&nbsp;
+            <h:commandButton class="buttonSave" value="取消"  action="personIn">
+            </h:commandButton>
+
+        </h:form>
+    </div>
+    <h:form>
+
+    </h:form>
     <div class="infor-context">
 
     </div>
 
 </div>
-
-
 </body>
 
 </html>
