@@ -57,7 +57,7 @@ public class RequestBean {
         }
     }
 
-    public void createDish(String dishId,
+    public void createDish(Integer dishId,
                            String dishName,
                            String dishPrice,
                            String imageUrl,

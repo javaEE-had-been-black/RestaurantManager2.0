@@ -34,7 +34,7 @@ import java.util.List;
 
 
 public class Dish implements Serializable {
-    private String dishId;
+    private Integer dishId;
     private String dishName;
     private String dishPrice;
     private String imageUrl;
@@ -53,7 +53,7 @@ public class Dish implements Serializable {
     public Dish() {
     }
 
-    public Dish(String dishId, String dishName, String dishPrice, String imageUrl, String type) {
+    public Dish(Integer dishId, String dishName, String dishPrice, String imageUrl, String type) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishPrice = dishPrice;
@@ -93,12 +93,13 @@ public class Dish implements Serializable {
         this.type = type;
     }
 
-    public void setDishId(String dishId) {
+    public void setDishId(Integer dishId) {
         this.dishId = dishId;
     }
 
     @Id
-    public String getDishId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getDishId() {
         return dishId;
     }
 }

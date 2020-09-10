@@ -21,7 +21,7 @@ public class DishManager implements Serializable {
     private RequestBean requestBean;
     private Dish dish;
     private String dishId;
-    private String newDishId;
+    private Integer newDishId;
     private String newDishName;
     private String newDishPrice;
     private String newImageUrl;
@@ -74,11 +74,11 @@ public class DishManager implements Serializable {
         }
     }
 
-    public String getNewDishId() {
+    public Integer getNewDishId() {
         return newDishId;
     }
 
-    public void setNewDishId(String newDishId) {
+    public void setNewDishId(Integer newDishId) {
         this.newDishId = newDishId;
     }
 
