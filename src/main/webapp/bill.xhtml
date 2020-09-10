@@ -57,7 +57,7 @@
 
         </h:commandButton>
         <p style="color: #666666;font-size: larger">数目:
-            <h:inputSecret id="password" type="password" value="#{billManager.Amount}"/>
+            <h:inputSecret id="Amount" type="text" value="#{billManager.Amount}"/>
         </p>
         <div style="text-align: center;margin-top: 30px;"></div>
         <h:commandButton class="button" value="创建" action="#{billManager.createBill()}"/>

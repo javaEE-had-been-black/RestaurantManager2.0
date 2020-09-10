@@ -40,6 +40,10 @@ body {
     flex-direction: column;
 
 }
+.deleteBill{
+    display: flex;
+    flex-direction: column;
+}
 .button {
     border-color: cornsilk;
     background-color: rgba(100, 149, 237, .7);
