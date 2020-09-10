@@ -17,16 +17,18 @@
 <div id="loginDiv">
     <h:form id="form" action="#{restaurantManager.login()}">
         <h1 style="text-align: center;color:#666666;">登陆</h1>
-        <p style="color: #666666;font-size: larger">手机号:
+        <p style="color: #666666;font-size: larger">账&nbsp;&nbsp;&nbsp;号:
             <h:inputText id="userNname" type="text" value="#{restaurantManager.userId}"/>
         </p>
 
         <p style="color: #666666;font-size: larger">密&nbsp;&nbsp;&nbsp;码:
             <h:inputSecret id="password" type="password" value="#{restaurantManager.password}"/>
         </p>
+
         <div style="text-align: center;margin-top: 30px;"></div>
         <h:commandButton class="button" value="进入" action="#{restaurantManager.login()}"/>
         <p style="color: #ff0000">#{restaurantManager.logInfo}</p>
+        <p style="color: #ff0000">#{personManager.updateUser(restaurantManager.userId)}</p>
     </h:form>
 </div>
 </body>
