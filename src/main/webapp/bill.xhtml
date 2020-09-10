@@ -66,6 +66,25 @@
 
 
     </div>
+    <div class="deleteBill">
+        <h:form>
+
+            <h:selectOneMenu value="#{billManager.searchKey()}">
+                <f:selectItem itemValue="支出" itemLabel="支出"/>
+                <f:selectItem itemValue="收入" itemLabel="收入"/>
+            </h:selectOneMenu>
+
+            <h:commandButton action="#{billManager.getBillbyType()}">
+
+            </h:commandButton>
+
+            <div style="text-align: center;margin-top: 30px;"></div>
+            <h:commandButton class="button" value="删除" action="#{billManager.deleteBillById(billManager.billType)}"/>
+            <p style="color: #ff0000">#{billManager.DeleteteInfo}</p>
+        </h:form>
+
+
+    </div>
     <div class="Info">
 
         <h:form>
