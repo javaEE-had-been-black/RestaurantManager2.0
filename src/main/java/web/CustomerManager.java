@@ -224,12 +224,14 @@ public class CustomerManager implements Serializable {
      *
      * @return 所有的顾客列表
      */
-    public List<Customer> getAllCustomers() {
+    public String getAllCustomers() {
         try {
-            return request.getAllCustomers();
+            resultCustomer = request.getAllCustomers();
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
             logger.warning("Problem getAllCustomers");
-            throw e;
+            return "fail";
         }
     }
 
