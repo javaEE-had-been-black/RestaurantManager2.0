@@ -24,6 +24,11 @@ public class PersonManager implements Serializable {
     private User user;
     private String updateInfo;
 
+    /**
+     * 得到user信息，在界面跳转时使用
+     * @param userId
+     */
+
     public void updateUser(String userId) {
         try {
             this.user = request.getUserbyUserId(userId);
@@ -32,9 +37,20 @@ public class PersonManager implements Serializable {
         }
     }
 
+    /**
+     * 得到个人信息
+     * @return
+     */
+
     public User getUser() {
         return user;
     }
+
+    /**
+     * 更新个人信息
+     * @param password
+     * @param telNumber
+     */
 
     public void updateUserInfo(String password,
                                String telNumber) {
