@@ -23,6 +23,7 @@ public class CustomerManager implements Serializable {
     private RequestBean request;
     private String newCustomerName;
     private String newTelNumber;
+    private String newPoint;
     private String telNumber;
     private Integer customerId;
     private Integer points;
@@ -30,6 +31,14 @@ public class CustomerManager implements Serializable {
     private Date startTime;
     private Date endTime;
     private String logInfo;
+
+    public String getNewPoint() {
+        return newPoint;
+    }
+
+    public void setNewPoint(String newPoint) {
+        this.newPoint = newPoint;
+    }
 
     public String getLogInfo() {
         return logInfo;
@@ -126,6 +135,7 @@ public class CustomerManager implements Serializable {
             request.createCustomer(newTelNumber, newCustomerName);
             this.newCustomerName = null;
             this.newTelNumber = null;
+            request.addPoints(Integer.parseInt(newTelNumber),Integer.parseInt(newPoint));
             logInfo = "创建用户成功";
             return "success";
         } catch (Exception e) {

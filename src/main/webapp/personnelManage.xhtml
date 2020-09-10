@@ -15,23 +15,84 @@
         background-size:100% 100%;
         background-attachment:fixed;">
 
-<div id="create-vip" style="visibility: hidden" class="create-vip">
+<script>
+    function hiddenAddPeronnel() {
+        var div = document.getElementById("create-personnel");
+        div.style.visibility = "hidden";
+    }
+
+    function showAddPeronnel() {
+        var div = document.getElementById("create-personnel");
+        div.style.visibility = "visible";
+    }
+
+    function showChangePersonnel(){
+        var div = document.getElementById("change-personnel");
+        div.style.visibility = "visible";
+    }
+
+    function hiddenChangePersonnel(){
+        var div = document.getElementById("change-personnel");
+        div.style.visibility = "hidden";
+    }
+
+</script>
+
+
+<div id="create-personnel" style="visibility: hidden" class="create-personnel">
     <h:form>
+        <p style="color: #666666;font-size: larger">手機號:
+            <h:inputText type="text" value="#{restaurantManager.newTelNumber}"/>
+        </p>
+
         <p style="color: #666666;font-size: larger">姓名:
-            <h:inputText type="text" value="#{customerManager.newCustomerName}"/>
+            <h:inputText type="text" value="#{restaurantManager.newUserName}"/>
         </p>
 
-        <p style="color: #666666;font-size: larger">电话:
-            <h:inputText type="text" value="#{customerManager.newTelNumber}"/>
+        <p style="color: #666666;font-size: larger">密碼:
+            <h:inputText type="text" value="#{restaurantManager.newPassword}"/>
         </p>
 
+        <p style="color: #666666;font-size: larger">職位:
+            <h:inputText type="text" value="#{restaurantManager.newPosition}"/>
+        </p>
+
+        <p style="color: #666666;font-size: larger">薪水:
+            <h:inputText type="text" value="#{restaurantManager.newSalary}"/>
+        </p>
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddVip()" action="#{customerManager.creatCustomer()}"/>
-        <h:commandButton class="operation-button" value="取消" onclick="hiddenAddVip()"/>
-<!--        <p style="color: #ff0000">#{restaurantManager}</p>-->
+        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()" action="#{restaurantManager.createUser()}"/>
+        <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
     </h:form>
 </div>
 
+
+<div id="change-personnel" style="visibility: hidden" class="create-personnel">
+    <h:form>
+        <p style="color: #666666;font-size: larger">手機號:
+            <h:inputText type="text" value="#{restaurantManager.currentUser.telNumber}"/>
+        </p>
+
+        <p style="color: #666666;font-size: larger">姓名:
+            <h:inputText type="text" value="#{restaurantManager.currentUser.userName}"/>
+        </p>
+
+        <p style="color: #666666;font-size: larger">密碼:
+            <h:inputText type="text" value="#{restaurantManager.currentUser.password}"/>
+        </p>
+
+        <p style="color: #666666;font-size: larger">職位:
+            <h:inputText type="text" value="#{restaurantManager.currentUser.position}"/>
+        </p>
+
+        <p style="color: #666666;font-size: larger">薪水:
+            <h:inputText type="text" value="#{restaurantManager.currentUser.salary}"/>
+        </p>
+        <div style="text-align: center;margin-top: 30px;"></div>
+        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()" action="#{seatManager.createSeat}" />
+        <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
+    </h:form>
+</div>
 
 <div class="show">
 
@@ -48,8 +109,9 @@
     </div>
 
     <div class="searchPersonnel">
-        <input type="text"></input>
+        <input type="text"/>
         <img src="resources/images/search.jpg" style="width: 30px;height: 30px" alt="搜索"/>
+        <input type="button" class="button" onclick="showAddPeronnel()" value="添加員工"/>
 
         <table>
             <tr>
@@ -58,6 +120,7 @@
                 <th>职位</th>
                 <th>密码</th>
                 <th>工资</th>
+                <th>操作</th>
             </tr>
 
             <ui:repeat var="user" value="#{restaurantManager.getAllUsers()}">
@@ -67,6 +130,12 @@
                     <td>#{user.position}</td>
                     <td>#{user.password}</td>
                     <td>#{user.salary}</td>
+                    <td>
+                        <h:form>
+                        <h:commandButton value="修改"  onclick="showChangePersonnel()" />
+                        <h:commandButton value="刪除" style="background-color: red" onclick="#{restaurantManager.removeUser(user.telNumber)}" />
+                        </h:form>
+                    </td>
                 </tr>
             </ui:repeat>
         </table>
