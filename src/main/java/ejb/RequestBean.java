@@ -33,6 +33,17 @@ public class RequestBean {
         }
     }
 
+    /**
+     * 更新仓库item
+     */
+
+    public void updateItem(Repository item){
+        try {
+            em.merge(item);
+        }catch(Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
 
     /**
      * Creator

@@ -24,6 +24,7 @@ public class RepositoryManager implements Serializable {
     private static final Logger logger = Logger.getLogger("RestaurantManager.web.RepositoryManager");
     private String itemInfo;
     private String repositoryInfo;
+    private Repository item;
 
     /**
      * 获取仓库所有item实体
@@ -46,64 +47,46 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    public void setItem(Repository item) {
+        this.item = item;
+    }
+
     /**
      * 更改条目数量，负数给提示信息quantityInfo="数量不能为负"
+     *
      * @param item
-     * @param quantity
      */
-    public void updateQuantity(Repository item, String quantity) {
-        if (Integer.parseInt(quantity) < 0) {
+    public void updateItem(Repository item) {
+        if (Integer.parseInt(item.getQuantity()) < 0) {
             itemInfo = "数量不能为负";
         } else {
             try {
-                item.setQuantity(quantity);
+                this.item = item;
+                request.updateItem(this.item);
+                itemInfo = "更新成功!";
             } catch (Exception e) {
-                itemInfo = "设置失败";
+                itemInfo = "更新失败!";
             }
         }
     }
 
-    /**
-     * 更改条目名称
-     * @param item
-     * @param itemName
-     */
-    public void updateItemName(Repository item, String itemName) {
-        try {
-            item.setItemName(itemName);
-        } catch (Exception e) {
-            itemInfo = "设置失败";
-        }
-    }
-
-    /**
-     * 更改条目类型
-     * @param item
-     * @param itemType
-     */
-    public void updateItemType(Repository item, String itemType) {
-        try {
-            item.setType(itemType);
-        } catch (Exception e) {
-            itemInfo = "设置失败";
-        }
-    }
 
     /**
      * 根据类型得到仓库条目
+     *
      * @param itemType
      * @return
      */
-    List<Repository> getItembyType(String itemType){
-        try{
-            List<Repository> items= request.getItemsbyType(itemType);
-            if(items.equals(0)){
-                itemInfo="null";
+    List<Repository> getItembyType(String itemType) {
+        try {
+            List<Repository> items = request.getItemsbyType(itemType);
+            if (items.equals(0)) {
+                itemInfo = "null";
                 return null;
             }
             return items;
-        }catch (Exception e){
-            itemInfo="获取信息失败，请检查输入是否正确";
+        } catch (Exception e) {
+            itemInfo = "获取信息失败，请检查输入是否正确";
             return null;
         }
     }
