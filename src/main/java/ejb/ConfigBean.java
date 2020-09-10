@@ -33,12 +33,12 @@ public class ConfigBean {
     @PostConstruct
     public void createData() {
 
-        request.createSeat("2","3","3",false);
-        request.createUser("33","3","3","3","e","d");
-        request.createCustomer("df","df");
-        request.createBill(1,new Date(),false,"d");
-        request.createDish("d","d","d","d","d");
-        request.createRepository(1,"d","d","d");
+//        request.createSeat("2","3","3",false);
+//        request.createUser("33","3","3","3","e","d");
+//        request.createCustomer("df","df");
+//        request.createBill(1,new Date(),false,"d");
+//        request.createDish("d","d","d","d","d");
+//        request.createRepository(1,"d","d","d");
 
     }
 
