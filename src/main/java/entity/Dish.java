@@ -25,6 +25,10 @@ import java.util.List;
         @NamedQuery(
                 name = "getOrdersbyDish",
                 query = "SELECT d.orders FROM Dish d WHERE d.dishId=:dishId"
+        ),
+        @NamedQuery(
+                name="getDishesbyDishNameandType",
+                query = "SELECT d from Dish d WHERE d.dishName=:dishName and d.type=:type"
         )
 })
 
