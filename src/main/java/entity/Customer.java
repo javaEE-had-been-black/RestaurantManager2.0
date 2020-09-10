@@ -43,14 +43,14 @@ public class Customer implements Serializable {
     private Integer customerId;
     private String telNumber;
     private String customerName;
-    private Integer points;
+    private Integer points=0;
     private Date addTime;
 
-    public Customer(String telNumber, String customerName) {
+    public Customer(String telNumber, String customerName,Integer points) {
         this.telNumber = telNumber;
         this.customerName = customerName;
         this.addTime = new Date();
-        this.points = 0;
+        this.points = points;
     }
 
     public Customer() {

@@ -27,8 +27,12 @@ import java.util.List;
                 query = "SELECT d.orders FROM Dish d WHERE d.dishId=:dishId"
         ),
         @NamedQuery(
-                name="getDishesbyDishNameandType",
+                name = "getDishesbyDishNameandType",
                 query = "SELECT d from Dish d WHERE d.dishName=:dishName and d.type=:type"
+        ),
+        @NamedQuery(
+                name = "getDishbyName",
+                query = "SELECT d from Dish d WHERE d.dishName=:dishName"
         )
 })
 

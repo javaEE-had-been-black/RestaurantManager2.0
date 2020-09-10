@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class DishManager implements Serializable {
     @EJB
     private RequestBean requestBean;
     private Dish dish;
-    private String dishId;
+    private Integer dishId;
     private Integer newDishId;
     private String newDishName;
     private String newDishPrice;
@@ -29,7 +30,8 @@ public class DishManager implements Serializable {
     private String dishName;
     private String dishType;
     private String logInfo;
-    private List<Dish> resultDish = requestBean.getAllDishes();
+    private List<Dish> resultDish;
+    //= requestBean.getAllDishes();
 
     public String createDish() {
         try {
@@ -70,7 +72,15 @@ public class DishManager implements Serializable {
 
     public String searchDish() {
         try {
-            resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
+            if ("全部".equals(dishType)) {
+                Dish dish = requestBean.getDishbyName(dishName);
+                if (resultDish == null) {
+                    resultDish = new LinkedList<>();
+                }
+                resultDish.add(dish);
+            } else {
+                resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
+            }
             logInfo = "";
             return "success";
         } catch (Exception e) {
@@ -131,11 +141,11 @@ public class DishManager implements Serializable {
     }
 
     public String getDishId() {
-        return dishId;
+        return dishId + "";
     }
 
     public void setDishId(String dishId) {
-        this.dishId = dishId;
+        this.dishId = Integer.parseInt(dishId);
     }
 
     public RequestBean getRequestBean() {

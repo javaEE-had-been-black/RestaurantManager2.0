@@ -26,12 +26,12 @@
         div.style.visibility = "visible";
     }
 
-    function showChangePersonnel(){
+    function showChangePersonnel() {
         var div = document.getElementById("change-personnel");
         div.style.visibility = "visible";
     }
 
-    function hiddenChangePersonnel(){
+    function hiddenChangePersonnel() {
         var div = document.getElementById("change-personnel");
         div.style.visibility = "hidden";
     }
@@ -61,7 +61,8 @@
             <h:inputText type="text" value="#{restaurantManager.newSalary}"/>
         </p>
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()" action="#{restaurantManager.createUser()}"/>
+        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()"
+                         action="#{restaurantManager.createUser()}"/>
         <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
     </h:form>
 </div>
@@ -89,7 +90,8 @@
             <h:inputText type="text" value="#{restaurantManager.currentUser.salary}"/>
         </p>
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()" action="#{seatManager.createSeat}" />
+        <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()"
+                         action="#{seatManager.createSeat}"/>
         <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
     </h:form>
 </div>
@@ -132,8 +134,9 @@
                     <td>#{user.salary}</td>
                     <td>
                         <h:form>
-                        <h:commandButton value="修改"  onclick="showChangePersonnel()" />
-                        <h:commandButton value="刪除" style="background-color: red" onclick="#{restaurantManager.removeUser(user.telNumber)}" />
+                            <h:commandButton value="修改" onclick="showChangePersonnel()"/>
+                            <h:commandButton value="刪除" style="background-color: red"
+                                             onclick="#{restaurantManager.removeUser(user.telNumber)}"/>
                         </h:form>
                     </td>
                 </tr>

@@ -9,6 +9,7 @@ import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,7 +24,7 @@ public class CustomerManager implements Serializable {
     private RequestBean request;
     private String newCustomerName;
     private String newTelNumber;
-    private String newPoint;
+    private Integer newPoint;
     private String telNumber;
     private Integer customerId;
     private Integer points;
@@ -34,11 +35,19 @@ public class CustomerManager implements Serializable {
 
     private List<Customer> resultCustomer;
 
-    public String getNewPoint() {
+    public List<Customer> getResultCustomer() {
+        return resultCustomer;
+    }
+
+    public void setResultCustomer(List<Customer> resultCustomer) {
+        this.resultCustomer = resultCustomer;
+    }
+
+    public Integer getNewPoint() {
         return newPoint;
     }
 
-    public void setNewPoint(String newPoint) {
+    public void setNewPoint(Integer newPoint) {
         this.newPoint = newPoint;
     }
 
@@ -133,11 +142,12 @@ public class CustomerManager implements Serializable {
      * 添加Customer
      */
     public String creatCustomer() {
+
         try {
-            request.createCustomer(newTelNumber, newCustomerName);
+            request.createCustomer(newTelNumber, newCustomerName,newPoint);
             this.newCustomerName = null;
             this.newTelNumber = null;
-            request.addPoints(request.getCustomerbyTelNumber(newTelNumber).getCustomerId(), Integer.parseInt(newPoint));
+            this.newPoint=0;
             logInfo = "";
             return "success";
         } catch (Exception e) {
@@ -145,6 +155,7 @@ public class CustomerManager implements Serializable {
             logInfo = "创建用户失败";
             return "fail";
         }
+
     }
 
     /**
@@ -178,6 +189,9 @@ public class CustomerManager implements Serializable {
      */
     public String getCustomerbyTelNumber() {
         try {
+            if (resultCustomer == null) {
+                resultCustomer = new LinkedList<>();
+            }
             resultCustomer.clear();
             resultCustomer.add(request.getCustomerbyTelNumber(telNumber));
             return "success";

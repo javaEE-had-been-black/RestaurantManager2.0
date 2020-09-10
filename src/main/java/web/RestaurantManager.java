@@ -59,8 +59,8 @@ public class RestaurantManager implements Serializable {
     }
 
     //獲取指定用戶的用戶信息
-    public void setCurrentUser(String userId){
-        currentUser=request.getUserbyUserId(userId);
+    public void setCurrentUser(String userId) {
+        currentUser = request.getUserbyUserId(userId);
     }
 
     public RestaurantManager() {
@@ -331,7 +331,7 @@ public class RestaurantManager implements Serializable {
 
     public List<String> getOrdersbyDish(String dishId) {
         try {
-            return request.getOrdersbyDish(dishId);
+            return request.getOrdersbyDish(Integer.parseInt(dishId));
         } catch (EJBException e) {
             throw e;
         }

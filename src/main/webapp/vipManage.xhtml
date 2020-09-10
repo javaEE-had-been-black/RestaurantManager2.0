@@ -38,7 +38,7 @@
         </p>
 
         <p style="color: #666666;font-size: larger">手机号:
-            <h:inputText type="text" value="#{customerManager.newCustomerName}"/>
+            <h:inputText type="text" value="#{customerManager.newTelNumber}"/>
         </p>
 
         <p style="color: #666666;font-size: larger">积分:
@@ -46,8 +46,9 @@
         </p>
 
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="operation-button" value="确认" onclick="hiddenCreateVip()" action="#{customerManager.creatCustomer()}" />
-        <h:commandButton class="operation-button" value="取消" onclick="hiddenCreateVip()" />
+        <h:commandButton class="operation-button" value="确认" onclick="hiddenCreateVip()"
+                         action="#{customerManager.creatCustomer()}"/>
+        <h:commandButton class="operation-button" value="取消" onclick="hiddenCreateVip()"/>
 
     </h:form>
 </div>
@@ -70,14 +71,14 @@
     <div id="vips-content" class="vips-content">
 
         <div class="vipInput">
-            <input type="text"/>
-            <img src="resources/images/search.jpg" style="width: 30px;height: 30px" alt="搜索"/>
-
-
-            <button>积分</button>
-            <button>日期</button>
-
-            <input type="button" class="button" onclick="showCreateVip()" value="添加会员"/>
+            <h:form>
+                <h:inputText id="searchKey" type="text" value="#{customerManager.telNumber}"/>
+                <h:commandButton action="#{customerManager.getCustomerbyTelNumber()}"
+                                 image="resources/images/search.jpg" class="searchButton"/>
+                <!--            <button>积分</button>-->
+                <!--            <button>日期</button>-->
+                <input type="button" class="button" onclick="showCreateVip()" value="添加会员"/>
+            </h:form>
         </div>
 
         <table>
@@ -87,8 +88,7 @@
                 <th>积分</th>
                 <th>加入时间</th>
             </tr>
-
-            <ui:repeat var="customer" value="#{customerManager.allCustomers}">
+            <ui:repeat var="customer" value="#{customerManager.resultCustomer}">
                 <tr>
                     <td>#{customer.telNumber}</td>
                     <td>#{customer.customerName}</td>
@@ -97,7 +97,6 @@
                 </tr>
             </ui:repeat>
         </table>
-
     </div>
 
 
