@@ -19,28 +19,68 @@
         background-attachment:fixed;">
 
 
-
-
 <div class="show">
 
     <div id="choice" class="choice">
         <h:form>
-            <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
-            <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
-            <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
-            <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
-            <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
-            <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
-            <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
+            <p>
+                <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
+            </p>
         </h:form>
     </div>
 
-    <div id="vips-content" class="vips-content">
-        <div class="warehousesType">
-            <p>进货信息</p>
-            <p>销售信息</p>
-            <p>货余量</p>
-        </div>
+
+        <div id="warehouseAll" class="warehousesAll">
+            <h:form>
+                <h:commandButton class="buttonRepository" value="所有物品" action="#{repositoryManager.allItems}"/>
+            </h:form>
+                    <table>
+                        <tr>
+                            <th>物资名称</th>
+                            <th>数量</th>
+                            <th>种类</th>
+                        </tr>
+                        <ui:repeat var="item" value="#{repositoryManager.getAllItems()}">
+                            <tr>
+                                <td>#{item.itemName}</td>
+                                <td>#{item.quantity}</td>
+                                <td>#{item.type}</td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+         </div>
+
+
+    <div id="warehouseSearch" class="warehouseSearch">
+       <h:selectOneMenu value="#{repositoryManager.searchType()}">
+           <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+           <f:selectItem itemValue="肉类" itemLabel="肉类"/>
+           <f:selectItem itemValue="菜类" itemLabel="菜类"/>
+       </h:selectOneMenu>
+
+        <h:inputText id="searchKey" type="text" value="#{repositoryManager.searchKey}"/>
+        <h:form>
+        <h:commandButton action="#{repositoryManager.getItembyType()}" image="resources/images/search.jpg" class="searchButton"/>
+
+        </h:form>
 
         <table>
             <tr>
@@ -48,8 +88,7 @@
                 <th>数量</th>
                 <th>种类</th>
             </tr>
-
-            <ui:repeat var="item" value="#{restaurantManager.getAllItems()}">
+            <ui:repeat var="item" value="#{repositoryManager.getItemsbyType()}">
                 <tr>
                     <td>#{item.itemName}</td>
                     <td>#{item.quantity}</td>
@@ -60,8 +99,12 @@
         </table>
     </div>
 
+    <p>
+
+    </p>
 
 </div>
+
 </body>
 
 </html>
