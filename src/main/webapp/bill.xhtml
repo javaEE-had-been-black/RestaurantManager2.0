@@ -33,7 +33,7 @@
                 <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
             </p>
             <p>
-                <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
+                <h:commandButton class="button" value="报表统计" style="text-align: left" action="bill"/>
             </p>
             <p>
                 <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
@@ -53,15 +53,15 @@
             <f:selectItem itemValue="收入" itemLabel="收入"/>
         </h:selectOneMenu>
 
-        <h:commandButton action="#{billManagerManager.getItembyType()}">
+        <h:commandButton action="#{billManager.type}">
 
         </h:commandButton>
         <p style="color: #666666;font-size: larger">数目:
-            <h:inputSecret id="Amount" type="text" value="#{billManager.Amount}"/>
+            <h:inputSecret id="Amount" type="text" value="#{billManager.amount}"/>
         </p>
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="button" value="创建" action="#{billManager.createBill()}"/>
-        <p style="color: #ff0000">#{billManager.CreateInfo}</p>
+        <h:commandButton class="button" value="创建" action="#{billManager.createBill(billManager.type,billManager.amount)}"/>
+        <p style="color: #ff0000">#{billManager.billInfo}</p>
     </h:form>
 
 
@@ -74,13 +74,13 @@
                 <f:selectItem itemValue="收入" itemLabel="收入"/>
             </h:selectOneMenu>
 
-            <h:commandButton action="#{billManager.getBillbyType()}">
+            <h:commandButton action="#{billManager.getBillsbyType(billManager.type)}">
 
             </h:commandButton>
 
             <div style="text-align: center;margin-top: 30px;"></div>
-            <h:commandButton class="button" value="删除" action="#{billManager.deleteBillById(billManager.billType)}"/>
-            <p style="color: #ff0000">#{billManager.DeleteteInfo}</p>
+            <h:commandButton class="button" value="删除" action="#{billManager.removeBill(billManager.billId)}"/>
+            <p style="color: #ff0000">#{billManager.billInfo}</p>
         </h:form>
 
 
@@ -121,7 +121,7 @@
 
     <h:inputText id="searchKey" type="text" value="#{repositoryManager.searchKey}"/>
     <h:form>
-        <h:commandButton action="#{billManager.getBillbyType()}" image="resources/images/search.jpg" class="searchButton"/>
+        <h:commandButton action="#{billManager.getBillbyType(billManager.type)}" image="resources/images/search.jpg" class="searchButton"/>
 
     </h:form>
 
@@ -132,7 +132,7 @@
             <th>种类</th>
             <th>数目</th>
         </tr>
-        <ui:repeat var="item" value="#{billManager.getBillsbyType()}">
+        <ui:repeat var="item" value="#{billManager.getBillsbyType(billManager.type)}">
             <tr>
                 <td>#{item.itemName}</td>
                 <td>#{item.quantity}</td>
