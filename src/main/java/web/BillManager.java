@@ -31,53 +31,81 @@ public class BillManager implements Serializable {
         this.billInfo = billInfo;
     }
 
-    public List<Bill> getAllBills(){
-        try{
+    public List<Bill> getAllBills() {
+        try {
             List<Bill> bills = request.getAllBills();
             billInfo = null;
-            if(bills.isEmpty()){
+            if (bills.isEmpty()) {
                 billInfo = "null";
             }
             return bills;
-        }catch (Exception e){
+        } catch (Exception e) {
             billInfo = "null";
             throw e;
         }
     }
-    public List<Bill> getBillsbyTime(Date startTime, Date endTime){
-        try{
-            List<Bill> bills = request.getBillbyDate(startTime,endTime);
+
+    public List<Bill> getBillsbyTime(Date startTime, Date endTime) {
+        try {
+            List<Bill> bills = request.getBillbyDate(startTime, endTime);
             billInfo = null;
-            if(bills.isEmpty()){
+            if (bills.isEmpty()) {
                 billInfo = "null";
             }
             return bills;
-        }catch (Exception e){
+        } catch (Exception e) {
             billInfo = "null";
             throw e;
         }
     }
-    public List<Bill> getBillsbyType(boolean type){
-        try{
+
+    public List<Bill> getBillsbyType(boolean type) {
+        try {
             List<Bill> bills = request.getBillbyType(type);
             billInfo = null;
-            if(bills.isEmpty()){
+            if (bills.isEmpty()) {
                 billInfo = "null";
             }
             return bills;
-        }catch (Exception e){
+        } catch (Exception e) {
             billInfo = "null";
             throw e;
         }
     }
-    public Bill getBillbyBillId(Integer billId){
-        try{
+
+    public Bill getBillbyBillId(Integer billId) {
+        try {
             Bill bill = request.getBillbyId(billId);
             billInfo = null;
             return bill;
-        }catch (Exception e){
+        } catch (Exception e) {
             billInfo = "null";
             throw e;
+        }
+    }
+
+    public void createBill(String type, String amount) {
+        try {
+            if (type.equals("收入")) {
+                request.createBill(true, amount);
+                billInfo = "成功";
+            } else if(type.equals("支出")){
+                request.createBill(false, amount);
+                billInfo = "成功";
+            }else{
+                billInfo = "数据格式错误";
+            }
+        } catch (Exception e) {
+            billInfo = "数据格式错误";
+        }
+    }
+
+    public void removeBill(Integer billId){
+        try{
+            request.removeBill(billId);
+            billInfo="删除成功";
+        }catch (Exception e){
+            billInfo="删除失败";
         }
     }
 }

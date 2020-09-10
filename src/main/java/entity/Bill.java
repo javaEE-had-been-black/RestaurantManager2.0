@@ -35,9 +35,9 @@ public class Bill implements Serializable {
     boolean type;
     String amount;
 
-    public Bill(Integer itemId, Date itemDate, boolean type, String amount) {
+    public Bill(boolean type, String amount) {
         this.itemId = itemId;
-        this.itemDate = itemDate;
+        this.itemDate = new Date();
         this.type = type;
         this.amount = amount;
     }
@@ -76,6 +76,7 @@ public class Bill implements Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getItemId() {
         return itemId;
     }

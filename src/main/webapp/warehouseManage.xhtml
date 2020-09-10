@@ -13,7 +13,6 @@
 </h:head>
 
 
-
 <body background="resources/images/background.jpg" style="background-repeat:no-repeat;
         background-size:100% 100%;
         background-attachment:fixed;">
@@ -48,38 +47,38 @@
     </div>
 
 
-        <div id="warehouseAll" class="warehousesAll">
-            <h:form>
-                <h:commandButton class="buttonRepository" value="所有物品" action="#{repositoryManager.allItems}"/>
-            </h:form>
-                    <table>
-                        <tr>
-                            <th>物资名称</th>
-                            <th>数量</th>
-                            <th>种类</th>
-                        </tr>
-                        <ui:repeat var="item" value="#{repositoryManager.getAllItems()}">
-                            <tr>
-                                <td>#{item.itemName}</td>
-                                <td>#{item.quantity}</td>
-                                <td>#{item.type}</td>
-                            </tr>
-                        </ui:repeat>
-                    </table>
-         </div>
+    <div id="warehouseAll" class="warehousesAll">
+        <h:form>
+            <h:commandButton class="buttonRepository" value="所有物品" action="#{repositoryManager.setAllItems}"/>
+        </h:form>
+        <table>
+            <tr>
+                <th>物资名称</th>
+                <th>数量</th>
+                <th>种类</th>
+            </tr>
+            <ui:repeat var="item" value="#{repositoryManager.allItems}">
+                <tr>
+                    <td>#{item.itemName}</td>
+                    <td>#{item.quantity}</td>
+                    <td>#{item.type}</td>
+                </tr>
+            </ui:repeat>
+        </table>
+    </div>
 
 
     <div id="warehouseSearch" class="warehouseSearch">
-       <h:selectOneMenu value="#{repositoryManager.searchType()}">
-           <f:selectItem itemValue="酒水" itemLabel="酒水"/>
-           <f:selectItem itemValue="肉类" itemLabel="肉类"/>
-           <f:selectItem itemValue="菜类" itemLabel="菜类"/>
-       </h:selectOneMenu>
+        <h:selectOneMenu value="#{repositoryManager.searchKey}">
+            <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+            <f:selectItem itemValue="肉类" itemLabel="肉类"/>
+            <f:selectItem itemValue="菜类" itemLabel="菜类"/>
+        </h:selectOneMenu>
 
-        <h:inputText id="searchKey" type="text" value="#{repositoryManager.searchKey}"/>
         <h:form>
-        <h:commandButton action="#{repositoryManager.getItembyType()}" image="resources/images/search.jpg" class="searchButton"/>
-
+            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}"
+                             image="resources/images/search.jpg" class="searchButton"/>
+            <p style="color: #ff0000">#{repositoryManager.itemInfo}</p>
         </h:form>
 
         <table>
@@ -88,7 +87,7 @@
                 <th>数量</th>
                 <th>种类</th>
             </tr>
-            <ui:repeat var="item" value="#{repositoryManager.getItemsbyType()}">
+            <ui:repeat var="item" value="#{repositoryManager.itemsFromType}">
                 <tr>
                     <td>#{item.itemName}</td>
                     <td>#{item.quantity}</td>

@@ -25,10 +25,10 @@ public class RequestBean {
     /**
      * 更新User
      */
-    public void updateUser(User user){
+    public void updateUser(User user) {
         try {
             em.merge(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
     }
@@ -37,10 +37,10 @@ public class RequestBean {
      * 更新仓库item
      */
 
-    public void updateItem(Repository item){
+    public void updateItem(Repository item) {
         try {
             em.merge(item);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
     }
@@ -123,12 +123,11 @@ public class RequestBean {
         }
     }
 
-    public void createBill(Integer itemId,
-                           Date itemDate,
-                           boolean type,
-                           String amount) {
+    public void createBill(
+            boolean type,
+            String amount) {
         try {
-            Bill bill = new Bill(itemId, itemDate, type, amount);
+            Bill bill = new Bill(type, amount);
             em.persist(bill);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
@@ -539,7 +538,6 @@ public class RequestBean {
     }
 
     /**
-     *
      * 根据类型得到仓库条目
      */
 

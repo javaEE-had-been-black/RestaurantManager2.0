@@ -25,26 +25,40 @@ public class RepositoryManager implements Serializable {
     private String itemInfo;
     private String repositoryInfo;
     private Repository item;
+    private String searchKey;
+    private List<Repository> itemsFromType;
+    private List<Repository> allItems;
+
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
 
     /**
      * 获取仓库所有item实体
      *
      * @return 仓库中所有实体的List
      */
-    public List<Repository> getAllItems() {
+    public void setAllItems() {
         try {
-            List<Repository> items = request.getAllItems();
-            if (items.isEmpty()) {
+            this.allItems = request.getAllItems();
+            if (this.allItems.isEmpty()) {
                 repositoryInfo = "null";
-                return null;
             }
             repositoryInfo = null;
-            return items;
+
         } catch (Exception e) {
             logger.warning("Get items fail, the reason is" + e.getMessage());
             repositoryInfo = "读取数据库出错";
             throw e;
         }
+    }
+
+    public List<Repository> getAllItems() {
+        return this.allItems;
     }
 
     public void setItem(Repository item) {
@@ -71,23 +85,41 @@ public class RepositoryManager implements Serializable {
     }
 
 
+    public String getItemInfo() {
+        return itemInfo;
+    }
+
+    public List<Repository> getItemsFromType() {
+        return itemsFromType;
+    }
+
     /**
      * 根据类型得到仓库条目
      *
      * @param itemType
      * @return
      */
-    List<Repository> getItembyType(String itemType) {
+    public List<Repository> getItemsbyType(String itemType) {
         try {
             List<Repository> items = request.getItemsbyType(itemType);
             if (items.equals(0)) {
                 itemInfo = "null";
                 return null;
             }
+            this.itemsFromType = items;
             return items;
         } catch (Exception e) {
             itemInfo = "获取信息失败，请检查输入是否正确";
             return null;
+        }
+    }
+
+    public void removeRepository(Integer itemId) {
+        try {
+            request.removeRepository(itemId);
+            itemInfo = "删除成功";
+        } catch (Exception e) {
+            itemInfo = "删除失败";
         }
     }
 }
