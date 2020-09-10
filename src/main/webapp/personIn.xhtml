@@ -3,9 +3,8 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+>
 
 <h:head>
     <title>RestaurantManager</title>
@@ -18,33 +17,33 @@
 
 <div class="show">
     <div id="choice" class="choice">
-    <h:form>
-        <p>
-        <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
-    </p>
-        <p>
-        <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
-        </p>
-        <p>
-        <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
-        </p>
-        <p>
-        <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
-        </p>
-        <p>
-        <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
-        </p>
-        <p>
-        <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
-        </p>
-        <p>
-        <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
-        </p>
-    </h:form>
+        <h:form>
+            <p>
+                <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
+            </p>
+        </h:form>
     </div>
 
 
-<div class="Info">
+    <div class="Info">
 
         <h:form>
             <p>
@@ -54,10 +53,11 @@
                 密码<h:inputText class="label" id="password" type="text" value="#{personManager.user.password}"/>
             </p>
 
-            <h:commandButton class="buttonSave" value="保存" action="#{personManager.updateUserInfo(personManager.user.password,personManager.user.telNumber)}">
+            <h:commandButton class="buttonSave" value="保存"
+                             action="#{personManager.updateUserInfo(personManager.user.password,personManager.user.telNumber)}">
             </h:commandButton>
             &nbsp;&nbsp;
-            <h:commandButton class="buttonSave" value="取消"  action="personIn">
+            <h:commandButton class="buttonSave" value="取消" action="personIn">
             </h:commandButton>
             <p style="color: #ff0000">#{personManager.updateInfo}</p>
         </h:form>
