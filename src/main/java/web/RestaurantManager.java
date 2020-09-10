@@ -112,7 +112,6 @@ public class RestaurantManager implements Serializable {
 
     public User getUser(String userId) {
         try {
-
             return request.getUserbyUserId(userId);
         } catch (EJBException e) {
             throw e;
@@ -147,6 +146,16 @@ public class RestaurantManager implements Serializable {
         }
     }
 
+    /**
+     * 管理员修改
+     * @param userId
+     * @param userName
+     * @param password
+     * @param position
+     * @param telNumber
+     * @param salary
+     * @return
+     */
     public String updateUserInfo(String userId,
                                  String userName,
                                  String password,
@@ -161,6 +170,10 @@ public class RestaurantManager implements Serializable {
         user.setSalary(salary);
         return "success";
     }
+
+
+
+
 
     /**
      * @param
