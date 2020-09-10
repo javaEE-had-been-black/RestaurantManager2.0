@@ -23,6 +23,18 @@ public class RequestBean {
     private static final Logger logger = Logger.getLogger("java.ejb.RequestBean");
 
     /**
+     * 更新User
+     */
+    public void updateUser(User user){
+        try {
+            em.merge(user);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+
+    /**
      * Creator
      */
     public void createUser(String userId,
@@ -538,4 +550,5 @@ public class RequestBean {
             throw new EJBException(e.getMessage());
         }
     }
+
 }

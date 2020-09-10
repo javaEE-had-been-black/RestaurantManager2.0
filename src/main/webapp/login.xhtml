@@ -15,20 +15,19 @@
 <body background="resources/images/bg.jpg"
       style="background-repeat:no-repeat;background-size:100% auto;background-attachment:fixed;">
 <div id="loginDiv">
-    <h:form id="form" action="#{restaurantManager.login()}">
+    <h:form id="form" action="#{personManager.login()}">
         <h1 style="text-align: center;color:#666666;">登陆</h1>
         <p style="color: #666666;font-size: larger">账&nbsp;&nbsp;&nbsp;号:
-            <h:inputText id="userNname" type="text" value="#{restaurantManager.userId}"/>
+            <h:inputText id="userNname" type="text" value="#{personManager.userId}"/>
         </p>
 
         <p style="color: #666666;font-size: larger">密&nbsp;&nbsp;&nbsp;码:
-            <h:inputSecret id="password" type="password" value="#{restaurantManager.password}"/>
+            <h:inputSecret id="password" type="password" value="#{personManager.password}"/>
         </p>
 
         <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="button" value="进入" action="#{restaurantManager.login()}"/>
-        <p style="color: #ff0000">#{restaurantManager.logInfo}</p>
-        <p style="color: #ff0000">#{personManager.updateUser(restaurantManager.userId)}</p>
+        <h:commandButton class="button" value="进入" action="#{personManager.login()}"/>
+        <p style="color: #ff0000">#{personManager.logInfo}</p>
     </h:form>
 </div>
 </body>

@@ -175,35 +175,7 @@ public class RestaurantManager implements Serializable {
 
 
 
-    /**
-     * @param
-     * @return 是否运行登录
-     */
-    public String login() {
-        try {
 
-            if (userId == null || password == null) {
-                logInfo = "请输入账号或密码";
-                return "fail";
-            } else if (password.equals(request.getUserbyUserId(userId).getPassword())) {
-                User user = request.getUserbyUserId(userId);
-                userId = user.getUserId();
-                userName = user.getUserName();
-                password = user.getPassword();
-                position = user.getPosition();
-                salary = user.getSalary();
-                logInfo = "";
-                return "success";
-            } else {
-                logInfo = "密码错误或账号不存在";
-                return "fail";
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            logInfo="账号不存在";
-            return "fail";
-        }
-    }
     //获取user信息
 
 

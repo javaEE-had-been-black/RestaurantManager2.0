@@ -17,8 +17,6 @@
         background-attachment:fixed;">
 
 <div class="show">
-
-
     <div id="choice" class="choice">
     <h:form>
         <p>
@@ -50,18 +48,18 @@
 
         <h:form>
             <p>
+                账号<h:inputText class="label" id="ID" type="text" value="#{personManager.user.userId}"/>
                 姓名<h:inputText class="label" id="Name" type="text" value="#{personManager.user.userName}"/>
                 电话<h:inputText class="label" id="telNumber" type="text" value="#{personManager.user.telNumber}"/>
-                账号<h:inputText class="label" id="ID" type="text" value="#{personManager.user.userId}"/>
                 密码<h:inputText class="label" id="password" type="text" value="#{personManager.user.password}"/>
             </p>
 
-            <h:commandButton class="buttonSave" value="保存" action="#{personManager.updateUser(personManager.user.userId)}">
+            <h:commandButton class="buttonSave" value="保存" action="#{personManager.updateUserInfo(personManager.user.password,personManager.user.telNumber)}">
             </h:commandButton>
             &nbsp;&nbsp;
             <h:commandButton class="buttonSave" value="取消"  action="personIn">
             </h:commandButton>
-
+            <p style="color: #ff0000">#{personManager.updateInfo}</p>
         </h:form>
     </div>
     <h:form>

@@ -22,22 +22,51 @@ public class PersonManager implements Serializable {
     private RequestBean request;
     private static final Logger logger = Logger.getLogger("RestaurantManager.web.PersonManager");
     private User user;
-
-
+    private String userId;
+    private String password;
+    private String logInfo;
     private String updateInfo;
 
-    /**
-     * 得到user信息，在界面跳转时使用
-     *
-     * @param userId
-     */
 
-    public void updateUser(String userId) {
+    /**
+     * @param
+     * @return 是否运行登录
+     */
+    public String login() {
         try {
-            this.user = request.getUserbyUserId(userId);
-        } catch (Exception e) {
-            logger.warning("Update user fail.");
+
+            if (userId == null || password == null) {
+                logInfo = "请输入账号或密码";
+                return "fail";
+            } else if (password.equals(request.getUserbyUserId(userId).getPassword())) {
+                user = request.getUserbyUserId(userId);
+                logInfo = "";
+                return "success";
+            } else {
+                logInfo = "密码错误或账号不存在";
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            logInfo = "账号不存在";
+            return "fail";
         }
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
@@ -50,6 +79,10 @@ public class PersonManager implements Serializable {
         return user;
     }
 
+    public String getLogInfo() {
+        return logInfo;
+    }
+
     /**
      * 更新个人信息
      *
@@ -59,13 +92,19 @@ public class PersonManager implements Serializable {
 
     public void updateUserInfo(String password,
                                String telNumber) {
-
-        try {
-            user.setPassword(password);
-            user.setTelNumber(telNumber);
-            updateInfo = "success";
-        } catch (Exception e) {
-            updateInfo = "fail";
+        if (telNumber.length()!=11)
+        {
+            updateInfo="请输入正确位数的电话号码！";
+        }else
+        {
+            try {
+                user.setPassword(password);
+                user.setTelNumber(telNumber);
+                request.updateUser(user);
+                updateInfo = "修改成功!";
+            } catch (Exception e) {
+                updateInfo = "修改失败!";
+            }
         }
     }
 
