@@ -515,6 +515,21 @@ public class RequestBean {
         }
     }
 
+    /**
+     *
+     * 根据类型得到仓库条目
+     */
+
+    public List<Repository> getItemsbyType(String type) {
+        try {
+            return em.createNamedQuery("getItemsbyType")
+                    .setParameter("type", type)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
     public List<Repository> getAllItems() {
         try {
             return em.createNamedQuery("getAllItems")

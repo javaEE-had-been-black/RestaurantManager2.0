@@ -185,9 +185,6 @@ public class RestaurantManager implements Serializable {
             if (userId == null || password == null) {
                 logInfo = "请输入账号或密码";
                 return "fail";
-            } else if (request.getUserbyUserId(userId).getUserId() == null) {
-                logInfo = "账号不存在";
-                return "fail";
             } else if (password.equals(request.getUserbyUserId(userId).getPassword())) {
                 User user = request.getUserbyUserId(userId);
                 userId = user.getUserId();
@@ -203,7 +200,7 @@ public class RestaurantManager implements Serializable {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            logInfo="读取数据库出错";
+            logInfo="账号不存在";
             return "fail";
         }
     }

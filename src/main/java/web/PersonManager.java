@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 /**
- *
  * @author zhang
  */
 @Named
@@ -24,8 +23,12 @@ public class PersonManager implements Serializable {
     private static final Logger logger = Logger.getLogger("RestaurantManager.web.PersonManager");
     private User user;
 
+
+    private String updateInfo;
+
     /**
      * 得到user信息，在界面跳转时使用
+     *
      * @param userId
      */
 
@@ -39,6 +42,7 @@ public class PersonManager implements Serializable {
 
     /**
      * 得到个人信息
+     *
      * @return
      */
 
@@ -48,13 +52,14 @@ public class PersonManager implements Serializable {
 
     /**
      * 更新个人信息
+     *
      * @param password
      * @param telNumber
      */
 
     public void updateUserInfo(String password,
                                String telNumber) {
-        String updateInfo;
+
         try {
             user.setPassword(password);
             user.setTelNumber(telNumber);
@@ -63,4 +68,9 @@ public class PersonManager implements Serializable {
             updateInfo = "fail";
         }
     }
+
+    public String getUpdateInfo() {
+        return updateInfo;
+    }
+
 }
