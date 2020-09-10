@@ -92,11 +92,9 @@ public class PersonManager implements Serializable {
 
     public void updateUserInfo(String password,
                                String telNumber) {
-        if (telNumber.length()!=11)
-        {
-            updateInfo="请输入正确位数的电话号码！";
-        }else
-        {
+        if (telNumber.length() != 11) {
+            updateInfo = "请输入正确位数的电话号码！";
+        } else {
             try {
                 user.setPassword(password);
                 user.setTelNumber(telNumber);
