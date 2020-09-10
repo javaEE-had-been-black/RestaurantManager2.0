@@ -1,0 +1,71 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+.show {
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    height: 750px;
+    background-color: rgba(255, 255, 255, 0.66);
+    box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+    border-radius: 5px;
+    padding-top: 20px;
+}
+
+
+.Info {
+    width: 8%;
+    /*justify-content: center;*/
+    margin-left: 30px;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px gray solid;
+    margin-right: 20px;
+}
+
+.billType{
+    display: flex;
+    flex-direction: column;
+
+}
+.createBill
+{
+    display: flex;
+    flex-direction: column;
+
+}
+.button {
+    border-color: cornsilk;
+    background-color: rgba(100, 149, 237, .7);
+    color: whitesmoke;
+    border-style: groove;
+    border-radius: 10px;
+    width: 180px;
+    height: 55px;
+    font-size: 32px;
+    style: text-align;
+}
+.buttonSave{
+    color: slategrey ;
+    text-align: center;
+    font-size:28px;
+    margin-left:300px;
+    width: 100px;
+    height: 40px;
+    border-style: groove;"
+}
+.label{
+    style: text-align;
+    font-size: 28px;
+    color: darkorange;
+    border-style: groove;
+    margin-left: 300px;
+}
+
+

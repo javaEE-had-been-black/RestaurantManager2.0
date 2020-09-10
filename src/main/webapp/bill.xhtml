@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>RestaurantManager</title>
+    <h:outputStylesheet library="css" name="bill.css"/>
+</h:head>
+
+<body background="resources/images/background.jpg" style="background-repeat:no-repeat;
+        background-size:100% 100%;
+        background-attachment:fixed;">
+
+<div class="show">
+
+    <div id="choice" class="choice">
+        <h:form>
+            <p>
+                <h:commandButton class="button" value="个人中心" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="餐位管理" style="text-align: left" action="seatManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="菜谱管理" style="text-align: left" action="dishManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="仓库管理" style="text-align: left" action="warehouseManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="报表统计" style="text-align: left" action="personIn"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="会员管理" style="text-align: left" action="vipManage"/>
+            </p>
+            <p>
+                <h:commandButton class="button" value="员工管理" style="text-align: left" action="personnelManage"/>
+            </p>
+        </h:form>
+    </div>
+
+
+    <div class="createBill">
+    <h:form>
+
+        <h:selectOneMenu value="#{billManager.searchKey()}">
+            <f:selectItem itemValue="支出" itemLabel="支出"/>
+            <f:selectItem itemValue="收入" itemLabel="收入"/>
+        </h:selectOneMenu>
+
+        <h:commandButton action="#{billManagerManager.getItembyType()}">
+
+        </h:commandButton>
+        <p style="color: #666666;font-size: larger">数目:
+            <h:inputSecret id="password" type="password" value="#{billManager.Amount}"/>
+        </p>
+        <div style="text-align: center;margin-top: 30px;"></div>
+        <h:commandButton class="button" value="创建" action="#{billManager.createBill()}"/>
+        <p style="color: #ff0000">#{billManager.CreateInfo}</p>
+    </h:form>
+
+
+    </div>
+    <div class="Info">
+
+        <h:form>
+            <h:commandButton class="button" value="所有账单" action="#{billManager.allBills}">
+            </h:commandButton>
+
+        </h:form>
+
+        <table>
+            <tr>
+                <th>订单号</th>
+                <th>时间</th>
+                <th>类型</th>
+                <th>数目</th>
+            </tr>
+            <ui:repeat var="item" value="#{billManager.getallBills()}">
+                <tr>
+                    <td>#{item.ID}</td>
+                    <td>#{item.date}</td>
+                    <td>#{item.type}</td>
+                    <td>#{item.amount}</td>
+                </tr>
+            </ui:repeat>
+        </table>
+    </div>
+
+
+<div id="billType" class="billType">
+    <h:selectOneMenu value="#{billManager.searchKey()}">
+        <f:selectItem itemValue="支出" itemLabel="支出"/>
+        <f:selectItem itemValue="收入" itemLabel="收入"/>
+
+    </h:selectOneMenu>
+
+    <h:inputText id="searchKey" type="text" value="#{repositoryManager.searchKey}"/>
+    <h:form>
+        <h:commandButton action="#{billManager.getBillbyType()}" image="resources/images/search.jpg" class="searchButton"/>
+
+    </h:form>
+
+    <table>
+        <tr>
+            <th>订单号</th>
+            <th>时间</th>
+            <th>种类</th>
+            <th>数目</th>
+        </tr>
+        <ui:repeat var="item" value="#{billManager.getBillsbyType()}">
+            <tr>
+                <td>#{item.itemName}</td>
+                <td>#{item.quantity}</td>
+                <td>#{item.type}</td>
+                <td>#{item.amount}</td>
+            </tr>
+        </ui:repeat>
+
+    </table>
+
+</div>
+
+</div>
+</body>
+
+</html>
