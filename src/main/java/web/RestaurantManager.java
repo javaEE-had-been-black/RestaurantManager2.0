@@ -203,28 +203,13 @@ public class RestaurantManager implements Serializable {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            logInfo="读取数据库出错";
             return "fail";
         }
     }
     //获取user信息
 
-    /*
-     * Repository
-     */
 
-    /**
-     * 获取仓库所有item实体
-     *
-     * @return 仓库中所有实体的List
-     */
-    public List<Repository> getAllItems() {
-        try {
-            return request.getAllItems();
-        } catch (Exception e) {
-            logger.warning("Create User Failed,the reason is" + e.getMessage());
-            throw e;
-        }
-    }
 
     /**
      * Order
@@ -309,17 +294,6 @@ public class RestaurantManager implements Serializable {
     public Bill getBillbyId(Integer itemId) {
         try {
             return request.getBillbyId(itemId);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    /**
-     * Repository
-     */
-    public List<Repository> getItemsbyName(String itemName) {
-        try {
-            return request.getItemsbyName(itemName);
         } catch (Exception e) {
             throw e;
         }
