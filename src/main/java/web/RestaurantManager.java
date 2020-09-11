@@ -168,6 +168,7 @@ public class RestaurantManager implements Serializable {
         user.setPosition(position);
         user.setTelNumber(telNumber);
         user.setSalary(salary);
+        request.updateUser(user);
         return "success";
     }
 

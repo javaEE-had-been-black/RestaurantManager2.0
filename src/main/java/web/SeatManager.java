@@ -205,6 +205,7 @@ public class SeatManager implements Serializable {
         seat.setCapacity(newCapacity);
         seat.setStatus(newStatus);
         seat.setPrivate(newIsPrivate);
+        request.updateSeat(seat);
     }
 
     public void changeSeatStatus() {
