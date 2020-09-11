@@ -35,16 +35,13 @@ body {
     flex-direction: column;
 }
 
-.warehouseIn
-{
-    display: flex;
-    flex-direction: column;
-}
+
 
 .warehouseSearch
 {
     display: flex;
     flex-direction: column;
+    margin-left: 100px;
 }
 
 .warehouseAll
@@ -53,7 +50,11 @@ body {
     flex-direction: column;
 }
 
-
+.warehouseDelete
+{
+    display: flex;
+    flex-direction: column;
+}
 
 .button {
     border-color: cornsilk;
@@ -69,7 +70,7 @@ body {
 .buttonRepository{
     border-color: cornsilk;
     background-color: rgba(100, 149, 237, .7);
-    margin-left:300px ;
+    margin-left:200px ;
     color: whitesmoke;
     border-style: groove;
     border-radius: 10px;

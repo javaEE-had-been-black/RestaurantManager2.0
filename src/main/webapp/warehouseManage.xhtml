@@ -47,11 +47,12 @@
     </div>
 
 
-    <div id="warehouseAll" class="warehousesAll">
+    <div id="warehouseAll" class="warehousesAll" >
         <h:form>
             <h:commandButton class="buttonRepository" value="所有物品" action="#{repositoryManager.setAllItems}"/>
         </h:form>
-        <table>
+        <br> </br>
+        <table style="font-size: 28px;margin-left: 150px;margin-top: 20px;">
             <tr>
                 <th>物资名称</th>
                 <th>数量</th>
@@ -69,19 +70,20 @@
 
 
     <div id="warehouseSearch" class="warehouseSearch">
+
+        <h:form>
         <h:selectOneMenu value="#{repositoryManager.searchKey}">
             <f:selectItem itemValue="酒水" itemLabel="酒水"/>
             <f:selectItem itemValue="肉类" itemLabel="肉类"/>
             <f:selectItem itemValue="菜类" itemLabel="菜类"/>
         </h:selectOneMenu>
-
-        <h:form>
-            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}"
-                             image="resources/images/search.jpg" class="searchButton"/>
+            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.getsearchKey)}"
+                             image="resources/images/search.jpg" style="width: 30px;height: 30px" class="searchButton"/>
             <p style="color: #ff0000">#{repositoryManager.itemInfo}</p>
         </h:form>
 
-        <table>
+        <table style="font-size: 28px;margin-top: 23px">
+            <br> </br>
             <tr>
                 <th>物资名称</th>
                 <th>数量</th>
@@ -98,7 +100,17 @@
         </table>
     </div>
 
-    <p>
+
+    <div id="warehouseDelete" class="warehousesDelete" >
+    <h:form>
+        <h:commandButton class="buttonRepository" value="删除" action="#{repositoryManager.setAllItems}"/>
+        <h:commandButton class="buttonRepository" value="添加" action="#{repositoryManager.setAllItems}"/>
+    </h:form>
+
+
+
+        </div>
+        <p>
 
     </p>
 
