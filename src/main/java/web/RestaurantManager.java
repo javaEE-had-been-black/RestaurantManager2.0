@@ -254,7 +254,7 @@ public class RestaurantManager implements Serializable {
 
     public List<Bill> getBillbyType(boolean type) {
         try {
-            return request.getBillbyType(type);
+            return request.getBillsbyType(type);
         } catch (Exception e) {
             throw e;
         }

@@ -22,6 +22,47 @@ public class BillManager implements Serializable {
     @EJB
     private RequestBean request;
     private String billInfo;
+    private String searchKey;
+    private String amount;
+    private String type;
+    private Integer billId;
+    private List<Bill> allBills;
+
+    public List<Bill> getAllBills() {
+        return this.allBills;
+    }
+
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getBillId() {
+        return billId;
+    }
+
+    public void setBillId(Integer billId) {
+        this.billId = billId;
+    }
 
     public String getBillInfo() {
         return billInfo;
@@ -31,7 +72,7 @@ public class BillManager implements Serializable {
         this.billInfo = billInfo;
     }
 
-    public List<Bill> getAllBills() {
+    public List<Bill> setAllBills() {
         try {
             List<Bill> bills = request.getAllBills();
             billInfo = null;
@@ -59,14 +100,23 @@ public class BillManager implements Serializable {
         }
     }
 
-    public List<Bill> getBillsbyType(boolean type) {
+    public List<Bill> getBillsbyType(String type) {
         try {
-            List<Bill> bills = request.getBillbyType(type);
-            billInfo = null;
-            if (bills.isEmpty()) {
-                billInfo = "null";
+            if ("收入".equals(type)) {
+                List<Bill> bills = request.getBillsbyType(true);
+                billInfo = null;
+                if (bills.isEmpty()) {
+                    billInfo = "null";
+                }
+                return bills;
+            } else {
+                List<Bill> bills = request.getBillsbyType(false);
+                billInfo = null;
+                if (bills.isEmpty()) {
+                    billInfo = "null";
+                }
+                return bills;
             }
-            return bills;
         } catch (Exception e) {
             billInfo = "null";
             throw e;
@@ -86,13 +136,13 @@ public class BillManager implements Serializable {
 
     public void createBill(String type, String amount) {
         try {
-            if (type.equals("收入")) {
+            if ("收入".equals(type)) {
                 request.createBill(true, amount);
                 billInfo = "成功";
-            } else if(type.equals("支出")){
+            } else if ("支出".equals(type)) {
                 request.createBill(false, amount);
                 billInfo = "成功";
-            }else{
+            } else {
                 billInfo = "数据格式错误";
             }
         } catch (Exception e) {
@@ -100,12 +150,12 @@ public class BillManager implements Serializable {
         }
     }
 
-    public void removeBill(Integer billId){
-        try{
+    public void removeBill(Integer billId) {
+        try {
             request.removeBill(billId);
-            billInfo="删除成功";
-        }catch (Exception e){
-            billInfo="删除失败";
+            billInfo = "删除成功";
+        } catch (Exception e) {
+            billInfo = "删除失败";
         }
     }
 }

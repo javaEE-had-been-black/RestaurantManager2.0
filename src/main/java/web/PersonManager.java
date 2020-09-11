@@ -35,7 +35,7 @@ public class PersonManager implements Serializable {
     public String login() {
         try {
 
-            if (userId == null || password == null) {
+            if ("".equals(userId) || "".equals(password)) {
                 logInfo = "请输入账号或密码";
                 return "fail";
             } else if (password.equals(request.getUserbyUserId(userId).getPassword())) {
@@ -49,6 +49,7 @@ public class PersonManager implements Serializable {
         } catch (Exception ex) {
             ex.printStackTrace();
             logInfo = "账号不存在";
+            userId = null;
             return "fail";
         }
     }

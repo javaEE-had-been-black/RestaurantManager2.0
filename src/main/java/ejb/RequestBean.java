@@ -495,7 +495,7 @@ public class RequestBean {
         }
     }
 
-    public List<Bill> getBillbyType(boolean type) {
+    public List<Bill> getBillsbyType(boolean type) {
         try {
             return em.createNamedQuery("getBillsbyType")
                     .setParameter("type", type)

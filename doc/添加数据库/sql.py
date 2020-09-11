@@ -58,4 +58,4 @@ def execute(db, cursor, tb, sh_name):
             print(db.rollback())
 
 
-insert("example.xlsx", "root", "1234", "order")
+insert("example.xlsx", "root", "123456", "order")
