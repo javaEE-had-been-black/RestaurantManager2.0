@@ -25,12 +25,20 @@ import java.util.List;
         @NamedQuery(
                 name = "getOrdersbyDish",
                 query = "SELECT d.orders FROM Dish d WHERE d.dishId=:dishId"
+        ),
+        @NamedQuery(
+                name = "getDishesbyDishNameandType",
+                query = "SELECT d from Dish d WHERE d.dishName=:dishName and d.type=:type"
+        ),
+        @NamedQuery(
+                name = "getDishbyName",
+                query = "SELECT d from Dish d WHERE d.dishName=:dishName"
         )
 })
 
 
 public class Dish implements Serializable {
-    private String dishId;
+    private Integer dishId;
     private String dishName;
     private String dishPrice;
     private String imageUrl;
@@ -49,7 +57,7 @@ public class Dish implements Serializable {
     public Dish() {
     }
 
-    public Dish(String dishId, String dishName, String dishPrice, String imageUrl, String type) {
+    public Dish(Integer dishId, String dishName, String dishPrice, String imageUrl, String type) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishPrice = dishPrice;
@@ -89,12 +97,13 @@ public class Dish implements Serializable {
         this.type = type;
     }
 
-    public void setDishId(String dishId) {
+    public void setDishId(Integer dishId) {
         this.dishId = dishId;
     }
 
     @Id
-    public String getDishId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getDishId() {
         return dishId;
     }
 }

@@ -1,0 +1,150 @@
+/*兼容浏览器*/
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-left {
+    width: 15%;
+    height: 600px;
+    background-color: #303342;
+    /*左浮动*/
+    float: left;
+}
+
+.content-right {
+    width: 85%;
+    height: 600px;
+    background-color: #FEFEFE;
+    float: right;
+    overflow-y: auto;
+}
+
+
+.left-title > a {
+    /*变成块状元素*/
+    display: block;
+    width: 100%;
+    height: 50px;
+    /*垂直居中*/
+    line-height: 50px;
+    /*水平居中*/
+    text-align: center;
+    color: white;
+    /*去掉下划线*/
+    text-decoration: none;
+}
+
+/*!*分割线*!*/
+/*.seg {*/
+/*    height: 1px;*/
+/*    width: 100%;*/
+/*    background-color: white;*/
+/*}*/
+
+.nav {
+    /*上下5，左右0*/
+    margin: 5px 0;
+}
+
+/*菜单项标题*/
+.nav-title {
+    height: 40px;
+    width: 100%;
+    color: white;
+    line-height: 40px;
+    /*水平居中*/
+    text-align: center;
+    /*当鼠标划过主标题时，显示手型*/
+    cursor: pointer;
+    background-color: #303342;
+}
+
+
+/*菜单项标题*/
+.nav-title > a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-title:hover {
+    height: 40px;
+    width: 100%;
+    color: white;
+    line-height: 40px;
+    /*水平居中*/
+    text-align: center;
+    /*当鼠标划过主标题时，显示手型*/
+    cursor: pointer;
+    background-color: #4ECDC4;
+}
+
+/*子标题内容区*/
+.nav-content {
+    width: 100%;
+    height: 100%;
+    background-color: #303342;
+}
+
+
+.nav-content-a > a {
+    display: block;
+    height: 30px;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    line-height: 30px;
+    /*水平居中*/
+    text-align: center;
+    font-size: 14px;
+}
+
+
+.nav-content-a {
+    height: 30px;
+    width: 100%;
+    background-color: #303342;
+}
+
+
+.nav-content-a:hover {
+    height: 30px;
+    width: 100%;
+    background-color: #4ECDC4;
+}
+
+.content-top {
+    width: 100%;
+    height: 100px;
+    background-color: #212329;
+}
+
+.logout {
+    width: 100px;
+    height: 40px;
+    background-color: #4ECDC4;
+    color: white;
+    border: 2px solid #4ECDC4;
+    border-radius: 2px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+.identifier {
+    color: #4ECDC4;
+    height: 50px;
+    float: left;
+    margin-left: 30px;
+    font-size: 30px;
+    text-decoration: none;
+    margin-top: 25px;
+}

@@ -32,9 +32,87 @@ public class RestaurantManager implements Serializable {
     private List<Dish> dishes;
     private String logInfo;
 
+    private String newUserId;
+    private String newUserName;
+    private String newPassword;
+    private String newPosition;
+    private String newTelNumber;
+    private String newSalary;
+
+    private User currentUser;
+    private String currentUserId;
+
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    //獲取指定用戶的用戶信息
+    public void setCurrentUser(String userId) {
+        currentUser = request.getUserbyUserId(userId);
+    }
+
     public RestaurantManager() {
     }
 
+    public String getNewUserId() {
+        return newUserId;
+    }
+
+    public void setNewUserId(String newUserId) {
+        this.newUserId = newUserId;
+    }
+
+    public String getNewUserName() {
+        return newUserName;
+    }
+
+    public void setNewUserName(String newUserName) {
+        this.newUserName = newUserName;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getNewPosition() {
+        return newPosition;
+    }
+
+    public void setNewPosition(String newPosition) {
+        this.newPosition = newPosition;
+    }
+
+    public String getNewTelNumber() {
+        return newTelNumber;
+    }
+
+    public void setNewTelNumber(String newTelNumber) {
+        this.newTelNumber = newTelNumber;
+    }
+
+    public String getNewSalary() {
+        return newSalary;
+    }
+
+    public void setNewSalary(String newSalary) {
+        this.newSalary = newSalary;
+    }
 
     public String getLogInfo() {
         return logInfo;
@@ -121,14 +199,9 @@ public class RestaurantManager implements Serializable {
     /**
      * 添加user
      */
-    public void createUser(String userId,
-                           String userName,
-                           String password,
-                           String position,
-                           String telNumber,
-                           String salary) {
+    public void createUser() {
         try {
-            request.createUser(userId, userName, password, position, telNumber, salary);
+            request.createUser(newTelNumber, newUserName, newPassword, newPosition, newTelNumber, newSalary);
         } catch (Exception e) {
             logger.warning("Create User Failed,the reason is" + e.getMessage());
             throw e;
@@ -138,9 +211,9 @@ public class RestaurantManager implements Serializable {
     /**
      * 删除user
      */
-    public void removeUser() {
+    public void removeUser(String currentUserId) {
         try {
-            request.removeUser(userId);
+            request.removeUser(currentUserId);
         } catch (Exception e) {
             logger.warning("Remove User Failed,the reason is" + e.toString());
         }
@@ -226,7 +299,7 @@ public class RestaurantManager implements Serializable {
 
     public List<String> getOrdersbyDish(String dishId) {
         try {
-            return request.getOrdersbyDish(dishId);
+            return request.getOrdersbyDish(Integer.parseInt(dishId));
         } catch (EJBException e) {
             throw e;
         }

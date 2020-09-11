@@ -9,6 +9,7 @@ import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class CustomerManager implements Serializable {
     private RequestBean request;
     private String newCustomerName;
     private String newTelNumber;
+    private Integer newPoint;
     private String telNumber;
     private Integer customerId;
     private Integer points;
@@ -30,6 +32,24 @@ public class CustomerManager implements Serializable {
     private Date startTime;
     private Date endTime;
     private String logInfo;
+
+    private List<Customer> resultCustomer;
+
+    public List<Customer> getResultCustomer() {
+        return resultCustomer;
+    }
+
+    public void setResultCustomer(List<Customer> resultCustomer) {
+        this.resultCustomer = resultCustomer;
+    }
+
+    public Integer getNewPoint() {
+        return newPoint;
+    }
+
+    public void setNewPoint(Integer newPoint) {
+        this.newPoint = newPoint;
+    }
 
     public String getLogInfo() {
         return logInfo;
@@ -122,17 +142,20 @@ public class CustomerManager implements Serializable {
      * 添加Customer
      */
     public String creatCustomer() {
+
         try {
-            request.createCustomer(newTelNumber, newCustomerName);
+            request.createCustomer(newTelNumber, newCustomerName, newPoint);
             this.newCustomerName = null;
             this.newTelNumber = null;
-            logInfo = "创建用户成功";
+            this.newPoint = 0;
+            logInfo = "";
             return "success";
         } catch (Exception e) {
             logger.warning("Problem creating seat in createSeat.");
             logInfo = "创建用户失败";
             return "fail";
         }
+
     }
 
     /**
@@ -164,12 +187,17 @@ public class CustomerManager implements Serializable {
      *
      * @return 顾客信息
      */
-    public Customer getCustomerbyTelNumber() {
+    public String getCustomerbyTelNumber() {
         try {
-            return request.getCustomerbyTelNumber(telNumber);
+            if (resultCustomer == null) {
+                resultCustomer = new LinkedList<>();
+            }
+            resultCustomer.clear();
+            resultCustomer.add(request.getCustomerbyTelNumber(telNumber));
+            return "success";
         } catch (Exception e) {
             logger.warning("Problem getCustomerbyTelNumber.");
-            throw e;
+            return "fail";
         }
     }
 
@@ -179,12 +207,15 @@ public class CustomerManager implements Serializable {
      * @return 顾客列表
      */
 
-    public List<Customer> getCustomersbyCustomerName() {
+    public String getCustomersbyCustomerName() {
         try {
-            return request.getCustomerbyCustomerName(customerName);
+            resultCustomer = request.getCustomerbyCustomerName(customerName);
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
+            logInfo = "获取顾客列表失败";
             logger.warning("Problem getCustomerbyCustomerName.");
-            throw e;
+            return "fail";
         }
     }
 
@@ -207,12 +238,14 @@ public class CustomerManager implements Serializable {
      *
      * @return 所有的顾客列表
      */
-    public List<Customer> getAllCustomers() {
+    public String getAllCustomers() {
         try {
-            return request.getAllCustomers();
+            resultCustomer = request.getAllCustomers();
+            logInfo = "";
+            return "success";
         } catch (Exception e) {
             logger.warning("Problem getAllCustomers");
-            throw e;
+            return "fail";
         }
     }
 
