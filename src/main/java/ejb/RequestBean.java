@@ -44,28 +44,32 @@ public class RequestBean {
             throw new EJBException(e.getMessage());
         }
     }
-    public void updateSeat(Seat seat){
-        try{
+
+    public void updateSeat(Seat seat) {
+        try {
             em.merge(seat);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
     }
-    public void updateDish(Dish dish){
-        try{
+
+    public void updateDish(Dish dish) {
+        try {
             em.merge(dish);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
     }
-    public void updateCustomer(Customer customer){
-        try{
+
+    public void updateCustomer(Customer customer) {
+        try {
             em.merge(customer);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
 
     }
+
     /**
      * Creator
      */
@@ -146,9 +150,10 @@ public class RequestBean {
 
     public void createBill(
             boolean type,
-            String amount) {
+            String amount,
+            String commit) {
         try {
-            Bill bill = new Bill(type, amount);
+            Bill bill = new Bill(type, amount, commit);
             em.persist(bill);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());

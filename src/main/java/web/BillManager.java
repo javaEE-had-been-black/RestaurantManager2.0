@@ -26,6 +26,7 @@ public class BillManager implements Serializable {
     private String amount;
     private String type;
     private Integer billId;
+    private String commit;
     private List<Bill> allBills;
 
 
@@ -144,10 +145,10 @@ public class BillManager implements Serializable {
     public void createBill() {
         try {
             if ("收入".equals(type)) {
-                request.createBill(true, amount);
+                request.createBill(true, amount,commit);
                 billInfo = "成功";
             } else if ("支出".equals(type)) {
-                request.createBill(false, amount);
+                request.createBill(false, amount,commit);
                 billInfo = "成功";
             } else {
                 billInfo = "数据格式错误";

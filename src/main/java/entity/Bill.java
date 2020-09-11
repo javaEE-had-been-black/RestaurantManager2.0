@@ -32,11 +32,21 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 public class Bill implements Serializable {
     private Integer itemId;
     private Date itemDate;
+    private String commit;
+
+    public String getCommit() {
+        return commit;
+    }
+
+    public void setCommit(String commit) {
+        this.commit = commit;
+    }
+
     boolean type;
     String amount;
 
-    public Bill(boolean type, String amount) {
-        this.itemId = itemId;
+    public Bill(boolean type, String amount,String commit) {
+        this.commit=commit;
         this.itemDate = new Date();
         this.type = type;
         this.amount = amount;
@@ -79,5 +89,12 @@ public class Bill implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getItemId() {
         return itemId;
+    }
+
+    public String turnBill(){
+        if(this.type){
+            return "收入";
+        }
+        return "支出";
     }
 }
