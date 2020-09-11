@@ -144,10 +144,10 @@ public class CustomerManager implements Serializable {
     public String creatCustomer() {
 
         try {
-            request.createCustomer(newTelNumber, newCustomerName,newPoint);
+            request.createCustomer(newTelNumber, newCustomerName, newPoint);
             this.newCustomerName = null;
             this.newTelNumber = null;
-            this.newPoint=0;
+            this.newPoint = 0;
             logInfo = "";
             return "success";
         } catch (Exception e) {

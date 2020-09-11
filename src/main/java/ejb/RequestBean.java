@@ -22,6 +22,35 @@ public class RequestBean {
 
     private static final Logger logger = Logger.getLogger("java.ejb.RequestBean");
 
+    public void updateItem(Repository item) {
+        try {
+            em.merge(item);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+    public void updateSeat(Seat seat){
+        try{
+            em.merge(seat);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
+    public void updateDish(Dish dish){
+        try{
+            em.merge(dish);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
+    public void updateCustomer(Customer customer){
+        try{
+            em.merge(customer);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+
+    }
     /**
      * Creator
      */
@@ -91,9 +120,9 @@ public class RequestBean {
     }
 
     public void createCustomer(String telNumber,
-                               String customerName,Integer points) {
+                               String customerName, Integer points) {
         try {
-            Customer customer = new Customer(telNumber, customerName,points);
+            Customer customer = new Customer(telNumber, customerName, points);
             em.persist(customer);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());

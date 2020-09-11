@@ -42,15 +42,11 @@ body {
 }
 
 
-.seatSearch {
+.searchForm {
     display: flex;
     flex-direction: row;
-    align-content: center;
-}
-
-
-.listSelect {
-
+    align-items: center;
+    padding-left: 20px;
 }
 
 
@@ -68,11 +64,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-content: center;
     align-items: center;
-    border: 1px #666666 solid;
-    border-radius: 3px;
+    border: 1px gray solid;
+    border-radius: 1px;
     width: 120px;
     height: 150px;
+    background-color: white;
 }
 
 .searchButton {
