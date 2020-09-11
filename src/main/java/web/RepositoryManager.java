@@ -25,8 +25,52 @@ public class RepositoryManager implements Serializable {
     private String itemInfo;
     private String repositoryInfo;
     private Repository item;
+    private String itemName;
+    private String itemType;
+    private String itemQuantity;
+    private Integer itemId;
     private String searchKey;
     private List<Repository> allItems;
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public String getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(String itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getRepositoryInfo() {
+        return repositoryInfo;
+    }
+
+    public void setRepositoryInfo(String repositoryInfo) {
+        this.repositoryInfo = repositoryInfo;
+    }
 
     public String getSearchKey() {
         return searchKey;
@@ -117,7 +161,7 @@ public class RepositoryManager implements Serializable {
         }
     }
 
-    public void removeRepository(Integer itemId) {
+    public void removeRepository() {
         try {
             request.removeRepository(itemId);
             itemInfo = "删除成功";

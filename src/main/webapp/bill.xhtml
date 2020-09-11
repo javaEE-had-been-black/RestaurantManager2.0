@@ -66,7 +66,7 @@
 
     <div class="deleteBill">
         <h:form>
-            <h:outputLabel for="deleteBillId" rendered="true" value="Order ID">
+            <h:outputLabel for="deleteBillId" rendered="true" value="bill ID">
                 <h:inputText id="deleteBillId" required="true" value="#{billManager.billId}"/>
             </h:outputLabel>
 
@@ -86,7 +86,7 @@
                 <f:selectItem itemValue="支出" itemLabel="支出"/>
                 <f:selectItem itemValue="收入" itemLabel="收入"/>
             </h:selectOneMenu>
-            <h:commandButton class="button" value="搜索" action="#{billManager.getBillsbyType(billManager.searchKey)}">
+            <h:commandButton class="button" value="搜索" image="resources/images/search.jpg" style="width: 30px;height: 30px" action="#{billManager.getBillsbyType(billManager.searchKey)}">
             </h:commandButton>
 
         </h:form>

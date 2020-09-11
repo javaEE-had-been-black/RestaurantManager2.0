@@ -46,76 +46,74 @@
         </h:form>
     </div>
 
+<div class="warehouseSearch">
 
-    <div id="warehouseAll" class="warehousesAll" >
+<h:form>
+    <h:selectOneMenu value="#{repositoryManager.searchKey}">
+        <f:selectItem itemValue="全部" itemLabel="全部"/>
+        <f:selectItem itemValue="肉类" itemLabel="肉类"/>
+        <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+    </h:selectOneMenu>
+    <h:commandButton class="button" value="搜索" image="resources/images/search.jpg" style="width: 30px;height: 30px" action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}">
+    </h:commandButton>
+
+</h:form>
+
+<h:dataTable var="Item" value="#{repositoryManager.allItems}" rules="all" cellpadding="5">
+    <h:column>
+
+        <f:facet name="header">
+            <h:outputText value="账号" />
+        </f:facet>
         <h:form>
-            <h:commandButton class="buttonRepository" value="所有物品" action="#{repositoryManager.setAllItems}"/>
+            <h:outputText value="#{Item.itemId}"/>
         </h:form>
-        <br> </br>
-        <table style="font-size: 28px;margin-left: 150px;margin-top: 20px;">
-            <tr>
-                <th>物资名称</th>
-                <th>数量</th>
-                <th>种类</th>
-            </tr>
-            <ui:repeat var="item" value="#{repositoryManager.allItems}">
-                <tr>
-                    <td>#{item.itemName}</td>
-                    <td>#{item.quantity}</td>
-                    <td>#{item.type}</td>
-                </tr>
-            </ui:repeat>
-        </table>
-    </div>
+    </h:column>
+    <h:column>
 
-
-    <div id="warehouseSearch" class="warehouseSearch">
-
+        <f:facet name="header">
+            <h:outputText value="类型" />
+        </f:facet>
         <h:form>
-        <h:selectOneMenu value="#{repositoryManager.searchKey}">
-            <f:selectItem itemValue="酒水" itemLabel="酒水"/>
-            <f:selectItem itemValue="肉类" itemLabel="肉类"/>
-            <f:selectItem itemValue="菜类" itemLabel="菜类"/>
-        </h:selectOneMenu>
-            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}"
-                             image="resources/images/search.jpg" style="width: 30px;height: 30px" class="searchButton"/>
-            <p style="color: #ff0000">#{repositoryManager.itemInfo}</p>
+            <h:outputText  value="#{Item.type}"/>
         </h:form>
+    </h:column>
+    <h:column>
 
-        <table style="font-size: 28px;margin-top: 23px">
-            <br> </br>
-            <tr>
-                <th>物资名称</th>
-                <th>数量</th>
-                <th>种类</th>
-            </tr>
-            <ui:repeat var="item" value="#{repositoryManager.allItems}">
-                <tr>
-                    <td>#{item.itemName}</td>
-                    <td>#{item.quantity}</td>
-                    <td>#{item.type}</td>
-                </tr>
-            </ui:repeat>
+        <f:facet name="header">
+            <h:outputText value="数量" />
+        </f:facet>
+        <h:form>
+            <h:outputText value="#{Item.quantity}"/>
+        </h:form>
+    </h:column>
+    <h:column>
 
-        </table>
-    </div>
-
-
-    <div id="warehouseDelete" class="warehousesDelete" >
-    <h:form>
-        <h:commandButton class="buttonRepository" value="删除" action="#{repositoryManager.setAllItems}"/>
-        <h:commandButton class="buttonRepository" value="添加" action="#{repositoryManager.setAllItems}"/>
-    </h:form>
+        <f:facet name="header">
+            <h:outputText value="名称" />
+        </f:facet>
+        <h:form>
+            <h:outputText value="#{Item.itemName}"/>
+        </h:form>
+    </h:column>
 
 
-
-        </div>
-        <p>
-
-    </p>
-
+</h:dataTable>
 </div>
 
+
+    <div class="warehouseDelete">
+        <h:form>
+            <h:outputLabel for="deleteWarehouseId" rendered="true" value="warehouse ID">
+                <h:inputText id="deleteWarehouseId" required="true" value="#{repositoryManager.itemId}"/>
+            </h:outputLabel>
+
+            <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="删除" action="#{repositoryManager.removeRepository}"/>
+            <p style="color: #ff0000">#{billManager.billInfo}</p>
+        </h:form>
+
+    </div>
+</div>
 </body>
 
 </html>
