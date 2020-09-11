@@ -27,6 +27,26 @@ public class BillManager implements Serializable {
     private String type;
     private Integer billId;
     private List<Bill> allBills;
+    private List<Bill> typeBills;
+
+    public List<Bill> getTypeBills() {
+        return typeBills;
+    }
+
+    public void setTypeBills(String type) {
+        try {
+            boolean value;
+            value = "收入".equals(type);
+            this.typeBills = request.getBillsbyType(value);
+            billInfo = null;
+            if (this.typeBills.isEmpty()) {
+                billInfo = "null";
+            }
+        } catch (Exception e) {
+            billInfo = "null";
+            throw e;
+        }
+    }
 
     public List<Bill> getAllBills() {
         return this.allBills;
@@ -72,14 +92,13 @@ public class BillManager implements Serializable {
         this.billInfo = billInfo;
     }
 
-    public List<Bill> setAllBills() {
+    public void setAllBills() {
         try {
-            List<Bill> bills = request.getAllBills();
+            this.allBills = request.getAllBills();
             billInfo = null;
-            if (bills.isEmpty()) {
+            if (this.allBills.isEmpty()) {
                 billInfo = "null";
             }
-            return bills;
         } catch (Exception e) {
             billInfo = "null";
             throw e;

@@ -52,8 +52,6 @@
             <f:selectItem itemValue="支出" itemLabel="支出"/>
             <f:selectItem itemValue="收入" itemLabel="收入"/>
         </h:selectOneMenu>
-
-        <p>#{billManager.getBillsbyType(billManager.searchKey)}</p>
         <p style="color: #666666;font-size: larger">数目:
             <h:inputText id="Amount" type="text" value="#{billManager.amount}"/>
         </p>
@@ -61,22 +59,6 @@
         <h:commandButton class="button" value="创建" action="#{billManager.createBill(billManager.type,billManager.amount)}"/>
         <p style="color: #ff0000">#{billManager.billInfo}</p>
     </h:form>
-
-
-    </div>
-    <div class="deleteBill">
-        <h:form>
-
-            <h:selectOneMenu value="#{billManager.searchKey}">
-                <f:selectItem itemValue="支出" itemLabel="支出"/>
-                <f:selectItem itemValue="收入" itemLabel="收入"/>
-            </h:selectOneMenu>
-
-            <p>#{billManager.getBillsbyType(billManager.type)}</p>
-            <div style="text-align: center;margin-top: 30px;"></div>
-            <h:commandButton class="button" value="删除" action="#{billManager.removeBill(billManager.billId)}"/>
-            <p style="color: #ff0000">#{billManager.billInfo}</p>
-        </h:form>
 
 
     </div>
@@ -88,22 +70,15 @@
 
         </h:form>
 
-        <table>
-            <tr>
-                <th>订单号</th>
-                <th>时间</th>
-                <th>类型</th>
-                <th>数目</th>
-            </tr>
-            <ui:repeat var="item" value="#{billManager.allBills}">
-                <tr>
-                    <td>#{item.itemId}</td>
-                    <td>#{item.itemDate}</td>
-                    <td>#{item.type}</td>
-                    <td>#{item.amount}</td>
-                </tr>
-            </ui:repeat>
-        </table>
+        <h:dataTable var="bill" value="#{billManager.allBills}" rules="all" cellpadding="5">
+            <h:column>
+                <h:form>
+                    <h:outputText value="#{bill.itemId}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+
     </div>
 
 
@@ -111,32 +86,37 @@
     <h:selectOneMenu value="#{billManager.searchKey}">
         <f:selectItem itemValue="支出" itemLabel="支出"/>
         <f:selectItem itemValue="收入" itemLabel="收入"/>
-
     </h:selectOneMenu>
-
-    <h:inputText id="searchKey" type="text" value="#{repositoryManager.searchKey}"/>
     <h:form>
-        <h:commandButton action="#{billManager.getBillsbyType(billManager.type)}" image="resources/images/search.jpg" class="searchButton"/>
+        <h:commandButton action="#{billManager.setTypeBills(billManager.searchKey)}" image="resources/images/search.jpg" class="searchButton"/>
 
     </h:form>
 
-    <table>
-        <tr>
-            <th>订单号</th>
-            <th>时间</th>
-            <th>种类</th>
-            <th>数目</th>
-        </tr>
-        <ui:repeat var="item" value="#{billManager.getBillsbyType(billManager.type)}">
-            <tr>
-                <td>#{item.itemId}</td>
-                <td>#{item.itemDate}</td>
-                <td>#{item.type}</td>
-                <td>#{item.amount}</td>
-            </tr>
-        </ui:repeat>
+    <h:dataTable var="bill" value="#{billManager.typeBills}" rules="all" cellpadding="5">
+        <h:column>
+            <h:form>
+                <h:outputText value="#{bill.itemId}"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
 
-    </table>
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>订单号</th>-->
+<!--            <th>时间</th>-->
+<!--            <th>种类</th>-->
+<!--            <th>数目</th>-->
+<!--        </tr>-->
+<!--        <ui:repeat var="item" value="#{billManager.typeBills}">-->
+<!--            <tr>-->
+<!--                <td>#{item.itemId}</td>-->
+<!--                <td>#{item.itemDate}</td>-->
+<!--                <td>#{item.type}</td>-->
+<!--                <td>#{item.amount}</td>-->
+<!--            </tr>-->
+<!--        </ui:repeat>-->
+
+<!--    </table>-->
 
 </div>
 
