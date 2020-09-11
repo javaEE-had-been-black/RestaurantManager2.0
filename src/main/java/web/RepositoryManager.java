@@ -26,7 +26,6 @@ public class RepositoryManager implements Serializable {
     private String repositoryInfo;
     private Repository item;
     private String searchKey;
-    private List<Repository> itemsFromType;
     private List<Repository> allItems;
 
     public String getSearchKey() {
@@ -89,9 +88,6 @@ public class RepositoryManager implements Serializable {
         return itemInfo;
     }
 
-    public List<Repository> getItemsFromType() {
-        return itemsFromType;
-    }
 
     /**
      * 根据类型得到仓库条目
@@ -99,18 +95,25 @@ public class RepositoryManager implements Serializable {
      * @param itemType
      * @return
      */
-    public List<Repository> getItemsbyType(String itemType) {
-        try {
-            List<Repository> items = request.getItemsbyType(itemType);
-            if (items.equals(0)) {
+    public void getItemsbyType(String itemType) {
+        if ("全部".equals(itemType)) {
+            try {
+                this.setAllItems();
+                if (this.allItems.isEmpty()) {
+                    itemInfo = "null";
+                }
+            } catch (Exception e) {
                 itemInfo = "null";
-                return null;
             }
-            this.itemsFromType = items;
-            return items;
-        } catch (Exception e) {
-            itemInfo = "获取信息失败，请检查输入是否正确";
-            return null;
+        }else {
+            try {
+                this.allItems = request.getItemsbyType(itemType);
+                if (this.allItems.isEmpty()) {
+                    itemInfo = "null";
+                }
+            } catch (Exception e) {
+                itemInfo = "获取信息失败，请检查输入是否正确";
+            }
         }
     }
 

@@ -77,7 +77,7 @@
             <f:selectItem itemValue="肉类" itemLabel="肉类"/>
             <f:selectItem itemValue="菜类" itemLabel="菜类"/>
         </h:selectOneMenu>
-            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.getsearchKey)}"
+            <h:commandButton action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}"
                              image="resources/images/search.jpg" style="width: 30px;height: 30px" class="searchButton"/>
             <p style="color: #ff0000">#{repositoryManager.itemInfo}</p>
         </h:form>
@@ -89,7 +89,7 @@
                 <th>数量</th>
                 <th>种类</th>
             </tr>
-            <ui:repeat var="item" value="#{repositoryManager.itemsFromType}">
+            <ui:repeat var="item" value="#{repositoryManager.allItems}">
                 <tr>
                     <td>#{item.itemName}</td>
                     <td>#{item.quantity}</td>

@@ -27,24 +27,33 @@ public class BillManager implements Serializable {
     private String type;
     private Integer billId;
     private List<Bill> allBills;
-    private List<Bill> typeBills;
 
-    public List<Bill> getTypeBills() {
-        return typeBills;
-    }
 
-    public void setTypeBills(String type) {
-        try {
-            boolean value;
-            value = "收入".equals(type);
-            this.typeBills = request.getBillsbyType(value);
-            billInfo = null;
-            if (this.typeBills.isEmpty()) {
-                billInfo = "null";
+    public void getBillsbyType(String type) {
+        if("全部".equals(type))
+        {
+            try {
+
+                billInfo=null;
+                if (allBills.isEmpty()) {
+                    billInfo = "null";
+                }
+            }catch (Exception e){
+                billInfo="获取失败";
             }
-        } catch (Exception e) {
-            billInfo = "null";
-            throw e;
+        }else {
+            try {
+                boolean value;
+                value = "收入".equals(type);
+                allBills = request.getBillsbyType(value);
+                billInfo = null;
+                if (allBills.isEmpty()) {
+                    billInfo = "null";
+                }
+            } catch (Exception e) {
+                billInfo = "null";
+                throw e;
+            }
         }
     }
 
@@ -119,28 +128,7 @@ public class BillManager implements Serializable {
         }
     }
 
-    public List<Bill> getBillsbyType(String type) {
-        try {
-            if ("收入".equals(type)) {
-                List<Bill> bills = request.getBillsbyType(true);
-                billInfo = null;
-                if (bills.isEmpty()) {
-                    billInfo = "null";
-                }
-                return bills;
-            } else {
-                List<Bill> bills = request.getBillsbyType(false);
-                billInfo = null;
-                if (bills.isEmpty()) {
-                    billInfo = "null";
-                }
-                return bills;
-            }
-        } catch (Exception e) {
-            billInfo = "null";
-            throw e;
-        }
-    }
+
 
     public Bill getBillbyBillId(Integer billId) {
         try {
