@@ -12,11 +12,9 @@
     <title>主页面</title>
     <!--    从网上导入JQUERY-->
     <h:outputStylesheet library="css" name="test.css"/>
-    <h:outputStylesheet library="css" name="seatManage.css"/>
+    <h:outputStylesheet library="css" name="bill.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-
     <script type="text/javascript">
-
         // 当整个HTML文档加载完成之后再执行次函数
         window.onload = function () {
             //隐藏所有的子标题
@@ -47,13 +45,10 @@
             })
 
         }
-
     </script>
-
 </h:head>
 
 <body>
-
 
 <div class="content">
     <div class="content-top">
@@ -118,40 +113,108 @@
             </div>
             <div class="seg"></div>
         </div>
-
         <div class="content-right">
 
-            <div id="seats-content" class="content">
+            <div class="createBill">
+                <h:form>
 
-                <div id="seatSearch">
-                    <h:form styleClass="searchType">
-                        <h:selectOneMenu value="#{seatManager.searchType}">
-                            <f:selectItem itemValue="桌型" itemLabel="桌型"/>
-                            <f:selectItem itemValue="桌号" itemLabel="桌号"/>
-                        </h:selectOneMenu>
+                    <h:selectOneMenu value="#{billManager.type}">
+                        <f:selectItem itemValue="支出" itemLabel="支出"/>
+                        <f:selectItem itemValue="收入" itemLabel="收入"/>
+                    </h:selectOneMenu>
 
-                        <h:inputText id="searchKey" type="text" value="#{seatManager.searchKey}"/>
-                        <h:commandButton action="#{seatManager.getSeatByType}" image="../resources/images/search.jpg"
-                                         class="searchButton"/>
-                    </h:form>
-                </div>
+                    <h:outputLabel for="Amount" rendered="true" value="金额">
+                        <h:inputText id="Amount" required="true" value="#{billManager.amount}"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel for="Amount" rendered="true" value="备注">
+                        <h:inputText required="true" value="#{billManager.commit}"/>
+                    </h:outputLabel>
+
+                    <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="创建" action="#{billManager.createBill()}"/>
+                    <p style="color: #ff0000">#{billManager.billInfo}</p>
+
+                </h:form>
+
+            </div>
+
+            <div class="deleteBill">
+                <h:form>
+                    <h:outputLabel for="deleteBillId" rendered="true" value="bill ID">
+                        <h:inputText id="deleteBillId" required="true" value="#{billManager.billId}"/>
+                    </h:outputLabel>
+
+                    <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="删除" action="#{billManager.removeBill()}"/>
+                    <p style="color: #ff0000">#{billManager.billInfo}</p>
+
+                </h:form>
+
+            </div>
 
 
-                <div class="seats-container">
+            <div class="findBill">
 
-                    <ui:repeat var="seat" value="#{seatManager.resultSeats}">
-                        <div class="seat-container" id="#{seat.seatId}">
-                            <h:form>
-                                <img src="../resources/images/seat.jpg" style="width: 50px;height: 50px" alt="座位"/><br/>
-                                <h:outputText value="桌号#{seat.seatId}"/><br/>
-                                <h:outputText value="#{seat.capacity}人桌"/><br/>
-                                <h:outputText value="当前状态：#{seat.status}"/>
-                                <a href="order.xhtml?currentID=#{seat.seatId}">查看</a>
-                            </h:form>
-                        </div>
-                    </ui:repeat>
+                <h:form>
+                    <h:selectOneMenu value="#{billManager.searchKey}">
+                        <f:selectItem itemValue="全部" itemLabel="全部"/>
+                        <f:selectItem itemValue="支出" itemLabel="支出"/>
+                        <f:selectItem itemValue="收入" itemLabel="收入"/>
+                    </h:selectOneMenu>
+                    <h:commandButton class="button" value="搜索" image="resources/images/search.jpg" style="width: 30px;height: 30px" action="#{billManager.getBillsbyType(billManager.searchKey)}">
+                    </h:commandButton>
 
-                </div>
+                </h:form>
+
+                <h:dataTable var="bill" value="#{billManager.allBills}" rules="all" cellpadding="5">
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="itemId" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{bill.itemId}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="type" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText  value="#{bill.turnBill()}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="amount" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{bill.amount}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="Date" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{bill.itemDate}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="Commit" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{bill.commit}"/>
+                        </h:form>
+                    </h:column>
+
+
+                </h:dataTable>
+
             </div>
 
         </div>

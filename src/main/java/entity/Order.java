@@ -13,10 +13,6 @@ import java.util.List;
 @NamedQueries(
         {
                 @NamedQuery(
-                        name = "getOrdersbyTime",
-                        query = "SELECT o FROM Order o WHERE o.startTime>:startTime and o.endTime<:endTime "
-                ),
-                @NamedQuery(
                         name = "getOrderbyOrderId",
                         query = "SELECT o FROM Order o WHERE o.orderId=:orderId"
                 ),
@@ -33,8 +29,7 @@ import java.util.List;
 
 public class Order implements Serializable {
     private Integer orderId;
-    private Date startTime;
-    private Date endTime;
+    private Date dateTime;
     private String orderPrice;
     private Integer discount;
     private String comment;
@@ -58,9 +53,8 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Date startTime, Date endTime, String orderPrice, Integer discount, String comment, Seat seat, User user, Customer customer, List<Dish> dishes) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Order(String orderPrice, Integer discount, String comment, Seat seat, User user, Customer customer, List<Dish> dishes) {
+        this.dateTime=new Date();
         this.orderPrice = orderPrice;
         this.discount = discount;
         this.comment = comment;
@@ -107,21 +101,6 @@ public class Order implements Serializable {
     }
 
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 
     public String getOrderPrice() {
         return orderPrice;

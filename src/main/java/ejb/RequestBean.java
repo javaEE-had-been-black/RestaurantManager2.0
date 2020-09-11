@@ -22,35 +22,7 @@ public class RequestBean {
 
     private static final Logger logger = Logger.getLogger("java.ejb.RequestBean");
 
-    public void updateItem(Repository item) {
-        try {
-            em.merge(item);
-        } catch (Exception e) {
-            throw new EJBException(e.getMessage());
-        }
-    }
-    public void updateSeat(Seat seat){
-        try{
-            em.merge(seat);
-        }catch (Exception e){
-            throw new EJBException(e.getMessage());
-        }
-    }
-    public void updateDish(Dish dish){
-        try{
-            em.merge(dish);
-        }catch (Exception e){
-            throw new EJBException(e.getMessage());
-        }
-    }
-    public void updateCustomer(Customer customer){
-        try{
-            em.merge(customer);
-        }catch (Exception e){
-            throw new EJBException(e.getMessage());
-        }
 
-    }
     /**
      * 更新User
      */
@@ -73,6 +45,7 @@ public class RequestBean {
             throw new EJBException(e.getMessage());
         }
     }
+
 
     public void updateSeat(Seat seat) {
         try {
@@ -148,8 +121,6 @@ public class RequestBean {
     }
 
     public void createOrder(
-            Date startTime,
-            Date endTime,
             String orderPrice,
             Integer discount,
             String comment,
@@ -158,7 +129,7 @@ public class RequestBean {
             Customer customer,
             List<Dish> dishes) {
         try {
-            Order order = new Order(startTime, endTime, orderPrice, discount,
+            Order order = new Order(orderPrice, discount,
                     comment, seat, user, customer, dishes
             );
             em.persist(order);

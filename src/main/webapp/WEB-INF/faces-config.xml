@@ -6,27 +6,16 @@
 
 
     <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
+        <from-view-id>/XHTML/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/personIn.xhtml</to-view-id>
+            <to-view-id>/XHTML/myInfo.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>fail</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
+            <to-view-id>/XHTML/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/seatManage.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>fail</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
 </faces-config>

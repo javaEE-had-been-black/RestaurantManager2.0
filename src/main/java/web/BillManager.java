@@ -26,6 +26,11 @@ public class BillManager implements Serializable {
     private String amount;
     private String type;
     private Integer billId;
+
+    public void setCommit(String commit) {
+        this.commit = commit;
+    }
+
     private String commit;
     private List<Bill> allBills;
 
