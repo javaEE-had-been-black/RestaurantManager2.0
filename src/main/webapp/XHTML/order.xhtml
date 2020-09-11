@@ -19,6 +19,40 @@
     <h:outputStylesheet library="css" name="test.css"/>
     <h:outputStylesheet library="css" name="seatManage.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <style type="text/css">
+        #customers
+        {
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:80%;
+            border-collapse:collapse;
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+
+        #customers td, #customers th
+        {
+            font-size:1em;
+            border:1px solid #303342;
+            padding:3px 7px 2px 7px;
+        }
+
+        #customers th
+        {
+            font-size:1.1em;
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color:#303342;
+            color:#ffffff;
+        }
+
+        #customers tr.alt td
+        {
+            color:#000000;
+            background-color:#EAF2D3;
+        }
+    </style>
+
 
     <script type="text/javascript">
 
@@ -191,11 +225,11 @@
                 <div class="left">
                     <div class="typeTap">
                         <h:form>
-                            <h:commandButton class="type-button" value="全部" onclick=""/>
-                            <h:commandButton class="type-button" value="汤类" onclick="hiddenSeat()"/>
-                            <h:commandButton class="type-button" value="炒菜" onclick=""/>
-                            <h:commandButton class="type-button" value="酒水" onclick="hiddenSeat()"/>
-                            <h:commandButton class="type-button" value="其他" onclick="hiddenSeat()"/>
+                            <h:commandButton class="type-button" value="全部" onclick="#{dishManager.searchDish('全部')}"/>
+                            <h:commandButton class="type-button" value="汤类" onclick="#{dishManager.searchDish('汤类')}"/>
+                            <h:commandButton class="type-button" value="炒菜" onclick="#{dishManager.searchDish('炒菜')}"/>
+                            <h:commandButton class="type-button" value="酒水" onclick="#{dishManager.searchDish('酒水')}"/>
+                            <h:commandButton class="type-button" value="其他" onclick="#{dishManager.searchDish('其他')}"/>
                         </h:form>
                     </div>
 
@@ -223,7 +257,7 @@
                     <p>桌位号#{seatManager.currentSeatId}</p>
 
                     <!--        提供一个可操作的删除的按钮，多一列-->
-                    <table class="ordered">
+                    <table class="ordered" id="customers">
                         <tr>
                             <th>菜名</th>
                             <th>单价</th>

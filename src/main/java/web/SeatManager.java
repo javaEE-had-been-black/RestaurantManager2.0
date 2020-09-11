@@ -216,8 +216,9 @@ public class SeatManager implements Serializable {
 
 
     public List<Seat> getResultSeats() {
-
-
+        if(resultSeats==null){
+            resultSeats=getAllSeats();
+        }
         return resultSeats;
     }
 

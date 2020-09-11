@@ -31,7 +31,6 @@ public class DishManager implements Serializable {
     private String dishType;
     private String logInfo;
     private List<Dish> resultDish;
-    //= requestBean.getAllDishes();
 
     public String createDish() {
         try {
@@ -70,22 +69,43 @@ public class DishManager implements Serializable {
         }
     }
 
-    public String searchDish() {
+
+    public void searchDish(String searchType){
+        this.searchDish("",searchType);
+        return;
+    }
+
+    public void searchDish(){
+        this.searchDish(this.dishName,this.dishType);
+        return;
+    }
+
+    public void searchDish(String dishName,String dishType) {
         try {
-            if ("全部".equals(dishType)) {
-                Dish dish = requestBean.getDishbyName(dishName);
-                if (resultDish == null) {
-                    resultDish = new LinkedList<>();
+            if(dishName==null||dishName==""){
+                if(dishType.equals("全部")) {
+                    resultDish=requestBean.getAllDishes();
                 }
-                resultDish.add(dish);
-            } else {
-                resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
+                else {
+                    resultDish = requestBean.getDishesbyType(dishType);
+                }
+            }else {
+                if ("全部".equals(dishType)) {
+                    Dish dish = requestBean.getDishbyName(dishName);
+                    if (resultDish == null) {
+                        resultDish = new LinkedList<>();
+                    }
+                    resultDish.add(dish);
+                } else {
+                    resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
+                }
             }
+            dishName="";
             logInfo = "";
-            return "success";
+            return;
         } catch (Exception e) {
             logInfo = "搜索菜品信息失败";
-            return "fail";
+            return;
         }
     }
 

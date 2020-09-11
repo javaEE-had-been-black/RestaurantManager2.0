@@ -44,7 +44,13 @@ public class CustomerManager implements Serializable {
 
     private List<Customer> resultCustomer;
 
+
     public List<Customer> getResultCustomer() {
+
+        if(resultCustomer==null){
+            resultCustomer=request.getAllCustomers();
+        }
+
         return resultCustomer;
     }
 

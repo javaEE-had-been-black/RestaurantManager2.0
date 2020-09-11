@@ -13,6 +13,40 @@
     <!--    从网上导入JQUERY-->
     <h:outputStylesheet library="css" name="test.css"/>
     <h:outputStylesheet library="css" name="personnelManage.css"/>
+    <style type="text/css">
+        #customers
+        {
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:80%;
+            border-collapse:collapse;
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+
+        #customers td, #customers th
+        {
+            font-size:1em;
+            border:1px solid #303342;
+            padding:3px 7px 2px 7px;
+        }
+
+        #customers th
+        {
+            font-size:1.1em;
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color:#303342;
+            color:#ffffff;
+        }
+
+        #customers tr.alt td
+        {
+            color:#000000;
+            background-color:#EAF2D3;
+        }
+    </style>
+
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript">
 
@@ -147,11 +181,11 @@
                         <h:inputText type="text" value="#{restaurantManager.newUserName}"/>
                     </p>
 
-                    <p style="color: #666666;font-size: larger">密碼:
+                    <p style="color: #666666;font-size: larger">密码:
                         <h:inputText type="text" value="#{restaurantManager.newPassword}"/>
                     </p>
 
-                    <p style="color: #666666;font-size: larger">職位:
+                    <p style="color: #666666;font-size: larger">职位:
                         <h:inputText type="text" value="#{restaurantManager.newPosition}"/>
                     </p>
 
@@ -167,7 +201,7 @@
 
             <div id="change-personnel" style="display: none" class="create-personnel">
                 <h:form>
-                    <p style="color: #666666;font-size: larger">手機號:
+                    <p style="color: #666666;font-size: larger">手机号:
                         <h:inputText type="text" value="#{restaurantManager.currentUser.telNumber}"/>
                     </p>
 
@@ -179,7 +213,7 @@
                         <h:inputText type="text" value="#{restaurantManager.currentUser.password}"/>
                     </p>
 
-                    <p style="color: #666666;font-size: larger">職位:
+                    <p style="color: #666666;font-size: larger">职位:
                         <h:inputText type="text" value="#{restaurantManager.currentUser.position}"/>
                     </p>
 
@@ -188,17 +222,25 @@
                     </p>
                     <div style="text-align: center;margin-top: 30px;"></div>
                     <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()"
-                                     action="#{seatManager.createSeat}"/>
+                                     action="#{restaurantManager.getUserbyTelNumber}"/>
                     <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
                 </h:form>
             </div>
 
                 <div class="searchPersonnel">
-                    <input type="text"/>
-                    <img src="../resources/images/search.jpg" style="width: 30px;height: 30px" alt="搜索"/>
-                    <input type="button"  onclick="showAddPeronnel()" value="添加員工"/>
 
-                    <table>
+                    <div class="vipInput">
+                        <h:form>
+                            <h:inputText id="searchKey" type="text" value="#{restaurantManager.userSearchKey}}"/>
+                            <h:commandButton action="#{restaurantManager.getUserbyTelNumber()}"
+                                             image="../resources/images/search.jpg" class="searchButton"/>
+                            <input type="button" onclick="showAddPeronnel()" value="添加员工"/>
+                        </h:form>
+                    </div>
+
+                    <img src="../resources/images/search.jpg" style="width: 30px;height: 30px" alt="搜索"/>
+
+                    <table id="customers">
                         <tr>
                             <th>手机号（账号）</th>
                             <th>姓名</th>
@@ -208,7 +250,7 @@
                             <th>操作</th>
                         </tr>
 
-                        <ui:repeat var="user" value="#{restaurantManager.getAllUsers()}">
+                        <ui:repeat var="user" value="#{restaurantManager.userResult}">
                             <tr>
                                 <td>#{user.telNumber}</td>
                                 <td>#{user.userName}</td>

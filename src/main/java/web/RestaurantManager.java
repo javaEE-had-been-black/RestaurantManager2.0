@@ -242,6 +242,11 @@ public class RestaurantManager implements Serializable {
         }
     }
 
+
+
+
+
+
     /**
      * 管理员修改
      *
@@ -327,6 +332,36 @@ public class RestaurantManager implements Serializable {
             throw e;
         }
     }
+
+
+    private String userSearchKey;
+
+    public String getUserSearchKey() {
+        return userSearchKey;
+    }
+
+    public void setUserSearchKey(String userSearchKey) {
+        this.userSearchKey = userSearchKey;
+    }
+
+    public void getUserbyTelNumber(){
+        userResult.clear();
+        userResult.add(request.getUserbyTel(userSearchKey));
+    }
+
+    public List<User> getUserResult() {
+        if(userResult==null){
+            userResult=request.getAllUsers();
+        }
+        return userResult;
+    }
+
+    public void setUserResult(List<User> userResult) {
+        this.userResult = userResult;
+    }
+
+    private List<User> userResult;
+
 
     public List<User> getAllUsers() {
         try {
