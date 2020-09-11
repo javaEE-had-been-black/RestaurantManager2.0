@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author zhang
  */
 @Entity
-@Table(name = "RSTAURANT_REPOSITORY")
+@Table(name = "RESTAURANT_REPOSITORY")
 @NamedQueries({
         @NamedQuery(
                 name = "getItemsbyName",
@@ -16,6 +16,10 @@ import java.io.Serializable;
         @NamedQuery(
                 name = "getAllItems",
                 query = "SELECT r FROM Repository r"
+        ),
+        @NamedQuery(
+                name="getItemsbyType",
+                query = "SELECT r FROM Repository r WHERE r.type=:type"
         )
 
 })
@@ -69,6 +73,7 @@ public class Repository implements Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getItemId() {
         return itemId;
     }

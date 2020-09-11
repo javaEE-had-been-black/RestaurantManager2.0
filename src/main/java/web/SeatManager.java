@@ -195,16 +195,18 @@ public class SeatManager implements Serializable {
         }
     }
 
+    private String changeInfo;
     public void changeSeat() {
         Seat seat = request.getSeatbySeatId(searchKey);
         if (request.getSeatbySeatId(newSeatId) != null) {
-            logInfo = "该id已存在";
+            changeInfo = "该id已存在";
             return;
         }
         seat.setSeatId(seatId);
         seat.setCapacity(newCapacity);
         seat.setStatus(newStatus);
         seat.setPrivate(newIsPrivate);
+        request.updateSeat(seat);
     }
 
     public void changeSeatStatus() {

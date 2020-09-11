@@ -28,13 +28,108 @@ public class RestaurantManager implements Serializable {
     private String position;
     private String userName;
     private String salary;
-    private Date startTime;
     private List<Dish> dishes;
     private String logInfo;
+    private String discount;
+    private String newUserId;
+    private String newUserName;
+    private String newPassword;
+    private String newPosition;
+    private String newTelNumber;
+    private String newSalary;
+    private String customerTelNumber;
+    private User currentUser;
+    private String comment;
+    private String dishInfo;
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String currentUserId;
+    private List<Dish> allDishes;
+
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    //獲取指定用戶的用戶信息
+    public void setCurrentUser(String userId) {
+        currentUser = request.getUserbyUserId(userId);
+    }
 
     public RestaurantManager() {
     }
 
+
+
+    public void setCustomerTelNumber(String customerTelNumber) {
+        this.customerTelNumber = customerTelNumber;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getNewUserId() {
+        return newUserId;
+    }
+
+    public void setNewUserId(String newUserId) {
+        this.newUserId = newUserId;
+    }
+
+    public String getNewUserName() {
+        return newUserName;
+    }
+
+    public void setNewUserName(String newUserName) {
+        this.newUserName = newUserName;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getNewPosition() {
+        return newPosition;
+    }
+
+    public void setNewPosition(String newPosition) {
+        this.newPosition = newPosition;
+    }
+
+    public String getNewTelNumber() {
+        return newTelNumber;
+    }
+
+    public void setNewTelNumber(String newTelNumber) {
+        this.newTelNumber = newTelNumber;
+    }
+
+    public String getNewSalary() {
+        return newSalary;
+    }
+
+    public void setNewSalary(String newSalary) {
+        this.newSalary = newSalary;
+    }
 
     public String getLogInfo() {
         return logInfo;
@@ -112,7 +207,6 @@ public class RestaurantManager implements Serializable {
 
     public User getUser(String userId) {
         try {
-
             return request.getUserbyUserId(userId);
         } catch (EJBException e) {
             throw e;
@@ -122,14 +216,9 @@ public class RestaurantManager implements Serializable {
     /**
      * 添加user
      */
-    public void createUser(String userId,
-                           String userName,
-                           String password,
-                           String position,
-                           String telNumber,
-                           String salary) {
+    public void createUser() {
         try {
-            request.createUser(userId, userName, password, position, telNumber, salary);
+            request.createUser(newTelNumber, newUserName, newPassword, newPosition, newTelNumber, newSalary);
         } catch (Exception e) {
             logger.warning("Create User Failed,the reason is" + e.getMessage());
             throw e;
@@ -139,14 +228,25 @@ public class RestaurantManager implements Serializable {
     /**
      * 删除user
      */
-    public void removeUser() {
+    public void removeUser(String currentUserId) {
         try {
-            request.removeUser(userId);
+            request.removeUser(currentUserId);
         } catch (Exception e) {
             logger.warning("Remove User Failed,the reason is" + e.toString());
         }
     }
 
+    /**
+     * 管理员修改
+     *
+     * @param userId
+     * @param userName
+     * @param password
+     * @param position
+     * @param telNumber
+     * @param salary
+     * @return
+     */
     public String updateUserInfo(String userId,
                                  String userName,
                                  String password,
@@ -159,59 +259,13 @@ public class RestaurantManager implements Serializable {
         user.setPosition(position);
         user.setTelNumber(telNumber);
         user.setSalary(salary);
+        request.updateUser(user);
         return "success";
     }
 
-    /**
-     * @param
-     * @return 是否运行登录
-     */
-    public String login() {
-        try {
 
-            if (userId == null || password == null) {
-                logInfo = "请输入账号或密码";
-                return "fail";
-            } else if (request.getUserbyUserId(userId).getUserId() == null) {
-                logInfo = "账号不存在";
-                return "fail";
-            } else if (password.equals(request.getUserbyUserId(userId).getPassword())) {
-                User user = request.getUserbyUserId(userId);
-                userId = user.getUserId();
-                userName = user.getUserName();
-                password = user.getPassword();
-                position = user.getPosition();
-                salary = user.getSalary();
-                logInfo = "";
-                return "success";
-            } else {
-                logInfo = "密码错误或账号不存在";
-                return "fail";
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return "fail";
-        }
-    }
     //获取user信息
 
-    /*
-     * Repository
-     */
-
-    /**
-     * 获取仓库所有item实体
-     *
-     * @return 仓库中所有实体的List
-     */
-    public List<Repository> getAllItems() {
-        try {
-            return request.getAllItems();
-        } catch (Exception e) {
-            logger.warning("Create User Failed,the reason is" + e.getMessage());
-            throw e;
-        }
-    }
 
     /**
      * Order
@@ -236,12 +290,16 @@ public class RestaurantManager implements Serializable {
     }
 
 
-    public List<Dish> getAllDishes() {
+    public void setAllDishes() {
         try {
-            return request.getAllDishes();
+            this.allDishes = request.getAllDishes();
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public List<Dish> getAllDishes() {
+        return allDishes;
     }
 
     /**
@@ -258,7 +316,7 @@ public class RestaurantManager implements Serializable {
 
     public List<String> getOrdersbyDish(String dishId) {
         try {
-            return request.getOrdersbyDish(dishId);
+            return request.getOrdersbyDish(Integer.parseInt(dishId));
         } catch (EJBException e) {
             throw e;
         }
@@ -287,7 +345,7 @@ public class RestaurantManager implements Serializable {
 
     public List<Bill> getBillbyType(boolean type) {
         try {
-            return request.getBillbyType(type);
+            return request.getBillsbyType(type);
         } catch (Exception e) {
             throw e;
         }
@@ -300,46 +358,51 @@ public class RestaurantManager implements Serializable {
             throw e;
         }
     }
-
-    /**
-     * Repository
-     */
-    public List<Repository> getItemsbyName(String itemName) {
-        try {
-            return request.getItemsbyName(itemName);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
 //---------------点餐-------------
 
-    /**
-     * 开始点餐
-     */
-    void startOrder() {
-//        SimpleDateFormat sdf = new SimpleDateFormat();
-//        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-        this.startTime = new Date();
-    }
 
     /**
      * 返回所有以点菜品
      */
-    List<Dish> getAllDishesNow() {
+    public List<Dish> getAllDishesNow() {
         return dishes;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public String getCustomerTelNumber() {
+        return customerTelNumber;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Integer getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public String getCurrentDish() {
+        return currentDish;
+    }
+
+    public String getDiscount() {
+        return discount;
     }
 
     /**
      * 添加菜品
      */
-    void addDishes(Dish dish) {
+    public void addDishes(Dish dish) {
         dishes.add(dish);
     }
 
     /**
      * 删除菜品
      */
-    void removeDish(Dish dish) {
+    public void removeDish(Dish dish) {
         for (int i = this.dishes.size() - 1; i >= 0; i--) {
             Dish item = this.dishes.get(i);
             if (dish.equals(item)) {
@@ -348,29 +411,43 @@ public class RestaurantManager implements Serializable {
         }
     }
 
+    public String getDishInfo() {
+        return dishInfo;
+    }
+
+    public void setDishInfo(String dishInfo) {
+        this.dishInfo = dishInfo;
+    }
+
     /**
      * 创建订单
      */
-    String newOrder(Integer discount, String comment, String seatId, String userId, String customerTelNumber) {
+    public void newOrder(String seatId, String userId) {
 //        SimpleDateFormat sdf = new SimpleDateFormat();
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-        Date endTime = new Date();
         int orderPrice = 0;
-        for (Dish dish : this.dishes) {
-            orderPrice += Integer.parseInt(dish.getDishPrice());
+        String status;
+        if(this.dishes!=null){
+            for (int i =this.dishes.size()-1;i>0;i--) {
+                orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
+            }
+            try {
+                Seat seat = request.getSeatbySeatId(seatId);
+                User user = request.getUserbyUserId(userId);
+                Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
+                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishes);
+                this.dishes.clear();
+            } catch (Exception e) {
+                Seat seat = request.getSeatbySeatId(seatId);
+                User user = request.getUserbyUserId(userId);
+                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
+                throw e;
+            }
         }
-        try {
-            Seat seat = request.getSeatbySeatId(seatId);
-            User user = request.getUserbyUserId(userId);
-            Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
-            request.createOrder(this.startTime, endTime, String.valueOf(orderPrice), discount, comment, seat, user, customer, dishes);
-            this.startTime = null;
-            this.dishes.clear();
-            return "success";
-        } catch (Exception e) {
-            logger.warning("Problem in create new Order.");
-            return "fail";
+        else{
+            this.dishInfo="未添加菜品";
         }
+
     }
 //-------------------------------
 }

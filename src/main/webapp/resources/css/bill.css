@@ -29,6 +29,27 @@ body {
     margin-right: 20px;
 }
 
+.billType{
+    display: flex;
+    flex-direction: column;
+
+}
+.createBill
+{
+    display: flex;
+    flex-direction: column;
+
+}
+.deleteBill{
+    display: flex;
+    flex-direction: column;
+}
+
+.findBill{
+    display: flex;
+    flex-direction: column;
+}
+
 
 
 .button {
@@ -43,7 +64,7 @@ body {
     style: text-align;
 }
 .buttonSave{
-     color: slategrey ;
+    color: slategrey ;
     text-align: center;
     font-size:28px;
     margin-left:300px;

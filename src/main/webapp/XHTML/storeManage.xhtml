@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <meta content="UTF-8"/>
+    <title>主页面</title>
+    <!--    从网上导入JQUERY-->
+    <h:outputStylesheet library="css" name="test.css"/>
+    <h:outputStylesheet library="css" name="warehouseManage.css"/>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript">
+        // 当整个HTML文档加载完成之后再执行次函数
+        window.onload = function () {
+            //隐藏所有的子标题
+            $(".nav-menu").each(function () {
+                $(this).children(".nav-content").hide();
+            })
+
+            // 给所有的菜单项的主标题添加绑定事件
+            $(".nav-title").each(function () {
+                $(this).click(function () {
+                    // 当我点击主标题时，其子标题展示出来
+                    //获取当前子标题
+                    var navConEle = $(this).parents(".nav-menu").children(".nav-content")
+                    //判断navConEle的display属性值是否为none
+                    if (navConEle.css("display") != "none") {
+                        // 隐藏
+                        navConEle.hide(500);
+                    } else {
+                        var navEle = navConEle.parents(".nav-menu");
+                        var menuEles = navEle.siblings();
+                        $(menuEles).each(function () {
+                            $(this).children(".nav-content").hide();
+                        });
+
+                        navConEle.show(500);
+                    }
+                })
+            })
+
+        }
+    </script>
+</h:head>
+
+<body>
+
+<div class="content">
+    <div class="content-top">
+        <div class="title">
+            <a class="identifier" href="#">云客餐饮管理系统</a>
+        </div>
+        <h:form>
+            <h:commandButton styleClass="logout" value="logout" action="login"/>
+        </h:form>
+    </div>
+    <div>
+        <div class="content-left">
+
+            <div class="nav">
+                <!--                每一个菜单栏项-->
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="myInfo.xhtml">
+                            个人中心
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="orderDish.xhtml">
+                            点餐
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="#">
+                            日常管理
+                        </a>
+                    </div>
+                    <div class="nav-content">
+                        <div class="nav-content-a">
+                            <a href="seatManage.xhtml">餐桌管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="staffManage.xhtml">员工管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="storeManage.xhtml">仓库管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="customerManage.xhtml">顾客管理</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="dataManage.xhtml">
+                            餐馆报表
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="seg"></div>
+        </div>
+        <div class="content-right">
+
+            <div class="warehouseSearch">
+
+                <h:form>
+                    <h:selectOneMenu value="#{repositoryManager.searchKey}">
+                        <f:selectItem itemValue="全部" itemLabel="全部"/>
+                        <f:selectItem itemValue="肉类" itemLabel="肉类"/>
+                        <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+                    </h:selectOneMenu>
+                    <h:commandButton class="button" value="搜索" image="resources/images/search.jpg" style="width: 30px;height: 30px" action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}">
+                    </h:commandButton>
+
+                </h:form>
+
+                <h:dataTable var="Item" value="#{repositoryManager.allItems}" rules="all" cellpadding="5">
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="账号" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{Item.itemId}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="类型" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText  value="#{Item.type}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="数量" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{Item.quantity}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="名称" />
+                        </f:facet>
+                        <h:form>
+                            <h:outputText value="#{Item.itemName}"/>
+                        </h:form>
+                    </h:column>
+
+
+                </h:dataTable>
+            </div>
+
+
+            <div class="warehouseDelete">
+                <h:form>
+                    <h:outputLabel for="deleteWarehouseId" rendered="true" value="warehouse ID">
+                        <h:inputText id="deleteWarehouseId" required="true" value="#{repositoryManager.itemId}"/>
+                    </h:outputLabel>
+
+                    <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="删除" action="#{repositoryManager.removeRepository}"/>
+                    <p style="color: #ff0000">#{billManager.billInfo}</p>
+                </h:form>
+
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

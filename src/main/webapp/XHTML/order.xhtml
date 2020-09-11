@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <meta content="UTF-8"/>
+
+    <f:metadata>
+        <f:viewParam required="true" name="currentID" value="#{seatManager.currentSeatId}"/>
+    </f:metadata>
+
+    <title>主页面</title>
+    <!--    从网上导入JQUERY-->
+    <h:outputStylesheet library="css" name="test.css"/>
+    <h:outputStylesheet library="css" name="seatManage.css"/>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+    <script type="text/javascript">
+
+        var seatId;
+
+        function changeStatus() {
+            $.ajax({
+                type: "post",
+                url: "../seatServlet",
+                data: {
+                    "seatId": seatId,
+                    "method": "changeStatus",
+                    async: true
+                },
+                success: function (data) {
+                    show();
+                }
+            });
+        }
+
+        function show() {
+            $.ajax({
+                type: "post",
+                url: "../seatServlet",
+                data: {
+                    "seatId": seatId,
+                    "method": "status",
+                    async: true
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data == "0") {
+                        //空闲
+                        var t1 = document.getElementById("start");
+                        t1.style.display = "block";
+                        var t2 = document.getElementById("order");
+                        t2.style.display = "none";
+                    } else {
+                        //直接跳到点餐
+                        var t1 = document.getElementById("start");
+                        t1.style.display = "none";
+                        var t2 = document.getElementById("order");
+                        t2.style.display = "block";
+                    }
+                }
+            });
+        }
+
+        // 当整个HTML文档加载完成之后再执行次函数
+        window.onload = function () {
+            seatId = document.getElementById("test").getAttribute("value");
+            show();
+            //隐藏所有的子标题
+            $(".nav-menu").each(function () {
+                $(this).children(".nav-content").hide();
+            })
+
+            // 给所有的菜单项的主标题添加绑定事件
+            $(".nav-title").each(function () {
+                $(this).click(function () {
+                    // 当我点击主标题时，其子标题展示出来
+                    //获取当前子标题
+                    var navConEle = $(this).parents(".nav-menu").children(".nav-content")
+                    //判断navConEle的display属性值是否为none
+                    if (navConEle.css("display") != "none") {
+                        // 隐藏
+                        navConEle.hide(500);
+                    } else {
+                        var navEle = navConEle.parents(".nav-menu");
+                        var menuEles = navEle.siblings();
+                        $(menuEles).each(function () {
+                            $(this).children(".nav-content").hide();
+                        });
+
+                        navConEle.show(500);
+                    }
+                })
+            })
+
+        }
+
+    </script>
+
+</h:head>
+
+<body>
+
+
+<div class="content">
+    <input id="test" style="display: none" value="#{seatManager.currentSeatId}"/>
+    <div class="content-top">
+        <div class="title">
+            <a class="identifier" href="#">云客餐饮管理系统</a>
+        </div>
+        <h:form>
+            <h:commandButton styleClass="logout" value="logout" action="login"/>
+        </h:form>
+    </div>
+    <div>
+        <div class="content-left">
+
+            <div class="nav">
+                <!--                每一个菜单栏项-->
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="myInfo.xhtml">
+                            个人中心
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="orderDish.xhtml">
+                            点餐
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="#">
+                            日常管理
+                        </a>
+                    </div>
+                    <div class="nav-content">
+                        <div class="nav-content-a">
+                            <a href="seatManage.xhtml">餐桌管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="staffManage.xhtml">员工管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="storeManage.xhtml">仓库管理</a>
+                        </div>
+                        <div class="nav-content-a">
+                            <a href="customerManage.xhtml">顾客管理</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-title">
+                        <a href="dataManage.xhtml">
+                            餐馆报表
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="seg"></div>
+        </div>
+
+        <div class="content-right">
+
+            <div id="start" style="display: none">
+                <h:form>
+                    <p style="color: #666666;font-size: larger" id="show-info">
+                        当前桌号：#{seatManager.currentSeatId}
+                    </p>
+                    <h:commandButton class="operation-button" value="开桌" onclick="changeStatus()">
+                    </h:commandButton>
+                    <h:commandButton class="operation-button" value="取消" action="orderDish"/>
+                </h:form>
+            </div>
+
+            <div id="order" style="display: none">
+                <div class="left">
+                    <div class="typeTap">
+                        <h:form>
+                            <h:commandButton class="type-button" value="全部" onclick=""/>
+                            <h:commandButton class="type-button" value="汤类" onclick="hiddenSeat()"/>
+                            <h:commandButton class="type-button" value="炒菜" onclick=""/>
+                            <h:commandButton class="type-button" value="酒水" onclick="hiddenSeat()"/>
+                            <h:commandButton class="type-button" value="其他" onclick="hiddenSeat()"/>
+                        </h:form>
+                    </div>
+
+                    <div class="dishes-container">
+                        <ui:repeat var="dish" value="#{restaurantManager.allDishes}">
+                            <div class="dish-container">
+                                <img src="#{dish.imageUrl}" style="width: 100px;height: 100px;border:2px solid grey"
+                                     alt="菜品图片"/>
+                                <p>
+                                    #{dish.dishName}<br/>
+                                    价格:￥#{dish.dishPrice}
+                                </p>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <p>桌位号#{seatManager.currentSeatId}</p>
+
+                    <!--        提供一个可操作的删除的按钮，多一列-->
+                    <table class="ordered">
+                        <tr>
+                            <th>菜名</th>
+                            <th>单价</th>
+                            <th>数目</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <ui:repeat var="dish" value="#{restaurantManager.dishes}">
+                            <h:form>
+                                <tr>
+                                    <td>#{dish.dishName}</td>
+                                    <td>#{dish.dishPrice}</td>
+                                    <td>1</td>
+                                    <h:commandButton value="删除" onclick="#{restaurantManager.removeDish(dish)}"/>
+                                </tr>
+                            </h:form>
+                        </ui:repeat>
+                    </table>
+
+
+                    <h:form>
+                        <h:selectOneMenu id="discountMenu" required="true" value="#{restaurantManager.discount}">
+                            <f:selectItem itemValue="0" itemLabel="0 %"/>
+                            <f:selectItem itemValue="5" itemLabel="5 %"/>
+                            <f:selectItem itemValue="10" itemLabel="10 %"/>
+                            <f:selectItem itemValue="15" itemLabel="15 %"/>
+                            <f:selectItem itemValue="20" itemLabel="20 %"/>
+                            <f:selectItem itemValue="25" itemLabel="25 %"/>
+                            <f:selectItem itemValue="30" itemLabel="30 %"/>
+                            <f:selectItem itemValue="35" itemLabel="35 %"/>
+                            <f:selectItem itemValue="40" itemLabel="40 %"/>
+                        </h:selectOneMenu><br/>
+                        <h:inputText value="#{restaurantManager.comment}"/>
+                        <h:inputText value="#{restaurantManager.customerTelNumber}"/>
+                        <h:commandButton value="提交"
+                                         onclick="#{restaurantManager.newOrder(seatManager.seatId,personManager.userId)}"/>
+                        <h:commandButton class="operation-button" value="返回"/>
+                    </h:form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

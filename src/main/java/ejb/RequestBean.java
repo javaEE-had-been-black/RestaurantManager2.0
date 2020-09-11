@@ -22,6 +22,56 @@ public class RequestBean {
 
     private static final Logger logger = Logger.getLogger("java.ejb.RequestBean");
 
+
+    /**
+     * 更新User
+     */
+    public void updateUser(User user) {
+        try {
+            em.merge(user);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    /**
+     * 更新仓库item
+     */
+
+    public void updateItem(Repository item) {
+        try {
+            em.merge(item);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+
+    public void updateSeat(Seat seat) {
+        try {
+            em.merge(seat);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    public void updateDish(Dish dish) {
+        try {
+            em.merge(dish);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    public void updateCustomer(Customer customer) {
+        try {
+            em.merge(customer);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+
+    }
+
     /**
      * Creator
      */
@@ -57,7 +107,7 @@ public class RequestBean {
         }
     }
 
-    public void createDish(String dishId,
+    public void createDish(Integer dishId,
                            String dishName,
                            String dishPrice,
                            String imageUrl,
@@ -71,8 +121,6 @@ public class RequestBean {
     }
 
     public void createOrder(
-            Date startTime,
-            Date endTime,
             String orderPrice,
             Integer discount,
             String comment,
@@ -81,7 +129,7 @@ public class RequestBean {
             Customer customer,
             List<Dish> dishes) {
         try {
-            Order order = new Order(startTime, endTime, orderPrice, discount,
+            Order order = new Order(orderPrice, discount,
                     comment, seat, user, customer, dishes
             );
             em.persist(order);
@@ -91,21 +139,21 @@ public class RequestBean {
     }
 
     public void createCustomer(String telNumber,
-                               String customerName) {
+                               String customerName, Integer points) {
         try {
-            Customer customer = new Customer(telNumber, customerName);
+            Customer customer = new Customer(telNumber, customerName, points);
             em.persist(customer);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
     }
 
-    public void createBill(Integer itemId,
-                           Date itemDate,
-                           boolean type,
-                           String amount) {
+    public void createBill(
+            boolean type,
+            String amount,
+            String commit) {
         try {
-            Bill bill = new Bill(itemId, itemDate, type, amount);
+            Bill bill = new Bill(type, amount, commit);
             em.persist(bill);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
@@ -145,7 +193,7 @@ public class RequestBean {
         }
     }
 
-    public void removeDish(String dishId) {
+    public void removeDish(Integer dishId) {
         try {
             Dish dish = em.find(Dish.class, dishId);
             em.remove(dish);
@@ -328,7 +376,7 @@ public class RequestBean {
         }
     }
 
-    public Dish getDishbyId(String dishId) {
+    public Dish getDishbyId(Integer dishId) {
         try {
             return (Dish) em.createNamedQuery("getDishbyId")
                     .getSingleResult();
@@ -356,6 +404,27 @@ public class RequestBean {
         }
     }
 
+    public List<Dish> getDishesbyDishNameandType(String dishName, String type) {
+        try {
+            return em.createNamedQuery("getDishesbyDishNameandType")
+                    .setParameter("dishName", dishName)
+                    .setParameter("type", type)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    public Dish getDishbyName(String dishName) {
+        try {
+            return (Dish) em.createNamedQuery("getDishbyName")
+                    .setParameter("dishName", dishName)
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
     /**
      * Order
      */
@@ -370,7 +439,7 @@ public class RequestBean {
         }
     }
 
-    public List<String> getOrdersbyDish(String dishId) {
+    public List<String> getOrdersbyDish(Integer dishId) {
         try {
             return em.createNamedQuery("getOrdersbyDish")
                     .setParameter("dishId", dishId)
@@ -415,7 +484,8 @@ public class RequestBean {
     public Customer getCustomerbyTelNumber(String telNumber) {
         try {
             return (Customer) em.createNamedQuery("getCustomerbyTelNumber")
-                    .setParameter("telNumber", telNumber);
+                    .setParameter("telNumber", telNumber)
+                    .getSingleResult();
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
@@ -473,7 +543,7 @@ public class RequestBean {
         }
     }
 
-    public List<Bill> getBillbyType(boolean type) {
+    public List<Bill> getBillsbyType(boolean type) {
         try {
             return em.createNamedQuery("getBillsbyType")
                     .setParameter("type", type)
@@ -515,6 +585,20 @@ public class RequestBean {
         }
     }
 
+    /**
+     * 根据类型得到仓库条目
+     */
+
+    public List<Repository> getItemsbyType(String type) {
+        try {
+            return em.createNamedQuery("getItemsbyType")
+                    .setParameter("type", type)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
     public List<Repository> getAllItems() {
         try {
             return em.createNamedQuery("getAllItems")
@@ -523,4 +607,5 @@ public class RequestBean {
             throw new EJBException(e.getMessage());
         }
     }
+
 }

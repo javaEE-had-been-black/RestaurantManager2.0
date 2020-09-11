@@ -7,6 +7,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/loginCL.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/main.xhtml" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/seatManage.xhtml" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/test/order.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/test" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/test/orderDish.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/test" />
       </map>
     </option>
   </component>

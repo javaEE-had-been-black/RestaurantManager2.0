@@ -29,16 +29,54 @@ body {
     margin-right: 20px;
 }
 
-
-.choice p {
-    color: #666666;
-    size: 30px;
-
-}
-
-
-.warehousesType {
+.warehouseManage
+{
     display: flex;
-    flex-direction: row;
-    padding-right: 20px;
+    flex-direction: column;
 }
+
+
+
+.warehouseSearch
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.warehouseAll
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.warehouseDelete
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    border-color: cornsilk;
+    background-color: rgba(100, 149, 237, .7);
+    color: whitesmoke;
+    border-style: groove;
+    border-radius: 10px;
+    width: 180px;
+    height: 55px;
+    font-size: 32px;
+    style: text-align;
+}
+.buttonRepository{
+    border-color: cornsilk;
+    background-color: rgba(100, 149, 237, .7);
+    margin-left:200px ;
+    color: whitesmoke;
+    border-style: groove;
+    border-radius: 10px;
+    width: 180px;
+    height: 55px;
+    font-size: 32px;
+    style: text-align;
+}
+
