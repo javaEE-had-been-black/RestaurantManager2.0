@@ -48,79 +48,91 @@
     <div class="createBill">
     <h:form>
 
-        <h:selectOneMenu value="#{billManager.searchKey}">
+        <h:selectOneMenu value="#{billManager.type}">
             <f:selectItem itemValue="支出" itemLabel="支出"/>
             <f:selectItem itemValue="收入" itemLabel="收入"/>
         </h:selectOneMenu>
-        <p style="color: #666666;font-size: larger">数目:
-            <h:inputText id="Amount" type="text" value="#{billManager.amount}"/>
-        </p>
-        <div style="text-align: center;margin-top: 30px;"></div>
-        <h:commandButton class="button" value="创建" action="#{billManager.createBill(billManager.type,billManager.amount)}"/>
+
+        <h:outputLabel for="Amount" rendered="true" value="数目">
+            <h:inputText id="Amount" required="true" value="#{billManager.amount}"/>
+        </h:outputLabel>
+
+        <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="创建" action="#{billManager.createBill()}"/>
         <p style="color: #ff0000">#{billManager.billInfo}</p>
+
     </h:form>
 
+    </div>
+
+    <div class="deleteBill">
+        <h:form>
+            <h:outputLabel for="deleteBillId" rendered="true" value="Order ID">
+                <h:inputText id="deleteBillId" required="true" value="#{billManager.billId}"/>
+            </h:outputLabel>
+
+            <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="删除" action="#{billManager.removeBill()}"/>
+            <p style="color: #ff0000">#{billManager.billInfo}</p>
+
+        </h:form>
 
     </div>
-    <div class="Info">
+
+
+    <div class="findBill">
 
         <h:form>
-            <h:commandButton class="button" value="所有账单" action="#{billManager.setAllBills()}">
+            <h:selectOneMenu value="#{billManager.searchKey}">
+                <f:selectItem itemValue="全部" itemLabel="全部"/>
+                <f:selectItem itemValue="支出" itemLabel="支出"/>
+                <f:selectItem itemValue="收入" itemLabel="收入"/>
+            </h:selectOneMenu>
+            <h:commandButton class="button" value="搜索" action="#{billManager.getBillsbyType(billManager.searchKey)}">
             </h:commandButton>
 
         </h:form>
 
         <h:dataTable var="bill" value="#{billManager.allBills}" rules="all" cellpadding="5">
             <h:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="itemId" />
+                    </f:facet>
                 <h:form>
                     <h:outputText value="#{bill.itemId}"/>
                 </h:form>
             </h:column>
+            <h:column>
+
+                <f:facet name="header">
+                    <h:outputText value="type" />
+                </f:facet>
+                <h:form>
+                    <h:outputText value="#{bill.type}"/>
+                </h:form>
+            </h:column>
+            <h:column>
+
+                <f:facet name="header">
+                    <h:outputText value="amount" />
+                </f:facet>
+                <h:form>
+                    <h:outputText value="#{bill.amount}"/>
+                </h:form>
+            </h:column>
+            <h:column>
+
+                <f:facet name="header">
+                    <h:outputText value="Date" />
+                </f:facet>
+                <h:form>
+                    <h:outputText value="#{bill.itemDate}"/>
+                </h:form>
+            </h:column>
+
+
         </h:dataTable>
 
-
     </div>
-
-
-<div id="billType" class="billType">
-    <h:selectOneMenu value="#{billManager.searchKey}">
-        <f:selectItem itemValue="支出" itemLabel="支出"/>
-        <f:selectItem itemValue="收入" itemLabel="收入"/>
-    </h:selectOneMenu>
-    <h:form>
-        <h:commandButton action="#{billManager.setTypeBills(billManager.searchKey)}" image="resources/images/search.jpg" class="searchButton"/>
-
-    </h:form>
-
-    <h:dataTable var="bill" value="#{billManager.typeBills}" rules="all" cellpadding="5">
-        <h:column>
-            <h:form>
-                <h:outputText value="#{bill.itemId}"/>
-            </h:form>
-        </h:column>
-    </h:dataTable>
-
-<!--    <table>-->
-<!--        <tr>-->
-<!--            <th>订单号</th>-->
-<!--            <th>时间</th>-->
-<!--            <th>种类</th>-->
-<!--            <th>数目</th>-->
-<!--        </tr>-->
-<!--        <ui:repeat var="item" value="#{billManager.typeBills}">-->
-<!--            <tr>-->
-<!--                <td>#{item.itemId}</td>-->
-<!--                <td>#{item.itemDate}</td>-->
-<!--                <td>#{item.type}</td>-->
-<!--                <td>#{item.amount}</td>-->
-<!--            </tr>-->
-<!--        </ui:repeat>-->
-
-<!--    </table>-->
-
-</div>
-
 </div>
 </body>
-
 </html>

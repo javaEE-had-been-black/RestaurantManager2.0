@@ -44,6 +44,14 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.findBill{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
 .button {
     border-color: cornsilk;
     background-color: rgba(100, 149, 237, .7);

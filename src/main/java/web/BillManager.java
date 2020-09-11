@@ -33,7 +33,7 @@ public class BillManager implements Serializable {
         if("全部".equals(type))
         {
             try {
-
+                this.setAllBills();
                 billInfo=null;
                 if (allBills.isEmpty()) {
                     billInfo = "null";
@@ -130,7 +130,7 @@ public class BillManager implements Serializable {
 
 
 
-    public Bill getBillbyBillId(Integer billId) {
+    public Bill getBillbyBillId() {
         try {
             Bill bill = request.getBillbyId(billId);
             billInfo = null;
@@ -141,7 +141,7 @@ public class BillManager implements Serializable {
         }
     }
 
-    public void createBill(String type, String amount) {
+    public void createBill() {
         try {
             if ("收入".equals(type)) {
                 request.createBill(true, amount);
@@ -157,7 +157,7 @@ public class BillManager implements Serializable {
         }
     }
 
-    public void removeBill(Integer billId) {
+    public void removeBill() {
         try {
             request.removeBill(billId);
             billInfo = "删除成功";
