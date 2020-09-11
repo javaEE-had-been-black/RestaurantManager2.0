@@ -44,7 +44,28 @@ public class RequestBean {
             throw new EJBException(e.getMessage());
         }
     }
+    public void updateSeat(Seat seat){
+        try{
+            em.merge(seat);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
+    public void updateDish(Dish dish){
+        try{
+            em.merge(dish);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
+    }
+    public void updateCustomer(Customer customer){
+        try{
+            em.merge(customer);
+        }catch (Exception e){
+            throw new EJBException(e.getMessage());
+        }
 
+    }
     /**
      * Creator
      */
