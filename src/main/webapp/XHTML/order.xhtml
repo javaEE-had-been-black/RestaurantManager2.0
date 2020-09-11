@@ -67,6 +67,8 @@
             });
         }
 
+
+
         // 当整个HTML文档加载完成之后再执行次函数
         window.onload = function () {
             seatId = document.getElementById("test").getAttribute("value");
@@ -206,6 +208,12 @@
                                     #{dish.dishName}<br/>
                                     价格:￥#{dish.dishPrice}
                                 </p>
+
+                                <h:form>
+                                    <h:commandLink value="添加" actionListener="#{restaurantManager.addDish}">
+                                        <f:param name="id" id="id" value="#{dish}" />
+                                    </h:commandLink>
+                                </h:form>
                             </div>
                         </ui:repeat>
                     </div>
@@ -237,6 +245,7 @@
 
 
                     <h:form>
+                        <p>折扣：</p>
                         <h:selectOneMenu id="discountMenu" required="true" value="#{restaurantManager.discount}">
                             <f:selectItem itemValue="0" itemLabel="0 %"/>
                             <f:selectItem itemValue="5" itemLabel="5 %"/>
@@ -248,11 +257,13 @@
                             <f:selectItem itemValue="35" itemLabel="35 %"/>
                             <f:selectItem itemValue="40" itemLabel="40 %"/>
                         </h:selectOneMenu><br/>
-                        <h:inputText value="#{restaurantManager.comment}"/>
-                        <h:inputText value="#{restaurantManager.customerTelNumber}"/>
+                        <p>备注：</p>
+                        <h:inputText value="#{restaurantManager.comment}"/><br/>
+                        <p>顾客手机号：</p>
+                        <h:inputText value="#{restaurantManager.customerTelNumber}"/><br/>
                         <h:commandButton value="提交"
                                          onclick="#{restaurantManager.newOrder(seatManager.seatId,personManager.userId)}"/>
-                        <h:commandButton class="operation-button" value="返回"/>
+                        <h:commandButton value="返回"/>
                     </h:form>
                 </div>
             </div>

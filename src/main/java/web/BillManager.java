@@ -171,4 +171,8 @@ public class BillManager implements Serializable {
             billInfo = "删除失败";
         }
     }
+
+    public String getCommit() {
+        return commit;
+    }
 }

@@ -18,8 +18,6 @@ public class seatServlet extends HttpServlet {
     @EJB
     private RequestBean ejb;
 
-    private SeatManager seatManager;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);

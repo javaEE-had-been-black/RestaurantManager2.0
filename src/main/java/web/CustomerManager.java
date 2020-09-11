@@ -32,6 +32,15 @@ public class CustomerManager implements Serializable {
     private Date startTime;
     private Date endTime;
     private String logInfo;
+    private String customerInfo;
+
+    public String getCustomerInfo() {
+        return customerInfo;
+    }
+
+    public void setCustomerInfo(String customerInfo) {
+        this.customerInfo = customerInfo;
+    }
 
     private List<Customer> resultCustomer;
 
@@ -187,17 +196,20 @@ public class CustomerManager implements Serializable {
      *
      * @return 顾客信息
      */
-    public String getCustomerbyTelNumber() {
+    public void getCustomerbyTelNumber() {
         try {
             if (resultCustomer == null) {
                 resultCustomer = new LinkedList<>();
             }
+
+
+
             resultCustomer.clear();
             resultCustomer.add(request.getCustomerbyTelNumber(telNumber));
-            return "success";
+            customerInfo="";
         } catch (Exception e) {
             logger.warning("Problem getCustomerbyTelNumber.");
-            return "fail";
+            customerInfo="电话号码错误";
         }
     }
 

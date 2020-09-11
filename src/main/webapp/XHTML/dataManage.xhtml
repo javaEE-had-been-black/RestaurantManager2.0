@@ -131,7 +131,7 @@
                         <h:inputText required="true" value="#{billManager.commit}"/>
                     </h:outputLabel>
 
-                    <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="创建" action="#{billManager.createBill()}"/>
+                    <h:commandButton  style="text-align: center;margin-top: 30px;" value="创建" action="#{billManager.createBill()}"/>
                     <p style="color: #ff0000">#{billManager.billInfo}</p>
 
                 </h:form>
@@ -144,7 +144,7 @@
                         <h:inputText id="deleteBillId" required="true" value="#{billManager.billId}"/>
                     </h:outputLabel>
 
-                    <h:commandButton class="button"  style="text-align: center;margin-top: 30px;" value="删除" action="#{billManager.removeBill()}"/>
+                    <h:commandButton style="text-align: center;margin-top: 30px;" value="删除" action="#{billManager.removeBill()}"/>
                     <p style="color: #ff0000">#{billManager.billInfo}</p>
 
                 </h:form>
@@ -160,7 +160,7 @@
                         <f:selectItem itemValue="支出" itemLabel="支出"/>
                         <f:selectItem itemValue="收入" itemLabel="收入"/>
                     </h:selectOneMenu>
-                    <h:commandButton class="button" value="搜索" image="resources/images/search.jpg" style="width: 30px;height: 30px" action="#{billManager.getBillsbyType(billManager.searchKey)}">
+                    <h:commandButton value="搜索" image="../resources/images/search.jpg" style="width: 30px;height: 30px" action="#{billManager.getBillsbyType(billManager.searchKey)}">
                     </h:commandButton>
 
                 </h:form>

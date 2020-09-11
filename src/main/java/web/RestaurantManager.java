@@ -7,15 +7,21 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * @author zhang wen tao
  */
+
 @Named
 @SessionScoped
 @SuppressWarnings("unused")
@@ -228,9 +234,9 @@ public class RestaurantManager implements Serializable {
     /**
      * 删除user
      */
-    public void removeUser(String currentUserId) {
+    public void removeUser(String userId) {
         try {
-            request.removeUser(currentUserId);
+            request.removeUser(userId);
         } catch (Exception e) {
             logger.warning("Remove User Failed,the reason is" + e.toString());
         }
@@ -392,11 +398,38 @@ public class RestaurantManager implements Serializable {
         return discount;
     }
 
+    public Integer getCurrentDishId() {
+        return currentDishId;
+    }
+
+    public void setCurrentDishId(Integer currentDishId) {
+        this.currentDishId = currentDishId;
+
+
+    }
+
     /**
      * 添加菜品
      */
-    public void addDishes(Dish dish) {
-        dishes.add(dish);
+
+    private Integer currentDishId;
+    public void addDish(ActionEvent event) {
+
+        if(dishes==null){
+            dishes=new LinkedList<>();
+        }
+
+        try {
+
+            UIComponent com = event.getComponent();
+            UIParameter param = (UIParameter) com.findComponent("id");
+            Dish dish = (Dish) param.getValue();
+            dishes.add(dish);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     /**
