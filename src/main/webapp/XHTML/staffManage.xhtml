@@ -61,6 +61,9 @@
         }
 
         function showChangePersonnel() {
+
+
+
             var div = document.getElementById("change-personnel");
             div.style.display="block";
         }
@@ -231,14 +234,13 @@
 
                     <div class="vipInput">
                         <h:form>
-                            <h:inputText id="searchKey" type="text" value="#{restaurantManager.userSearchKey}}"/>
+                            <h:inputText id="searchKey" type="text" value="#{restaurantManager.userSearchKey}"/>
                             <h:commandButton action="#{restaurantManager.getUserbyTelNumber()}"
                                              image="../resources/images/search.jpg" class="searchButton"/>
                             <input type="button" onclick="showAddPeronnel()" value="添加员工"/>
+                            <p>#{restaurantManager.createUserInfo}</p>
                         </h:form>
                     </div>
-
-                    <img src="../resources/images/search.jpg" style="width: 30px;height: 30px" alt="搜索"/>
 
                     <table id="customers">
                         <tr>
@@ -259,7 +261,7 @@
                                 <td>#{user.salary}</td>
                                 <td>
                                     <h:form>
-                                        <h:commandButton value="修改" onclick="showChangePersonnel()"/>
+                                        <h:commandButton value="修改" onclick="showChangePersonnel(user.id)" />
                                         <h:commandButton value="刪除" style="background-color: red"
                                                          onclick="#{restaurantManager.removeUser(user.telNumber)}"/>
                                     </h:form>

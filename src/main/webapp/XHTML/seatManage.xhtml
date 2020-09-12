@@ -143,7 +143,7 @@
                     <h:commandButton class="operation-button" value="确认" onclick="hiddenCreateSeat()"
                                      action="#{seatManager.createSeat}"/>
                     <h:commandButton class="operation-button" value="取消" onclick="hiddenCreateSeat()"/>
-                    <p style="color: #ff0000">#{seatManager.createSeatInfo}</p>
+
                 </h:form>
             </div>
 
@@ -164,6 +164,7 @@
                         <h:commandButton action="#{seatManager.getSeatByType}" image="../resources/images/search.jpg"
                                          class="searchButton"/>
                         <input type="button" class="button" onclick="showCreateSeat()" value="添加餐桌"/>
+                        <p style="color: #ff0000">#{seatManager.createSeatInfo}</p>
                     </h:form>
                 </div>
 

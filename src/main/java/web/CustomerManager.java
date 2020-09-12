@@ -156,7 +156,7 @@ public class CustomerManager implements Serializable {
     /**
      * 添加Customer
      */
-    public String creatCustomer() {
+    public void creatCustomer() {
 
         try {
             request.createCustomer(newTelNumber, newCustomerName, newPoint);
@@ -164,11 +164,10 @@ public class CustomerManager implements Serializable {
             this.newTelNumber = null;
             this.newPoint = 0;
             logInfo = "";
-            return "success";
+            resultCustomer=request.getAllCustomers();
         } catch (Exception e) {
             logger.warning("Problem creating seat in createSeat.");
             logInfo = "创建用户失败";
-            return "fail";
         }
 
     }

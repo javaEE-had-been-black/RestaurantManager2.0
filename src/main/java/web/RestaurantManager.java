@@ -219,14 +219,29 @@ public class RestaurantManager implements Serializable {
         }
     }
 
+    public String getCreateUserInfo() {
+        return createUserInfo;
+    }
+
+    public void setCreateUserInfo(String createUserInfo) {
+        this.createUserInfo = createUserInfo;
+    }
+
     /**
      * 添加user
      */
+
+    private String createUserInfo;
+
     public void createUser() {
         try {
             request.createUser(newTelNumber, newUserName, newPassword, newPosition, newTelNumber, newSalary);
+
+            userResult=getAllUsers();
+            createUserInfo="创建成功";
         } catch (Exception e) {
             logger.warning("Create User Failed,the reason is" + e.getMessage());
+            createUserInfo="创建失败！";
             throw e;
         }
     }

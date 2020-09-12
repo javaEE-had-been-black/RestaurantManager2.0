@@ -295,9 +295,9 @@
                         <h:inputText value="#{restaurantManager.comment}"/><br/>
                         <p>顾客手机号：</p>
                         <h:inputText value="#{restaurantManager.customerTelNumber}"/><br/>
-                        <h:commandButton value="提交"
+                        <h:commandButton value="提交" styleClass="commit"
                                          onclick="#{restaurantManager.newOrder(seatManager.seatId,personManager.userId)}"/>
-                        <h:commandButton value="返回"/>
+                        <a href="orderDish.xhtml" class="back">返回</a>
                     </h:form>
                 </div>
             </div>

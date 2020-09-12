@@ -146,7 +146,8 @@
                                 <h:outputText value="桌号#{seat.seatId}"/><br/>
                                 <h:outputText value="#{seat.capacity}人桌"/><br/>
                                 <h:outputText value="当前状态：#{seat.status}"/>
-                                <a href="order.xhtml?currentID=#{seat.seatId}" onclick="#{restaurantManager.setAllDishes()}" >查看</a>
+                                <br/>
+                                <a href="order.xhtml?currentID=#{seat.seatId}" style="color: #303342;text-decoration: none" onclick="#{restaurantManager.setAllDishes()}" >查看</a>
                             </h:form>
                         </div>
                     </ui:repeat>
