@@ -56,17 +56,6 @@
             div.style.display = "block";
         }
 
-        function showChangePersonnel() {
-            var div = document.getElementById("change-personnel");
-            div.style.display = "block";
-        }
-
-        function hiddenChangePersonnel() {
-            var div = document.getElementById("change-personnel");
-            div.style.display = "none";
-        }
-
-
         // 当整个HTML文档加载完成之后再执行次函数
         window.onload = function () {
             //隐藏所有的子标题
@@ -172,7 +161,7 @@
 
             <div id="create-personnel" style="display: none" class="create-personnel">
                 <h:form>
-                    <p style="color: #666666;font-size: larger">手機號:
+                    <p style="color: #666666;font-size: larger">手机号:
                         <h:inputText type="text" value="#{restaurantManager.newTelNumber}"/>
                     </p>
 
@@ -195,34 +184,6 @@
                     <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()"
                                      action="#{restaurantManager.createUser()}"/>
                     <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
-                </h:form>
-            </div>
-
-            <div id="change-personnel" style="display: none" class="create-personnel">
-                <h:form>
-                    <p style="color: #666666;font-size: larger">手机号:
-                        <h:inputText type="text" value="#{restaurantManager.currentUser.telNumber}"/>
-                    </p>
-
-                    <p style="color: #666666;font-size: larger">姓名:
-                        <h:inputText type="text" value="#{restaurantManager.currentUser.userName}"/>
-                    </p>
-
-                    <p style="color: #666666;font-size: larger">密码:
-                        <h:inputText type="text" value="#{restaurantManager.currentUser.password}"/>
-                    </p>
-
-                    <p style="color: #666666;font-size: larger">职位:
-                        <h:inputText type="text" value="#{restaurantManager.currentUser.position}"/>
-                    </p>
-
-                    <p style="color: #666666;font-size: larger">薪水:
-                        <h:inputText type="text" value="#{restaurantManager.currentUser.salary}"/>
-                    </p>
-                    <div style="text-align: center;margin-top: 30px;"></div>
-                    <h:commandButton class="operation-button" value="确认" onclick="hiddenChangePersonnel()"
-                                     action="#{restaurantManager.getUserbyTelNumber}"/>
-                    <h:commandButton class="operation-button" value="取消" onclick="hiddenChangePersonnel()"/>
                 </h:form>
             </div>
 

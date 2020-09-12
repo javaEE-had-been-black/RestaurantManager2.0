@@ -379,6 +379,7 @@ public class RequestBean {
     public Dish getDishbyId(Integer dishId) {
         try {
             return (Dish) em.createNamedQuery("getDishbyId")
+                    .setParameter("dishId",dishId)
                     .getSingleResult();
         } catch (Exception e) {
             throw new EJBException(e.getMessage());

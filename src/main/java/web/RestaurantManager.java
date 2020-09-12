@@ -485,23 +485,46 @@ public class RestaurantManager implements Serializable {
      */
 
     private Integer currentDishId;
+    private String addDishInfo;
+
+    public String getAddDishInfo() {
+        return addDishInfo;
+    }
+
+    public void setAddDishInfo(String addDishInfo) {
+        this.addDishInfo = addDishInfo;
+    }
+
+
+    private LinkedList<Dish> dishesHad;
+
+    public LinkedList<Dish> getDishesHad() {
+        return dishesHad;
+    }
+
+    public void setDishesHad(LinkedList<Dish> dishesHad) {
+        this.dishesHad = dishesHad;
+    }
 
     public void addDish(ActionEvent event) {
 
-        if (dishes == null) {
-            dishes = new LinkedList<>();
+        if (dishesHad == null) {
+            dishesHad = new LinkedList<>();
+//            addDishInfo="重新创建";
         }
 
         try {
-
             UIComponent com = event.getComponent();
-            UIParameter param = (UIParameter) com.findComponent("id");
-            Dish dish = (Dish) param.getValue();
-            dishes.add(dish);
+            String id = ((UIParameter) com.findComponent("addDishId")).getValue().toString();
+            Dish dish = (Dish) request.getDishbyId(Integer.parseInt(id));
+//            addDishInfo=dishes.isEmpty()+"";
+            dishesHad.push(dish);
+//            addDishInfo="添加成功";
+            addDishInfo=dishesHad.isEmpty()+"";
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            addDishInfo="出错啦";
         }
-
 
     }
 
@@ -509,10 +532,10 @@ public class RestaurantManager implements Serializable {
      * 删除菜品
      */
     public void removeDish(Dish dish) {
-        for (int i = this.dishes.size() - 1; i >= 0; i--) {
-            Dish item = this.dishes.get(i);
+        for (int i = this.dishesHad.size() - 1; i >= 0; i--) {
+            Dish item = this.dishesHad.get(i);
             if (dish.equals(item)) {
-                this.dishes.remove(item);
+                this.dishesHad.remove(item);
             }
         }
     }
@@ -528,29 +551,26 @@ public class RestaurantManager implements Serializable {
     /**
      * 创建订单
      */
-    public void newOrder(String seatId, String userId) {
+    public void newOrder(Seat seat,User user) {
 //        SimpleDateFormat sdf = new SimpleDateFormat();
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         int orderPrice = 0;
         String status;
-        if (this.dishes != null) {
-            for (int i = this.dishes.size() - 1; i > 0; i--) {
-                orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
+        if(!dishesHad.isEmpty()){
+            for (int i =this.dishesHad.size()-1;i>0;i--) {
+                orderPrice += Integer.parseInt(this.dishesHad.get(i).getDishPrice());
             }
             try {
-                Seat seat = request.getSeatbySeatId(seatId);
-                User user = request.getUserbyUserId(userId);
                 Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
-                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishes);
-                this.dishes.clear();
+                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishesHad);
             } catch (Exception e) {
-                Seat seat = request.getSeatbySeatId(seatId);
-                User user = request.getUserbyUserId(userId);
-                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
+                request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishesHad);
                 throw e;
             }
-        } else {
-            this.dishInfo = "未添加菜品";
+            this.dishInfo="添加成功";
+        }
+        else{
+            this.dishInfo="未添加菜品";
         }
 
     }

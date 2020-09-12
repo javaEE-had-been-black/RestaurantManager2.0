@@ -10,8 +10,20 @@
 <h:head>
     <title>菜谱管理</title>
     <h:outputStylesheet library="css" name="test.css"/>
+    <h:outputStylesheet library="css" name="dishManage.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript">
+
+        function hiddenAddDish() {
+            var div = document.getElementById("create-dish");
+            div.style.display = "none";
+        }
+
+        function showAddDish() {
+            var div = document.getElementById("create-dish");
+            div.style.display = "block";
+        }
+
         // 当整个HTML文档加载完成之后再执行次函数
         window.onload = function () {
             //隐藏所有的子标题
@@ -43,6 +55,35 @@
 
         }
     </script>
+    <style type="text/css">
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 80%;
+            border-collapse: collapse;
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+
+        #customers td, #customers th {
+            font-size: 1em;
+            border: 1px solid #303342;
+            padding: 3px 7px 2px 7px;
+        }
+
+        #customers th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #303342;
+            color: #ffffff;
+        }
+
+        #customers tr.alt td {
+            color: #000000;
+            background-color: #EAF2D3;
+        }
+    </style>
 </h:head>
 
 <body>
@@ -114,15 +155,78 @@
         </div>
         <div class="content-right">
 
+            <div id="create-dish" style="display: none" class="create-dish">
+                <h:form>
+                    <p style="color: #666666;font-size: larger">菜品:
+                        <h:inputText type="text" value="#{dishManager.newDishName}"/>
+                    </p>
 
+                    <p style="color: #666666;font-size: larger">价格:
+                        <h:inputText type="text" value="#{dishManager.newDishPrice}"/>
+                    </p>
 
+                    <p style="color: #666666;font-size: larger">种类:
+                        <h:selectOneMenu value="#{dishManager.newType}">
+                            <f:selectItem itemValue="全部" itemLabel="全部"/>
+                            <f:selectItem itemValue="炒菜" itemLabel="炒菜"/>
+                            <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+                            <f:selectItem itemValue="其他" itemLabel="其他"/>
+                        </h:selectOneMenu>
+                    </p>
+
+                    <div style="text-align: center;margin-top: 30px;"></div>
+                    <h:commandButton class="operation-button" value="确认" onclick="hiddenAddDish()"
+                                     action="#{dishManager.createDish}"/>
+                    <h:commandButton class="operation-button" value="取消" onclick="hiddenAddDish()"/>
+                </h:form>
+            </div>
+
+                <div>
+                    <h:form>
+                        <h:selectOneMenu value="#{dishManager.searchType}">
+                            <f:selectItem itemValue="全部" itemLabel="全部"/>
+                            <f:selectItem itemValue="炒菜" itemLabel="炒菜"/>
+                            <f:selectItem itemValue="酒水" itemLabel="酒水"/>
+                            <f:selectItem itemValue="汤类" itemLabel="汤类"/>
+                            <f:selectItem itemValue="其他" itemLabel="其他"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="searchKey" type="text" value="#{dishManager.searchKey}"/>
+                        <h:commandButton action="#{dishManager.searchDish}"
+                                         image="../resources/images/search.jpg" class="searchButton"/>
+                        <input type="button" onclick="showAddDish()" value="添加菜品"/>
+                        <p>#{dishManager.createDishInfo}</p>
+                    </h:form>
+                </div>
+
+                <table id="customers">
+                    <tr>
+                        <th>菜名</th>
+                        <th>价格</th>
+                        <th>种类</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <ui:repeat var="dish" value="#{dishManager.resultDish}">
+                        <tr>
+                            <td>#{dish.dishName}</td>
+                            <td>#{dish.dishPrice}</td>
+                            <td>#{dish.type}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandLink value="删除" actionListener="#{dishManager.removeDish}">
+                                        <f:param name="removeDishId" id="removeDishId" value="#{dish.dishId}"/>
+                                    </h:commandLink>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </table>
 
 
 
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

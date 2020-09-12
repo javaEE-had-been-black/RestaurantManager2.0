@@ -6,6 +6,8 @@ import entity.Dish;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.component.UIParameter;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -31,15 +33,44 @@ public class DishManager implements Serializable {
     private String dishType;
     private String logInfo;
     private List<Dish> resultDish;
+    private String searchKey;
+    private  String searchType;
 
-    public String createDish() {
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    private String createDishInfo;
+
+    public String getCreateDishInfo() {
+        return createDishInfo;
+    }
+
+    public void setCreateDishInfo(String createDishInfo) {
+        this.createDishInfo = createDishInfo;
+    }
+
+    public void createDish() {
         try {
             requestBean.createDish(newDishId, newDishName, newDishPrice, newImageUrl, newType);
-            logInfo = "";
-            return "success";
+            resultDish=requestBean.getAllDishes();
+            createDishInfo = "";
+            return;
         } catch (Exception e) {
-            logInfo = "创建菜品失败";
-            return "fail";
+            createDishInfo = "创建菜品失败";
+            return;
         }
     }
 
@@ -54,20 +85,20 @@ public class DishManager implements Serializable {
         }
     }
 
-    public String updateDish() {
-        try {
-            Dish dish = requestBean.getDishbyId(dishId);
-            dish.setDishName(newDishName);
-            dish.setDishPrice(newDishPrice);
-            dish.setImageUrl(newImageUrl);
-            dish.setType(newType);
-            logInfo = "";
-            return "success";
-        } catch (Exception e) {
-            logInfo = "更新菜品信息失败";
-            return "fail";
-        }
-    }
+//    public String updateDish() {
+//        try {
+//            Dish dish = requestBean.getDishbyId(dishId);
+//            dish.setDishName(newDishName);
+//            dish.setDishPrice(newDishPrice);
+//            dish.setImageUrl(newImageUrl);
+//            dish.setType(newType);
+//            logInfo = "";
+//            return "success";
+//        } catch (Exception e) {
+//            logInfo = "更新菜品信息失败";
+//            return "fail";
+//        }
+//    }
 
 
     public void searchDish(String searchType) {
@@ -76,13 +107,16 @@ public class DishManager implements Serializable {
     }
 
     public void searchDish() {
-        this.searchDish(this.dishName, this.dishType);
+        this.searchDish(this.searchKey, this.searchType);
         return;
     }
 
+
+    private String searchDishInfo;
     public void searchDish(String dishName, String dishType) {
+        searchDishInfo=dishName+dishType;
         try {
-            if (dishName == null || dishName == "") {
+            if (dishName == null || dishName.equals("")) {
                 if (dishType.equals("全部")) {
                     resultDish = requestBean.getAllDishes();
                 } else {
@@ -94,28 +128,41 @@ public class DishManager implements Serializable {
                     if (resultDish == null) {
                         resultDish = new LinkedList<>();
                     }
+                    resultDish.clear();
                     resultDish.add(dish);
                 } else {
                     resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
                 }
             }
-            dishName = "";
-            logInfo = "";
             return;
         } catch (Exception e) {
-            logInfo = "搜索菜品信息失败";
             return;
         }
     }
 
-    public String removeDish() {
+    private String removeDishInfo;
+
+    public String getRemoveDishInfo() {
+        return removeDishInfo;
+    }
+
+    public void setRemoveDishInfo(String removeDishInfo) {
+        this.removeDishInfo = removeDishInfo;
+    }
+
+    public void removeDish(ActionEvent event) {
+
+
+        UIParameter param = null;
         try {
-            requestBean.removeDish(dishId);
-            logInfo = "";
-            return "success";
+            param = (UIParameter) event.getComponent().findComponent("removeDishId");
+            String id = param.getValue().toString();
+            removeDishInfo = "";
+            requestBean.removeDish(Integer.parseInt(id));
+            resultDish=requestBean.getAllDishes();
         } catch (Exception e) {
-            logInfo = "移除菜品信息失败";
-            return "fail";
+            removeDishInfo = "移除菜品信息失败";
+            e.printStackTrace();
         }
     }
 
@@ -195,7 +242,18 @@ public class DishManager implements Serializable {
         this.dishType = dishType;
     }
 
+    public String getSearchDishInfo() {
+        return searchDishInfo;
+    }
+
+    public void setSearchDishInfo(String searchDishInfo) {
+        this.searchDishInfo = searchDishInfo;
+    }
+
     public List<Dish> getResultDish() {
+        if(resultDish==null){
+            resultDish=requestBean.getAllDishes();
+        }
         return resultDish;
     }
 
