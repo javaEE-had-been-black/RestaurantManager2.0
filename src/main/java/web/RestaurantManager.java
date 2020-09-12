@@ -543,6 +543,7 @@ public class RestaurantManager implements Serializable {
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
                 throw e;
             }
+            this.dishInfo="添加成功";
         }
         else{
             this.dishInfo="未添加菜品";
