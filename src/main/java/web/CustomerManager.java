@@ -6,6 +6,8 @@ import entity.Customer;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.component.UIParameter;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -171,6 +173,31 @@ public class CustomerManager implements Serializable {
         }
 
     }
+
+    private String removeCustomerInfo;
+
+    public String getRemoveCustomerInfo() {
+        return removeCustomerInfo;
+    }
+
+    public void setRemoveCustomerInfo(String removeCustomerInfo) {
+        this.removeCustomerInfo = removeCustomerInfo;
+    }
+
+    public void removeCustomer(ActionEvent event) {
+
+        UIParameter param = null;
+        try {
+            param = (UIParameter) event.getComponent().findComponent("removeCustomerId");
+            String id = param.getValue().toString();
+            removeCustomerInfo="";
+            request.removeCustomer(Integer.parseInt(id));
+            resultCustomer=request.getAllCustomers();
+        } catch (Exception e) {
+            removeCustomerInfo=e.getMessage();
+        }
+    }
+
 
     /**
      * 增加积分
