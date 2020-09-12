@@ -34,7 +34,7 @@ public class RestaurantManager implements Serializable {
     private String position;
     private String userName;
     private String salary;
-    private List<Dish> dishes;
+    private List<Dish> dishes=new LinkedList<>();
     private String logInfo;
     private String discount;
     private String newUserId;
@@ -450,12 +450,7 @@ public class RestaurantManager implements Serializable {
     private Integer currentDishId;
     public void addDish(ActionEvent event) {
 
-        if(dishes==null){
-            dishes=new LinkedList<>();
-        }
-
         try {
-
             UIComponent com = event.getComponent();
             UIParameter param = (UIParameter) com.findComponent("id");
             Dish dish = (Dish) param.getValue();
@@ -490,7 +485,7 @@ public class RestaurantManager implements Serializable {
     /**
      * 创建订单
      */
-    public void newOrder(String seatId, String userId) {
+    public void newOrder(Seat seat,String userId) {
 //        SimpleDateFormat sdf = new SimpleDateFormat();
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         int orderPrice = 0;
@@ -500,13 +495,11 @@ public class RestaurantManager implements Serializable {
                 orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
             }
             try {
-                Seat seat = request.getSeatbySeatId(seatId);
                 User user = request.getUserbyUserId(userId);
                 Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishes);
                 this.dishes.clear();
             } catch (Exception e) {
-                Seat seat = request.getSeatbySeatId(seatId);
                 User user = request.getUserbyUserId(userId);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
                 throw e;

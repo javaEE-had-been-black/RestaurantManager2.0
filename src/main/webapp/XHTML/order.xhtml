@@ -213,7 +213,7 @@
             <div id="start" style="display: none">
                 <h:form>
                     <p style="color: #666666;font-size: larger" id="show-info">
-                        当前桌号：#{seatManager.currentSeatId}
+                        当前桌号：#{seatManager.currentSeat.seatId}
                     </p>
                     <h:commandButton class="operation-button" value="开桌" onclick="changeStatus()">
                     </h:commandButton>
@@ -296,7 +296,7 @@
                         <p>顾客手机号：</p>
                         <h:inputText value="#{restaurantManager.customerTelNumber}"/><br/>
                         <h:commandButton value="提交"
-                                         onclick="#{restaurantManager.newOrder(seatManager.seatId,personManager.userId)}"/>
+                                         onclick="#{restaurantManager.newOrder(seatManager.currentSeat,personManager.userId)}"/>
                         <h:commandButton value="返回"/>
                     </h:form>
                 </div>

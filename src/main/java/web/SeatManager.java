@@ -26,11 +26,13 @@ public class SeatManager implements Serializable {
     }
 
     public void setCurrentSeatId(String currentSeatId) {
+        this.currentSeat = request.getSeatbySeatId(currentSeatId);
         this.currentSeatId = currentSeatId;
     }
 
     private String currentSeatId;
     private static int times = 0;
+    private Seat currentSeat;
 
     public SeatManager() {
         newStatus = "空闲";
@@ -196,6 +198,7 @@ public class SeatManager implements Serializable {
     }
 
     private String changeInfo;
+
     public void changeSeat() {
         Seat seat = request.getSeatbySeatId(searchKey);
         if (request.getSeatbySeatId(newSeatId) != null) {
@@ -216,8 +219,8 @@ public class SeatManager implements Serializable {
 
 
     public List<Seat> getResultSeats() {
-        if(resultSeats==null){
-            resultSeats=getAllSeats();
+        if (resultSeats == null) {
+            resultSeats = getAllSeats();
         }
         return resultSeats;
     }
@@ -324,5 +327,13 @@ public class SeatManager implements Serializable {
             logInfo = "查找时出错";
             throw e;
         }
+    }
+
+    public Seat getCurrentSeat() {
+        return currentSeat;
+    }
+
+    public void setCurrentSeat(Seat currentSeat) {
+        this.currentSeat = currentSeat;
     }
 }
