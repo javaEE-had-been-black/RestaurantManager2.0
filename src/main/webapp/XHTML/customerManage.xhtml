@@ -174,11 +174,10 @@
                         <h:inputText id="searchKey" type="text" value="#{customerManager.telNumber}"/>
                         <h:commandButton action="#{customerManager.getCustomerbyTelNumber()}"
                                          image="../resources/images/search.jpg" class="searchButton"/>
-                        <!--            <button>积分</button>-->
-                        <!--            <button>日期</button>-->
                         <input type="button" class="button" onclick="showCreateVip()" value="添加会员"/>
+                        <p>#{customerManager.removeCustomerInfo}</p>
                     </h:form>
-                    <p >#{customerManager.customerInfo}</p>
+                    <p >#{customerManager}</p>
                 </div>
 
                 <table id="customers">
@@ -187,6 +186,7 @@
                         <th>姓名</th>
                         <th>积分</th>
                         <th>加入时间</th>
+                        <th>操作</th>
                     </tr>
                     <ui:repeat var="customer" value="#{customerManager.resultCustomer}">
                         <tr>
@@ -194,6 +194,13 @@
                             <td>#{customer.customerName}</td>
                             <td>#{customer.points}</td>
                             <td>#{customer.addTime}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandLink value="删除" actionListener="#{customerManager.removeCustomer}">
+                                        <f:param name="removeCustomerId" id="removeCustomerId" value="#{customer.customerId}" />
+                                    </h:commandLink>
+                                </h:form>
+                            </td>
                         </tr>
                     </ui:repeat>
                 </table>
