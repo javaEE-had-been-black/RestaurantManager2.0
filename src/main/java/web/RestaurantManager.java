@@ -34,7 +34,7 @@ public class RestaurantManager implements Serializable {
     private String position;
     private String userName;
     private String salary;
-    private List<Dish> dishes;
+    private List<Dish> dishes=new LinkedList<>();
     private String logInfo;
     private String discount;
     private String newUserId;
@@ -491,13 +491,7 @@ public class RestaurantManager implements Serializable {
 
     private Integer currentDishId;
     public void addDish(ActionEvent event) {
-
-        if(dishes==null){
-            dishes=new LinkedList<>();
-        }
-
         try {
-
             UIComponent com = event.getComponent();
             UIParameter param = (UIParameter) com.findComponent("id");
             Dish dish = (Dish) param.getValue();
@@ -509,13 +503,14 @@ public class RestaurantManager implements Serializable {
 
     }
 
+
     /**
      * 删除菜品
      */
     public void removeDish(Dish dish) {
         for (int i = this.dishes.size() - 1; i >= 0; i--) {
             Dish item = this.dishes.get(i);
-            if (dish.equals(item)) {
+            if (dish.getDishId().equals(item.getDishId())) {
                 this.dishes.remove(item);
             }
         }
@@ -532,24 +527,19 @@ public class RestaurantManager implements Serializable {
     /**
      * 创建订单
      */
-    public void newOrder(String seatId, String userId) {
+    public void newOrder(Seat seat,User user) {
 //        SimpleDateFormat sdf = new SimpleDateFormat();
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         int orderPrice = 0;
         String status;
-        if(this.dishes!=null){
+        if(!dishes.isEmpty()){
             for (int i =this.dishes.size()-1;i>0;i--) {
                 orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
             }
             try {
-                Seat seat = request.getSeatbySeatId(seatId);
-                User user = request.getUserbyUserId(userId);
                 Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishes);
-                this.dishes.clear();
             } catch (Exception e) {
-                Seat seat = request.getSeatbySeatId(seatId);
-                User user = request.getUserbyUserId(userId);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
                 throw e;
             }
