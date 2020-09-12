@@ -8,11 +8,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
-    <meta content="UTF-8"/>
-    <title>主页面</title>
-    <!--    从网上导入JQUERY-->
+    <title>菜谱管理</title>
     <h:outputStylesheet library="css" name="test.css"/>
-    <h:outputStylesheet library="css" name="warehouseManage.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript">
         // 当整个HTML文档加载完成之后再执行次函数
@@ -49,7 +46,6 @@
 </h:head>
 
 <body>
-
 <div class="content">
     <div class="content-top">
         <div class="title">
@@ -118,83 +114,12 @@
         </div>
         <div class="content-right">
 
-            <div class="warehouseSearch">
-
-                <h:form>
-                    <h:selectOneMenu value="#{repositoryManager.searchKey}">
-                        <f:selectItem itemValue="全部" itemLabel="全部"/>
-                        <f:selectItem itemValue="肉类" itemLabel="肉类"/>
-                        <f:selectItem itemValue="酒水" itemLabel="酒水"/>
-                    </h:selectOneMenu>
-                    <h:commandButton value="搜索" image="../resources/images/search.jpg" style="width: 30px;height: 30px"
-                                     action="#{repositoryManager.getItemsbyType(repositoryManager.searchKey)}">
-                    </h:commandButton>
-
-                </h:form>
-
-                <h:dataTable var="Item" value="#{repositoryManager.allItems}" rules="all" cellpadding="5">
-
-                    <h:column>
-
-                        <f:facet name="header">
-                            <h:outputText value="账号"/>
-                        </f:facet>
-                        <h:form>
-                            <h:outputText value="#{Item.itemId}"/>
-                        </h:form>
-                    </h:column>
-
-                    <h:column>
-
-                        <f:facet name="header">
-                            <h:outputText value="类型"/>
-                        </f:facet>
-                        <h:form>
-                            <h:outputText value="#{Item.type}"/>
-                        </h:form>
-                    </h:column>
-
-                    <h:column>
-
-                        <f:facet name="header">
-                            <h:outputText value="数量"/>
-                        </f:facet>
-                        <h:form>
-                            <h:outputText value="#{Item.quantity}"/>
-                        </h:form>
-                    </h:column>
-
-                    <h:column>
-
-                        <f:facet name="header">
-                            <h:outputText value="名称"/>
-                        </f:facet>
-                        <h:form>
-                            <h:outputText value="#{Item.itemName}"/>
-                        </h:form>
-                    </h:column>
-
-                </h:dataTable>
-            </div>
 
 
-            <div class="warehouseDelete">
-                <h:form>
 
-                    <h:outputLabel for="deleteWarehouseId" rendered="true" value="warehouse ID">
-                        <h:inputText id="deleteWarehouseId" required="true" value="#{repositoryManager.itemId}"/>
-                    </h:outputLabel>
 
-                    <h:commandButton style="text-align: center;margin-top: 30px;" value="删除"
-                                     action="#{repositoryManager.removeRepository}"/>
 
-                    <p style="color: #ff0000">#{billManager.billInfo}</p>
-
-                </h:form>
-
-            </div>
         </div>
-
     </div>
 </div>
 
