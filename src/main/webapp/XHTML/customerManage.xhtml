@@ -14,43 +14,38 @@
     <h:outputStylesheet library="css" name="test.css"/>
     <h:outputStylesheet library="css" name="vipManage.css"/>
     <style type="text/css">
-        #customers
-        {
-            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-            width:80%;
-            border-collapse:collapse;
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 80%;
+            border-collapse: collapse;
             margin-left: 50px;
             margin-top: 50px;
         }
 
-        #customers td, #customers th
-        {
-            font-size:1em;
-            border:1px solid #303342;
-            padding:3px 7px 2px 7px;
+        #customers td, #customers th {
+            font-size: 1em;
+            border: 1px solid #303342;
+            padding: 3px 7px 2px 7px;
         }
 
-        #customers th
-        {
-            font-size:1.1em;
-            text-align:left;
-            padding-top:5px;
-            padding-bottom:4px;
-            background-color:#303342;
-            color:#ffffff;
+        #customers th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #303342;
+            color: #ffffff;
         }
 
-        #customers tr.alt td
-        {
-            color:#000000;
-            background-color:#EAF2D3;
+        #customers tr.alt td {
+            color: #000000;
+            background-color: #EAF2D3;
         }
     </style>
 
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 
     <script type="text/javascript">
-
 
 
         function showCreateVip() {
@@ -62,7 +57,6 @@
             var div = document.getElementById("create-vip");
             div.style.visibility = "hidden";
         }
-
 
 
         // 当整个HTML文档加载完成之后再执行次函数
@@ -166,7 +160,6 @@
         <div class="content-right">
 
 
-
             <div id="vips-content" class="vips-content">
 
                 <div class="vipInput">
@@ -177,7 +170,7 @@
                         <input type="button" class="button" onclick="showCreateVip()" value="添加会员"/>
                         <p>#{customerManager.removeCustomerInfo}</p>
                     </h:form>
-                    <p >#{customerManager}</p>
+                    <p>#{customerManager}</p>
                 </div>
 
                 <table id="customers">
@@ -196,8 +189,10 @@
                             <td>#{customer.addTime}</td>
                             <td>
                                 <h:form>
+                                    <a href="updateCustomer.xhtml?customerId=#{customer.customerId}">修改</a>
                                     <h:commandLink value="删除" actionListener="#{customerManager.removeCustomer}">
-                                        <f:param name="removeCustomerId" id="removeCustomerId" value="#{customer.customerId}" />
+                                        <f:param name="removeCustomerId" id="removeCustomerId"
+                                                 value="#{customer.customerId}"/>
                                     </h:commandLink>
                                 </h:form>
                             </td>
@@ -228,7 +223,6 @@
 
                 </h:form>
             </div>
-
 
 
         </div>

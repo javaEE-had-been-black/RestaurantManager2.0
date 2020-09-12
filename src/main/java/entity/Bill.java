@@ -45,8 +45,8 @@ public class Bill implements Serializable {
     boolean type;
     String amount;
 
-    public Bill(boolean type, String amount,String commit) {
-        this.commit=commit;
+    public Bill(boolean type, String amount, String commit) {
+        this.commit = commit;
         this.itemDate = new Date();
         this.type = type;
         this.amount = amount;
@@ -91,8 +91,8 @@ public class Bill implements Serializable {
         return itemId;
     }
 
-    public String turnBill(){
-        if(this.type){
+    public String turnBill() {
+        if (this.type) {
             return "收入";
         }
         return "支出";

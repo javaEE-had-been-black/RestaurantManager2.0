@@ -29,29 +29,24 @@ body {
     margin-right: 20px;
 }
 
-.warehouseManage
-{
+.warehouseManage {
     display: flex;
     flex-direction: column;
 }
 
 
-
-.warehouseSearch
-{
+.warehouseSearch {
     display: flex;
     flex-direction: column;
     margin-left: 100px;
 }
 
-.warehouseAll
-{
+.warehouseAll {
     display: flex;
     flex-direction: column;
 }
 
-.warehouseDelete
-{
+.warehouseDelete {
     display: flex;
     flex-direction: column;
 }
@@ -67,10 +62,11 @@ body {
     font-size: 32px;
     style: text-align;
 }
-.buttonRepository{
+
+.buttonRepository {
     border-color: cornsilk;
     background-color: rgba(100, 149, 237, .7);
-    margin-left:200px ;
+    margin-left: 200px;
     color: whitesmoke;
     border-style: groove;
     border-radius: 10px;

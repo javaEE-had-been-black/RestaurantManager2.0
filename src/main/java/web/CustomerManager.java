@@ -35,6 +35,47 @@ public class CustomerManager implements Serializable {
     private Date endTime;
     private String logInfo;
     private String customerInfo;
+    private Customer currentCustomer;
+    private String updateCustomerInfo;
+    private String  currentCustomerId;
+
+    public String getCurrentCustomerId() {
+        return currentCustomerId;
+    }
+
+    public void setCurrentCustomerId(String currentCustomerId) {
+        currentCustomer=request.getCustomerbyCustomerId(Integer.parseInt(currentCustomerId));
+        this.currentCustomerId = currentCustomerId;
+    }
+
+    public void updateCustomer(){
+        try {
+
+            request.updateCustomer(currentCustomer);
+            updateCustomerInfo="修改成功";
+            resultCustomer=request.getAllCustomers();
+        }
+        catch (Exception e){
+            updateCustomerInfo="修改失败";
+        }
+    }
+
+    public String getUpdateCustomerInfo() {
+        return updateCustomerInfo;
+    }
+
+    public void setUpdateCustomerInfo(String updateCustomerInfo) {
+        this.updateCustomerInfo = updateCustomerInfo;
+    }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
+    }
+
+    public void setCurrentCustomer(Customer currentCustomer) {
+        currentCustomer=request.getCustomerbyCustomerId(customerId);
+        this.currentCustomer = currentCustomer;
+    }
 
     public String getCustomerInfo() {
         return customerInfo;
@@ -49,8 +90,8 @@ public class CustomerManager implements Serializable {
 
     public List<Customer> getResultCustomer() {
 
-        if(resultCustomer==null){
-            resultCustomer=request.getAllCustomers();
+        if (resultCustomer == null) {
+            resultCustomer = request.getAllCustomers();
         }
 
         return resultCustomer;
@@ -166,7 +207,7 @@ public class CustomerManager implements Serializable {
             this.newTelNumber = null;
             this.newPoint = 0;
             logInfo = "";
-            resultCustomer=request.getAllCustomers();
+            resultCustomer = request.getAllCustomers();
         } catch (Exception e) {
             logger.warning("Problem creating seat in createSeat.");
             logInfo = "创建用户失败";
@@ -190,11 +231,11 @@ public class CustomerManager implements Serializable {
         try {
             param = (UIParameter) event.getComponent().findComponent("removeCustomerId");
             String id = param.getValue().toString();
-            removeCustomerInfo="";
+            removeCustomerInfo = "";
             request.removeCustomer(Integer.parseInt(id));
-            resultCustomer=request.getAllCustomers();
+            resultCustomer = request.getAllCustomers();
         } catch (Exception e) {
-            removeCustomerInfo=e.getMessage();
+            removeCustomerInfo = e.getMessage();
         }
     }
 
@@ -235,13 +276,12 @@ public class CustomerManager implements Serializable {
             }
 
 
-
             resultCustomer.clear();
             resultCustomer.add(request.getCustomerbyTelNumber(telNumber));
-            customerInfo="";
+            customerInfo = "";
         } catch (Exception e) {
             logger.warning("Problem getCustomerbyTelNumber.");
-            customerInfo="电话号码错误";
+            customerInfo = "电话号码错误";
         }
     }
 

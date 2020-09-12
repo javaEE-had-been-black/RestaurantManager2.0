@@ -18,7 +18,7 @@ import java.io.Serializable;
                 query = "SELECT r FROM Repository r"
         ),
         @NamedQuery(
-                name="getItemsbyType",
+                name = "getItemsbyType",
                 query = "SELECT r FROM Repository r WHERE r.type=:type"
         )
 

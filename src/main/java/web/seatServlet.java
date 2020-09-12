@@ -28,9 +28,9 @@ public class seatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String s = request.getParameter("seatId");
-        String method=request.getParameter("method");
+        String method = request.getParameter("method");
 
-        if(method.equals("status")) {
+        if (method.equals("status")) {
             try {
                 PrintWriter w = response.getWriter();
                 Seat seat = ejb.getSeatbySeatId(s);
@@ -43,8 +43,7 @@ public class seatServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if(method.equals("changeStatus")){
+        } else if (method.equals("changeStatus")) {
             Seat seat = ejb.getSeatbySeatId(s);
             seat.setStatus("已使用");
             ejb.updateSeat(seat);

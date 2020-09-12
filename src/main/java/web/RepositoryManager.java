@@ -149,7 +149,7 @@ public class RepositoryManager implements Serializable {
             } catch (Exception e) {
                 itemInfo = "null";
             }
-        }else {
+        } else {
             try {
                 this.allItems = request.getItemsbyType(itemType);
                 if (this.allItems.isEmpty()) {

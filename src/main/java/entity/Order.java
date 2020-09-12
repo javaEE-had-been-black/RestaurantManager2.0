@@ -54,7 +54,7 @@ public class Order implements Serializable {
     }
 
     public Order(String orderPrice, Integer discount, String comment, Seat seat, User user, Customer customer, List<Dish> dishes) {
-        this.dateTime=new Date();
+        this.dateTime = new Date();
         this.orderPrice = orderPrice;
         this.discount = discount;
         this.comment = comment;
@@ -99,7 +99,6 @@ public class Order implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
 
 
     public String getOrderPrice() {

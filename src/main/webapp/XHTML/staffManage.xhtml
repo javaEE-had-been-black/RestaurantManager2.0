@@ -14,36 +14,32 @@
     <h:outputStylesheet library="css" name="test.css"/>
     <h:outputStylesheet library="css" name="personnelManage.css"/>
     <style type="text/css">
-        #customers
-        {
-            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-            width:80%;
-            border-collapse:collapse;
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 80%;
+            border-collapse: collapse;
             margin-left: 50px;
             margin-top: 50px;
         }
 
-        #customers td, #customers th
-        {
-            font-size:1em;
-            border:1px solid #303342;
-            padding:3px 7px 2px 7px;
+        #customers td, #customers th {
+            font-size: 1em;
+            border: 1px solid #303342;
+            padding: 3px 7px 2px 7px;
         }
 
-        #customers th
-        {
-            font-size:1.1em;
-            text-align:left;
-            padding-top:5px;
-            padding-bottom:4px;
-            background-color:#303342;
-            color:#ffffff;
+        #customers th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #303342;
+            color: #ffffff;
         }
 
-        #customers tr.alt td
-        {
-            color:#000000;
-            background-color:#EAF2D3;
+        #customers tr.alt td {
+            color: #000000;
+            background-color: #EAF2D3;
         }
     </style>
 
@@ -52,22 +48,22 @@
 
         function hiddenAddPeronnel() {
             var div = document.getElementById("create-personnel");
-            div.style.display="none";
+            div.style.display = "none";
         }
 
         function showAddPeronnel() {
             var div = document.getElementById("create-personnel");
-            div.style.display="block";
+            div.style.display = "block";
         }
 
         function showChangePersonnel() {
             var div = document.getElementById("change-personnel");
-            div.style.display="block";
+            div.style.display = "block";
         }
 
         function hiddenChangePersonnel() {
             var div = document.getElementById("change-personnel");
-            div.style.display="none";
+            div.style.display = "none";
         }
 
 
@@ -209,7 +205,7 @@
                         <h:inputText type="text" value="#{restaurantManager.currentUser.userName}"/>
                     </p>
 
-                    <p style="color: #666666;font-size: larger">密碼:
+                    <p style="color: #666666;font-size: larger">密码:
                         <h:inputText type="text" value="#{restaurantManager.currentUser.password}"/>
                     </p>
 
@@ -227,52 +223,50 @@
                 </h:form>
             </div>
 
-                <div class="searchPersonnel">
+            <div class="searchPersonnel">
 
-                    <div class="vipInput">
-                        <h:form>
-                            <h:inputText id="searchKey" type="text" value="#{restaurantManager.userSearchKey}"/>
-                            <h:commandButton action="#{restaurantManager.getUserbyTelNumber()}"
-                                             image="../resources/images/search.jpg" class="searchButton"/>
-                            <input type="button" onclick="showAddPeronnel()" value="添加员工"/>
-                            <p>#{restaurantManager.createUserInfo}</p>
-                            <p>#{restaurantManager.removeUserInfo}</p>
-                        </h:form>
-                    </div>
-
-                    <table id="customers">
-                        <tr>
-                            <th>手机号（账号）</th>
-                            <th>姓名</th>
-                            <th>职位</th>
-                            <th>密码</th>
-                            <th>工资</th>
-                            <th>操作</th>
-                        </tr>
-
-                        <ui:repeat var="user" value="#{restaurantManager.userResult}">
-                            <tr>
-                                <td>#{user.telNumber}</td>
-                                <td>#{user.userName}</td>
-                                <td>#{user.position}</td>
-                                <td>#{user.password}</td>
-                                <td>#{user.salary}</td>
-                                <td>
-                                    <h:form>
-                                        <h:commandLink value="修改" actionListener="#{restaurantManager.setCurrentUserId}">
-                                            <f:param name="currentUserId" id="currentUserId" value="#{user.userId}" />
-                                        </h:commandLink>
-                                        <p>#{restaurantManager.currentUserId}</p>
-                                        <h:commandLink value="删除" actionListener="#{restaurantManager.removeUser}">
-                                            <f:param name="removeUserId" id="removeUserId" value="#{user.userId}" />
-                                        </h:commandLink>
-                                    </h:form>
-                                </td>
-                            </tr>
-                        </ui:repeat>
-                    </table>
-
+                <div class="vipInput">
+                    <h:form>
+                        <h:inputText id="searchKey" type="text" value="#{restaurantManager.userSearchKey}"/>
+                        <h:commandButton action="#{restaurantManager.getUserbyTelNumber()}"
+                                         image="../resources/images/search.jpg" class="searchButton"/>
+                        <input type="button" onclick="showAddPeronnel()" value="添加员工"/>
+                        <p>#{restaurantManager.createUserInfo}</p>
+                        <p>#{restaurantManager.removeUserInfo}</p>
+                    </h:form>
                 </div>
+
+                <table id="customers">
+                    <tr>
+                        <th>手机号（账号）</th>
+                        <th>姓名</th>
+                        <th>职位</th>
+                        <th>密码</th>
+                        <th>工资</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <ui:repeat var="user" value="#{restaurantManager.userResult}">
+                        <tr>
+                            <td>#{user.telNumber}</td>
+                            <td>#{user.userName}</td>
+                            <td>#{user.position}</td>
+                            <td>#{user.password}</td>
+                            <td>#{user.salary}</td>
+                            <td>
+                                <h:form>
+                                    <a href="updateStaff.xhtml?staffId=#{user.userId}">修改</a>
+                                    <h:commandLink value="删除" actionListener="#{restaurantManager.removeUser}">
+                                        <f:param name="removeUserId" id="removeUserId" value="#{user.userId}"/>
+                                    </h:commandLink>
+
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </table>
+
+            </div>
 
         </div>
     </div>

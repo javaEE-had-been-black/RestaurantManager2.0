@@ -56,10 +56,13 @@ public class RestaurantManager implements Serializable {
     private List<Dish> allDishes;
 
     public String getCurrentUserId() {
+
         return currentUserId;
     }
 
     public void setCurrentUserId(String currentUserId) {
+
+        currentUser=request.getUserbyUserId(currentUserId);
         this.currentUserId = currentUserId;
     }
 
@@ -78,7 +81,6 @@ public class RestaurantManager implements Serializable {
 
     public RestaurantManager() {
     }
-
 
 
     public void setCustomerTelNumber(String customerTelNumber) {
@@ -237,11 +239,11 @@ public class RestaurantManager implements Serializable {
         try {
             request.createUser(newTelNumber, newUserName, newPassword, newPosition, newTelNumber, newSalary);
 
-            userResult=getAllUsers();
-            createUserInfo="创建成功";
+            userResult = getAllUsers();
+            createUserInfo = "创建成功";
         } catch (Exception e) {
             logger.warning("Create User Failed,the reason is" + e.getMessage());
-            createUserInfo="创建失败！";
+            createUserInfo = "创建失败！";
             throw e;
         }
     }
@@ -265,7 +267,7 @@ public class RestaurantManager implements Serializable {
             param = (UIParameter) event.getComponent().findComponent("currentUserId");
             String id = param.getValue().toString();
             this.setCurrentUserId(id);
-            this.currentUser=this.getUser(id);
+            this.currentUser = this.getUser(id);
         } catch (Exception e) {
         }
     }
@@ -276,44 +278,37 @@ public class RestaurantManager implements Serializable {
         try {
             param = (UIParameter) event.getComponent().findComponent("removeUserId");
             String id = param.getValue().toString();
-            removeUserInfo="删除"+id+"成功";
+            removeUserInfo = "删除" + id + "成功";
             request.removeUser(id);
-            userResult=request.getAllUsers();
+            userResult = request.getAllUsers();
         } catch (Exception e) {
-            removeUserInfo=e.getMessage();
+            removeUserInfo = e.getMessage();
         }
     }
 
+    public String getUpdateUserInfo() {
+        return updateUserInfo;
+    }
 
-
-
-
+    public void setUpdateUserInfo(String updateUserInfo) {
+        this.updateUserInfo = updateUserInfo;
+    }
 
     /**
      * 管理员修改
      *
-     * @param userId
-     * @param userName
-     * @param password
-     * @param position
-     * @param telNumber
-     * @param salary
      * @return
      */
-    public String updateUserInfo(String userId,
-                                 String userName,
-                                 String password,
-                                 String position,
-                                 String telNumber,
-                                 String salary) {
-        User user = request.getUserbyUserId(userId);
-        user.setUserName(userName);
-        user.setPassword(password);
-        user.setPosition(position);
-        user.setTelNumber(telNumber);
-        user.setSalary(salary);
-        request.updateUser(user);
-        return "success";
+    private String updateUserInfo;
+
+    public void updateUser() {
+        try {
+            request.updateUser(currentUser);
+            updateUserInfo = "修改成功";
+            userResult=request.getAllUsers();
+        } catch (Exception e) {
+            updateUserInfo = "修改失败";
+        }
     }
 
 
@@ -386,14 +381,14 @@ public class RestaurantManager implements Serializable {
         this.userSearchKey = userSearchKey;
     }
 
-    public void getUserbyTelNumber(){
+    public void getUserbyTelNumber() {
         userResult.clear();
         userResult.add(request.getUserbyTel(userSearchKey));
     }
 
     public List<User> getUserResult() {
-        if(userResult==null){
-            userResult=request.getAllUsers();
+        if (userResult == null) {
+            userResult = request.getAllUsers();
         }
         return userResult;
     }
@@ -490,10 +485,11 @@ public class RestaurantManager implements Serializable {
      */
 
     private Integer currentDishId;
+
     public void addDish(ActionEvent event) {
 
-        if(dishes==null){
-            dishes=new LinkedList<>();
+        if (dishes == null) {
+            dishes = new LinkedList<>();
         }
 
         try {
@@ -537,8 +533,8 @@ public class RestaurantManager implements Serializable {
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         int orderPrice = 0;
         String status;
-        if(this.dishes!=null){
-            for (int i =this.dishes.size()-1;i>0;i--) {
+        if (this.dishes != null) {
+            for (int i = this.dishes.size() - 1; i > 0; i--) {
                 orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
             }
             try {
@@ -553,9 +549,8 @@ public class RestaurantManager implements Serializable {
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
                 throw e;
             }
-        }
-        else{
-            this.dishInfo="未添加菜品";
+        } else {
+            this.dishInfo = "未添加菜品";
         }
 
     }

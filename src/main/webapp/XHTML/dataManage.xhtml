@@ -15,7 +15,6 @@
     <h:outputStylesheet library="css" name="bill.css"/>
 
 
-
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 
     <script type="text/javascript">
@@ -135,7 +134,8 @@
                         <h:inputText required="true" value="#{billManager.commit}"/>
                     </h:outputLabel>
 
-                    <h:commandButton  style="text-align: center;margin-top: 30px;" value="创建" action="#{billManager.createBill()}"/>
+                    <h:commandButton style="text-align: center;margin-top: 30px;" value="创建"
+                                     action="#{billManager.createBill()}"/>
                     <p style="color: #ff0000">#{billManager.billInfo}</p>
 
                 </h:form>
@@ -148,7 +148,8 @@
                         <h:inputText id="deleteBillId" required="true" value="#{billManager.billId}"/>
                     </h:outputLabel>
 
-                    <h:commandButton style="text-align: center;margin-top: 30px;" value="删除" action="#{billManager.removeBill()}"/>
+                    <h:commandButton style="text-align: center;margin-top: 30px;" value="删除"
+                                     action="#{billManager.removeBill()}"/>
                     <p style="color: #ff0000">#{billManager.billInfo}</p>
 
                 </h:form>
@@ -164,7 +165,8 @@
                         <f:selectItem itemValue="支出" itemLabel="支出"/>
                         <f:selectItem itemValue="收入" itemLabel="收入"/>
                     </h:selectOneMenu>
-                    <h:commandButton value="搜索" image="../resources/images/search.jpg" style="width: 30px;height: 30px" action="#{billManager.getBillsbyType(billManager.searchKey)}">
+                    <h:commandButton value="搜索" image="../resources/images/search.jpg" style="width: 30px;height: 30px"
+                                     action="#{billManager.getBillsbyType(billManager.searchKey)}">
                     </h:commandButton>
 
                 </h:form>
@@ -173,7 +175,7 @@
                     <h:column>
 
                         <f:facet name="header">
-                            <h:outputText value="itemId" />
+                            <h:outputText value="itemId"/>
                         </f:facet>
                         <h:form>
                             <h:outputText value="#{bill.itemId}"/>
@@ -182,16 +184,16 @@
                     <h:column>
 
                         <f:facet name="header">
-                            <h:outputText value="type" />
+                            <h:outputText value="type"/>
                         </f:facet>
                         <h:form>
-                            <h:outputText  value="#{bill.turnBill()}"/>
+                            <h:outputText value="#{bill.turnBill()}"/>
                         </h:form>
                     </h:column>
                     <h:column>
 
                         <f:facet name="header">
-                            <h:outputText value="amount" />
+                            <h:outputText value="amount"/>
                         </f:facet>
                         <h:form>
                             <h:outputText value="#{bill.amount}"/>
@@ -200,7 +202,7 @@
                     <h:column>
 
                         <f:facet name="header">
-                            <h:outputText value="Date" />
+                            <h:outputText value="Date"/>
                         </f:facet>
                         <h:form>
                             <h:outputText value="#{bill.itemDate}"/>
@@ -209,7 +211,7 @@
                     <h:column>
 
                         <f:facet name="header">
-                            <h:outputText value="Commit" />
+                            <h:outputText value="Commit"/>
                         </f:facet>
                         <h:form>
                             <h:outputText value="#{bill.commit}"/>

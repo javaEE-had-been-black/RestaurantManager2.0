@@ -70,26 +70,25 @@ public class DishManager implements Serializable {
     }
 
 
-    public void searchDish(String searchType){
-        this.searchDish("",searchType);
+    public void searchDish(String searchType) {
+        this.searchDish("", searchType);
         return;
     }
 
-    public void searchDish(){
-        this.searchDish(this.dishName,this.dishType);
+    public void searchDish() {
+        this.searchDish(this.dishName, this.dishType);
         return;
     }
 
-    public void searchDish(String dishName,String dishType) {
+    public void searchDish(String dishName, String dishType) {
         try {
-            if(dishName==null||dishName==""){
-                if(dishType.equals("全部")) {
-                    resultDish=requestBean.getAllDishes();
-                }
-                else {
+            if (dishName == null || dishName == "") {
+                if (dishType.equals("全部")) {
+                    resultDish = requestBean.getAllDishes();
+                } else {
                     resultDish = requestBean.getDishesbyType(dishType);
                 }
-            }else {
+            } else {
                 if ("全部".equals(dishType)) {
                     Dish dish = requestBean.getDishbyName(dishName);
                     if (resultDish == null) {
@@ -100,7 +99,7 @@ public class DishManager implements Serializable {
                     resultDish = requestBean.getDishesbyDishNameandType(dishName, dishType);
                 }
             }
-            dishName="";
+            dishName = "";
             logInfo = "";
             return;
         } catch (Exception e) {

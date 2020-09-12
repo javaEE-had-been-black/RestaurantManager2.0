@@ -187,15 +187,16 @@ public class SeatManager implements Serializable {
             this.newCapacity = null;
             this.newStatus = null;
             this.newIsPrivate = false;
-            createSeatInfo="新增成功";
-            resultSeats=request.getAllSeats();
+            createSeatInfo = "新增成功";
+            resultSeats = request.getAllSeats();
         } catch (Exception e) {
             logger.warning("Problem creating seat in createSeat.");
-            createSeatInfo="座位号冲突啦！";
+            createSeatInfo = "座位号冲突啦！";
         }
     }
 
     private String changeInfo;
+
     public void changeSeat() {
         Seat seat = request.getSeatbySeatId(searchKey);
         if (request.getSeatbySeatId(newSeatId) != null) {
@@ -216,8 +217,8 @@ public class SeatManager implements Serializable {
 
 
     public List<Seat> getResultSeats() {
-        if(resultSeats==null){
-            resultSeats=getAllSeats();
+        if (resultSeats == null) {
+            resultSeats = getAllSeats();
         }
         return resultSeats;
     }

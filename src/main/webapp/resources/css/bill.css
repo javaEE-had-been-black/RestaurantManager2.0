@@ -29,27 +29,27 @@ body {
     margin-right: 20px;
 }
 
-.billType{
+.billType {
     display: flex;
     flex-direction: column;
 
 }
-.createBill
-{
+
+.createBill {
     display: flex;
     flex-direction: column;
 
 }
-.deleteBill{
+
+.deleteBill {
     display: flex;
     flex-direction: column;
 }
 
-.findBill{
+.findBill {
     display: flex;
     flex-direction: column;
 }
-
 
 
 .button {
@@ -63,16 +63,19 @@ body {
     font-size: 32px;
     style: text-align;
 }
-.buttonSave{
-    color: slategrey ;
+
+.buttonSave {
+    color: slategrey;
     text-align: center;
-    font-size:28px;
-    margin-left:300px;
+    font-size: 28px;
+    margin-left: 300px;
     width: 100px;
     height: 40px;
-    border-style: groove;"
+    border-style: groove;
+"
 }
-.label{
+
+.label {
     style: text-align;
     font-size: 28px;
     color: darkorange;

@@ -36,18 +36,17 @@ public class BillManager implements Serializable {
 
 
     public void getBillsbyType(String type) {
-        if("全部".equals(type))
-        {
+        if ("全部".equals(type)) {
             try {
                 this.setAllBills();
-                billInfo=null;
+                billInfo = null;
                 if (allBills.isEmpty()) {
                     billInfo = "null";
                 }
-            }catch (Exception e){
-                billInfo="获取失败";
+            } catch (Exception e) {
+                billInfo = "获取失败";
             }
-        }else {
+        } else {
             try {
                 boolean value;
                 value = "收入".equals(type);
@@ -135,7 +134,6 @@ public class BillManager implements Serializable {
     }
 
 
-
     public Bill getBillbyBillId() {
         try {
             Bill bill = request.getBillbyId(billId);
@@ -150,10 +148,10 @@ public class BillManager implements Serializable {
     public void createBill() {
         try {
             if ("收入".equals(type)) {
-                request.createBill(true, amount,commit);
+                request.createBill(true, amount, commit);
                 billInfo = "成功";
             } else if ("支出".equals(type)) {
-                request.createBill(false, amount,commit);
+                request.createBill(false, amount, commit);
                 billInfo = "成功";
             } else {
                 billInfo = "数据格式错误";
