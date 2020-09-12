@@ -449,7 +449,6 @@ public class RestaurantManager implements Serializable {
 
     private Integer currentDishId;
     public void addDish(ActionEvent event) {
-
         try {
             UIComponent com = event.getComponent();
             UIParameter param = (UIParameter) com.findComponent("id");
@@ -462,13 +461,14 @@ public class RestaurantManager implements Serializable {
 
     }
 
+
     /**
      * 删除菜品
      */
     public void removeDish(Dish dish) {
         for (int i = this.dishes.size() - 1; i >= 0; i--) {
             Dish item = this.dishes.get(i);
-            if (dish.equals(item)) {
+            if (dish.getDishId().equals(item.getDishId())) {
                 this.dishes.remove(item);
             }
         }
@@ -485,22 +485,19 @@ public class RestaurantManager implements Serializable {
     /**
      * 创建订单
      */
-    public void newOrder(Seat seat,String userId) {
+    public void newOrder(Seat seat,User user) {
 //        SimpleDateFormat sdf = new SimpleDateFormat();
 //        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         int orderPrice = 0;
         String status;
-        if(this.dishes!=null){
+        if(!dishes.isEmpty()){
             for (int i =this.dishes.size()-1;i>0;i--) {
                 orderPrice += Integer.parseInt(this.dishes.get(i).getDishPrice());
             }
             try {
-                User user = request.getUserbyUserId(userId);
                 Customer customer = request.getCustomerbyTelNumber(customerTelNumber);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, customer, dishes);
-                this.dishes.clear();
             } catch (Exception e) {
-                User user = request.getUserbyUserId(userId);
                 request.createOrder(String.valueOf(orderPrice), Integer.parseInt(this.discount), this.comment, seat, user, null, dishes);
                 throw e;
             }

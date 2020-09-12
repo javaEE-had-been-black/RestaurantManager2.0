@@ -296,9 +296,10 @@
                         <p>顾客手机号：</p>
                         <h:inputText value="#{restaurantManager.customerTelNumber}"/><br/>
                         <h:commandButton value="提交"
-                                         onclick="#{restaurantManager.newOrder(seatManager.currentSeat,personManager.userId)}"/>
+                                         onclick="#{restaurantManager.newOrder(seatManager.currentSeat,personManager.user)}"/>
                         <h:commandButton value="返回"/>
                     </h:form>
+                    <p>#{restaurantManager.dishes.size()}</p>
                 </div>
             </div>
 
