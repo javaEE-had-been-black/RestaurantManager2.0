@@ -249,11 +249,38 @@ public class RestaurantManager implements Serializable {
     /**
      * 删除user
      */
-    public void removeUser(String userId) {
+    private String removeUserInfo;
+
+    public String getRemoveUserInfo() {
+        return removeUserInfo;
+    }
+
+    public void setRemoveUserInfo(String removeUserInfo) {
+        this.removeUserInfo = removeUserInfo;
+    }
+
+    public void setCurrentUserId(ActionEvent event) {
+        UIParameter param = null;
         try {
-            request.removeUser(userId);
+            param = (UIParameter) event.getComponent().findComponent("currentUserId");
+            String id = param.getValue().toString();
+            this.setCurrentUserId(id);
+            this.currentUser=this.getUser(id);
         } catch (Exception e) {
-            logger.warning("Remove User Failed,the reason is" + e.toString());
+        }
+    }
+
+
+    public void removeUser(ActionEvent event) {
+        UIParameter param = null;
+        try {
+            param = (UIParameter) event.getComponent().findComponent("removeUserId");
+            String id = param.getValue().toString();
+            removeUserInfo="删除"+id+"成功";
+            request.removeUser(id);
+            userResult=request.getAllUsers();
+        } catch (Exception e) {
+            removeUserInfo=e.getMessage();
         }
     }
 

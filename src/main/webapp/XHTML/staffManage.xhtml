@@ -61,9 +61,6 @@
         }
 
         function showChangePersonnel() {
-
-
-
             var div = document.getElementById("change-personnel");
             div.style.display="block";
         }
@@ -224,9 +221,9 @@
                         <h:inputText type="text" value="#{restaurantManager.currentUser.salary}"/>
                     </p>
                     <div style="text-align: center;margin-top: 30px;"></div>
-                    <h:commandButton class="operation-button" value="确认" onclick="hiddenAddPeronnel()"
+                    <h:commandButton class="operation-button" value="确认" onclick="hiddenChangePersonnel()"
                                      action="#{restaurantManager.getUserbyTelNumber}"/>
-                    <h:commandButton class="operation-button" value="取消" onclick="hiddenAddPeronnel()"/>
+                    <h:commandButton class="operation-button" value="取消" onclick="hiddenChangePersonnel()"/>
                 </h:form>
             </div>
 
@@ -239,6 +236,7 @@
                                              image="../resources/images/search.jpg" class="searchButton"/>
                             <input type="button" onclick="showAddPeronnel()" value="添加员工"/>
                             <p>#{restaurantManager.createUserInfo}</p>
+                            <p>#{restaurantManager.removeUserInfo}</p>
                         </h:form>
                     </div>
 
@@ -261,9 +259,13 @@
                                 <td>#{user.salary}</td>
                                 <td>
                                     <h:form>
-                                        <h:commandButton value="修改" onclick="showChangePersonnel(user.id)" />
-                                        <h:commandButton value="刪除" style="background-color: red"
-                                                         onclick="#{restaurantManager.removeUser(user.telNumber)}"/>
+                                        <h:commandLink value="修改" actionListener="#{restaurantManager.setCurrentUserId}">
+                                            <f:param name="currentUserId" id="currentUserId" value="#{user.userId}" />
+                                        </h:commandLink>
+                                        <p>#{restaurantManager.currentUserId}</p>
+                                        <h:commandLink value="删除" actionListener="#{restaurantManager.removeUser}">
+                                            <f:param name="removeUserId" id="removeUserId" value="#{user.userId}" />
+                                        </h:commandLink>
                                     </h:form>
                                 </td>
                             </tr>

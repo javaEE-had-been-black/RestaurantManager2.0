@@ -129,6 +129,7 @@
                 </h:form>
 
                 <h:dataTable var="Item" value="#{repositoryManager.allItems}" rules="all" cellpadding="5">
+
                     <h:column>
 
                         <f:facet name="header">
@@ -138,6 +139,7 @@
                             <h:outputText value="#{Item.itemId}"/>
                         </h:form>
                     </h:column>
+
                     <h:column>
 
                         <f:facet name="header">
@@ -147,6 +149,7 @@
                             <h:outputText  value="#{Item.type}"/>
                         </h:form>
                     </h:column>
+
                     <h:column>
 
                         <f:facet name="header">
@@ -156,6 +159,7 @@
                             <h:outputText value="#{Item.quantity}"/>
                         </h:form>
                     </h:column>
+
                     <h:column>
 
                         <f:facet name="header">
@@ -166,19 +170,21 @@
                         </h:form>
                     </h:column>
 
-
                 </h:dataTable>
             </div>
 
 
             <div class="warehouseDelete">
                 <h:form>
+
                     <h:outputLabel for="deleteWarehouseId" rendered="true" value="warehouse ID">
                         <h:inputText id="deleteWarehouseId" required="true" value="#{repositoryManager.itemId}"/>
                     </h:outputLabel>
 
                     <h:commandButton style="text-align: center;margin-top: 30px;" value="删除" action="#{repositoryManager.removeRepository}"/>
+
                     <p style="color: #ff0000">#{billManager.billInfo}</p>
+
                 </h:form>
 
             </div>
